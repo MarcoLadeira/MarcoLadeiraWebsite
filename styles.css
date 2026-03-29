@@ -2097,6 +2097,81 @@ body::before {
     border-color: rgba(255, 255, 255, 0.06);
 }
 
+/* ── Liquid Glass Cursor ── */
+
+.glass-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 0.3s, width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo);
+    background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04) 60%, transparent 80%);
+    backdrop-filter: blur(8px) saturate(1.4);
+    -webkit-backdrop-filter: blur(8px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+    mix-blend-mode: normal;
+    will-change: transform;
+}
+
+.glass-cursor.is-hover {
+    width: 56px;
+    height: 56px;
+    background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06) 60%, transparent 80%);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.glass-cursor.is-hover + .glass-cursor__dot {
+    opacity: 0 !important;
+}
+
+.glass-cursor__dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text);
+    pointer-events: none;
+    z-index: 100000;
+    opacity: 0;
+    transition: opacity 0.3s;
+    will-change: transform;
+}
+
+[data-theme="dark"] .glass-cursor {
+    background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02) 60%, transparent 80%);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 2px 16px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .glass-cursor.is-hover {
+    background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 60%, transparent 80%);
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Hide default cursor when glass cursor is active */
+@media (pointer: fine) and (min-width: 1024px) {
+    body {
+        cursor: none;
+    }
+    a, button, input, textarea, select, [role="button"] {
+        cursor: none;
+    }
+}
+
 /* ================================================================
    SPLASH PAGE — Netflix-style intro
    ================================================================ */

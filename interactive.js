@@ -1503,15 +1503,24 @@
 
         var codeEl = codeBlock.querySelector(".code-block__code");
         var lines = [
-            '<span class="ck">const</span> <span class="cv">engineer</span> = {',
-            '  <span class="cp">name</span>: <span class="cs">"ML"</span>,',
-            '  <span class="cp">role</span>: <span class="cs">"Software Engineer"</span>,',
+            '<span class="ck">const</span> <span class="cv">marco</span> = {',
+            '  <span class="cp">name</span>: <span class="cs">"Marco Ladeira"</span>,',
+            '  <span class="cp">role</span>: <span class="cs">"Fullstack Software Engineer"</span>,',
             '  <span class="cp">company</span>: <span class="cs">"Fenergo"</span>,',
-            '  <span class="cp">focus</span>: [',
-            '    <span class="cs">"enterprise systems"</span>,',
-            '    <span class="cs">"event-driven architecture"</span>,',
-            '    <span class="cs">"practical AI tooling"</span>,',
+            '  <span class="cp">location</span>: <span class="cs">"Dublin, Ireland"</span>,',
+            '  <span class="cp">education</span>: <span class="cs">"BSc Software Dev &amp; CS"</span>,',
+            '  <span class="cp">languages</span>: [<span class="cs">"English"</span>, <span class="cs">"Portuguese"</span>],',
+            '  <span class="cp">stack</span>: [',
+            '    <span class="cs">"C#/.NET"</span>, <span class="cs">"TypeScript"</span>,',
+            '    <span class="cs">"React"</span>, <span class="cs">"Python"</span>,',
+            '    <span class="cs">"Java"</span>, <span class="cs">"Swift"</span>,',
             '  ],',
+            '  <span class="cp">focus</span>: [',
+            '    <span class="cs">"enterprise SaaS"</span>,',
+            '    <span class="cs">"MCP &amp; AI tooling"</span>,',
+            '    <span class="cs">"event-driven architecture"</span>,',
+            '  ],',
+            '  <span class="cp">cert</span>: <span class="cs">"AWS ML Specialty"</span>,',
             '  <span class="cp">status</span>: <span class="cs">"building"</span> <span class="cc">// always</span>',
             '};'
         ];
@@ -1895,8 +1904,8 @@
         {
             patterns: [/who (is|are|r) (marco|he|him)/i, /tell me about (marco|him(self)?)/i, /about marco/i, /introduce/i, /what does marco do/i, /^marco$/i, /describe (marco|him)/i, /what('s| is) (marco|his) (deal|story|background)/i],
             responses: [
-                "Marco Ladeira is a Software Engineer at Fenergo in Dublin, Ireland. He builds enterprise SaaS for financial institutions — the kind of systems that handle KYC, regulatory compliance, and client lifecycle management at scale. Beyond his day job, he's deeply into practical AI: LLM integration, MCP server architecture, machine learning pipelines. He was hand-picked for Fenergo's first-ever AI initiative. He's the type of engineer who cares as much about how a system feels to use as how it performs under load.",
-                "Marco Ladeira is a Dublin-based Software Engineer at Fenergo. His engineering philosophy sits at the intersection of enterprise reliability and product taste — he builds systems that stay stable under pressure and interfaces that stay calm when the complexity underneath isn't. Currently focused on C#/.NET backend systems, event-driven architecture, and bringing AI tooling into enterprise workflows. His project history spans everything from financial compliance platforms to NASA data interfaces to iOS apps."
+                "Marco Ladeira is a Fullstack Software Engineer at Fenergo in Dublin, Ireland. He's a Software Development and Computer Science graduate from Dundalk Institute of Technology (now Dundalk University College). He builds enterprise SaaS for financial institutions — KYC, regulatory compliance, and client lifecycle management at scale. Beyond his day job, he's deeply into practical AI: LLM integration, MCP server architecture, machine learning pipelines. He was hand-picked for Fenergo's first-ever AI initiative. He speaks English and Portuguese natively, has 500+ LinkedIn connections, 1,800+ followers, and 98 listed skills. The kind of engineer who cares as much about how a system feels to use as how it performs under load.",
+                "Marco Ladeira is a Dublin-based Fullstack Software Engineer at Fenergo with degrees in both Software Development (Honours) and Computer Science from DKIT. His engineering philosophy: great technology should be powerful, intuitive, and built with purpose. He specializes in C# .NET, TypeScript, and React, with experience in full-stack applications, internal tools, and server components. Currently focused on event-driven architecture, CQRS, and bringing AI tooling into enterprise workflows. His project history spans financial compliance platforms, a NASA data interface, iOS apps, a smart medication platform (ORO), and more. He also offers services in web design, web development, software testing, database development, custom software development, and cloud management."
             ],
             suggestions: ["Fenergo details", "His projects", "AI work", "Contact Marco"]
         },
@@ -1905,7 +1914,7 @@
         {
             patterns: [/name|why marco|what does (his|the) name mean|marco ladeira meaning|portuguese/i],
             responses: [
-                "Marco Ladeira — the name has Portuguese roots. 'Ladeira' means hillside or slope in Portuguese. Marco is originally from a Portuguese-speaking background, now based in Dublin, Ireland, building software at Fenergo. The multicultural background shows in his approach to work — pragmatic, grounded, and always learning."
+                "Marco Ladeira — the name has Portuguese roots. 'Ladeira' means hillside or slope in Portuguese. Marco speaks both English and Portuguese at native/bilingual proficiency. He's based in Dublin, Ireland, building software at Fenergo. The multicultural background shows in his approach to work — pragmatic, grounded, and always learning."
             ],
             suggestions: ["Where is he based?", "About Marco", "Current role"]
         },
@@ -1914,8 +1923,8 @@
         {
             patterns: [/skills?|tech\s*stack|technologies|what (does he|do you) (use|know|work with)|languages?|framework|tools|proficien/i],
             responses: [
-                "Marco Ladeira's tech stack runs deep across several layers:\n\n<strong>Backend:</strong> C#, .NET, Python, Node.js\n<strong>Frontend:</strong> TypeScript, React, HTML/CSS, vanilla JS\n<strong>Architecture:</strong> CQRS, event sourcing, EventStoreDB, microservices\n<strong>Cloud & Data:</strong> AWS (pursuing ML Specialty), DynamoDB, serverless\n<strong>AI/ML:</strong> LLM integration, MCP servers, ML pipelines, prompt engineering\n<strong>DevOps:</strong> CI/CD, Docker, GitHub Actions\n<strong>Other:</strong> REST APIs, GraphQL, WebSockets, Git\n\nHe's not a 'knows a little of everything' engineer — he goes production-deep on each tool he uses.",
-                "Here's what Marco Ladeira works with daily and has production experience in:\n\n<strong>Languages:</strong> C#, TypeScript, Python, JavaScript\n<strong>Frameworks:</strong> .NET, React, Node.js, Express\n<strong>Data & Cloud:</strong> EventStoreDB, DynamoDB, AWS, serverless architecture\n<strong>Architecture patterns:</strong> CQRS, event-driven systems, microservices, domain-driven design\n<strong>AI tooling:</strong> MCP servers, LLM workflow orchestration, ML pipelines\n<strong>Frontend:</strong> Responsive design, accessibility, CSS architecture, vanilla JS\n\nHe picks tools based on what's right for the problem, not what's trending."
+                "Marco Ladeira has 98 listed skills on LinkedIn. Here's how they break down:\n\n<strong>Backend:</strong> C#, .NET, Java, Python, Node.js\n<strong>Frontend:</strong> TypeScript, React, JavaScript, HTML/CSS, vanilla JS\n<strong>Mobile:</strong> Swift (iOS), Android development\n<strong>Architecture:</strong> CQRS, event sourcing, EventStoreDB, microservices, MVC, REST APIs\n<strong>Cloud & Data:</strong> AWS (ML Specialty cert prep), DynamoDB, SQL, database modeling\n<strong>AI/ML:</strong> LLM integration, MCP servers, ML pipelines, NLP, neural networks, prompt engineering\n<strong>DevOps:</strong> CI/CD, Docker, GitHub Actions\n<strong>Top skills:</strong> Java, JavaScript, C#, OOP, .NET Framework\n<strong>Services:</strong> Web Design, Web Dev, Software Testing, Database Dev, Custom Software Dev, Cloud Management\n\nHe goes production-deep on each tool — not a surface-level generalist.",
+                "Here's what Marco Ladeira works with (98 skills on LinkedIn):\n\n<strong>Languages:</strong> C#, Java, TypeScript, Python, JavaScript, Swift, Go\n<strong>Frameworks:</strong> .NET, React, Node.js, Ionic, UIKit\n<strong>Data & Cloud:</strong> EventStoreDB, DynamoDB, SQL, AWS, serverless\n<strong>Architecture:</strong> CQRS, event-driven systems, microservices, DDD, MVC\n<strong>AI tooling:</strong> MCP servers, LLM workflows, ML pipelines, NLP\n<strong>Mobile:</strong> iOS (Swift/UIKit), Android\n<strong>Other:</strong> WCAG accessibility, Agile/Scrum, Kanban, CI/CD, OWASP security, unit testing, QA\n\nHe picks tools based on what's right for the problem, not what's trending."
             ],
             suggestions: ["Backend deep dive", "AI/ML work", "Projects"]
         },
@@ -1942,7 +1951,7 @@
         {
             patterns: [/fenergo|current (role|job|work|position)|where (does he|do you) work|employer|company|what company/i],
             responses: [
-                "Marco Ladeira works at Fenergo as a Software Engineer, starting September 2025. Fenergo is a leading enterprise SaaS company that builds client lifecycle management solutions for financial institutions — banks, asset managers, and capital markets firms worldwide.\n\nMarco's responsibilities include:\n- Backend delivery using C#/.NET and event-driven architecture\n- Platform reliability and production engineering\n- Working with CQRS, EventStoreDB, and DynamoDB\n- Selected for Fenergo's first AI initiative — integrating MCP tooling and LLM workflows into enterprise financial software\n\nIt's a high-stakes environment where system reliability directly impacts compliance workflows for major financial institutions."
+                "Marco Ladeira works at Fenergo as a Fullstack Software Engineer (full-time, hybrid) since September 2025. Fenergo is a leading enterprise SaaS company building client lifecycle management solutions for financial institutions worldwide.\n\nMarco's responsibilities include:\n- Design, development, and maintenance of features across Fenergo's enterprise SaaS platform\n- Delivering reliable, scalable, high-performance solutions for financial institutions\n- Working with C#/.NET, EventStoreDB, DynamoDB, CQRS, and event-driven architecture\n- Contributing to projects exploring AI integration and LLMs within financial technology\n- Building intelligent MCP-powered AI tools using adaptive models to enhance automation and decision-making\n- Member of Fenergo's first AI initiative\n\nSkills used: C#, .NET Framework, Client Lifecycle Management, MCP, and 8+ more. He completed his induction and is now a core contributor to the platform."
             ],
             suggestions: ["His AI initiative", "Tech stack", "Before Fenergo"]
         },
@@ -1969,9 +1978,9 @@
         {
             patterns: [/projects?|what (has he|have you) built|work samples|portfolio work|show me/i],
             responses: [
-                "Marco Ladeira's project portfolio shows real range:\n\n<strong>Fenergo</strong> (2025–present) — Enterprise SaaS for financial institutions. Backend delivery, event-driven architecture, CQRS, and AI initiative leadership.\n\n<strong>NASA Space Explorer</strong> (2025) — A full-stack web platform built around NASA's data APIs. Focus on information hierarchy, visual clarity, and product-level presentation.\n\n<strong>Achievr</strong> (2025) — An iOS goal-tracking app designed around momentum and personal interaction patterns. Native mobile with a focus on user psychology.\n\nEach project demonstrates a different skill axis: enterprise scale, data visualization, or native mobile craft."
+                "Marco Ladeira's project portfolio shows real range:\n\n<strong>Fenergo</strong> (Sep 2025–present) — Enterprise SaaS for financial institutions. Fullstack delivery, event-driven architecture, CQRS, AI initiative, MCP-powered tools.\n\n<strong>ORO – Smart Medication Platform</strong> (Sep 2024–present) — A collaborative DKIT project building a smart pill dispenser and companion app. Marco was Lead Front-End Developer and Mahara Project Manager. Built with Ionic/React, JavaScript, CSS, and Go (Golang) for hardware communication. Featured at the DKIT Expo.\n\n<strong>NASA Space Explorer</strong> — Full-stack web platform built around NASA's APIs. Information hierarchy and product-level presentation.\n\n<strong>Achievr</strong> — iOS goal-tracking app built in Swift with SQLite/GRDB. Features quantitative, binary, and milestone goal types with progress analytics. Native UIKit with custom UI/UX design.\n\n<strong>Art Gallery Website</strong> — A PHP, MySQL, Bootstrap, JavaScript, HTML, CSS art website built as a group software project at DKIT.\n\n<strong>This Portfolio</strong> — Zero-dependency site with interactive terminal (55+ commands), AI chatbot, liquid glass cursor, command palette, and easter eggs."
             ],
-            suggestions: ["View Work page", "NASA project", "Achievr details"]
+            suggestions: ["View Work page", "ORO project", "Achievr details"]
         },
 
         /* ── NASA Space Explorer ── */
@@ -1987,16 +1996,25 @@
         {
             patterns: [/achievr|ios|goal.?track|mobile app|swift/i],
             responses: [
-                "Achievr is an iOS goal-tracking app Marco Ladeira designed around momentum and personal interaction patterns. Unlike most productivity apps that overwhelm with features, Achievr focuses on a more personal interaction model — helping users build sustainable habits through clear progress visualization and psychological design principles. It shows Marco's product thinking beyond just code."
+                "Achievr is an iOS goal-tracking app Marco Ladeira built in Swift with SQLite/GRDB:\n\n<strong>Technical highlights:</strong>\n- Swift & UIKit — built natively for iOS with a clean, intuitive UI\n- SQLite with GRDB — robust local database for efficient data persistence and complex queries\n- Custom UI/UX — smooth, user-friendly interfaces with dynamic progress tracking\n- Goal flexibility — supports quantitative, binary, and milestone goal types with progress analytics\n- Performance optimized — fast, reliable data handling\n\nIt demonstrates Marco's full-stack iOS development skills, from database architecture to polished UI implementation. He's passionate about building tools that empower users to achieve their ambitions systematically."
             ],
-            suggestions: ["Other projects", "Frontend skills", "About Marco"]
+            suggestions: ["ORO project", "Other projects", "His skills"]
+        },
+
+        /* ── ORO Project ── */
+        {
+            patterns: [/oro|medication|pill|dispenser|health|ionic|golang|dkit.*project/i],
+            responses: [
+                "ORO is a Smart Medication Platform — a collaborative project at Dundalk Institute of Technology (DKIT).\n\n<strong>What it does:</strong> A smart pill dispenser with a companion mobile app to help people who have difficulties managing their medication schedules.\n\n<strong>Marco's role:</strong> Lead Front-End Developer and Mahara Project Manager.\n\n<strong>Tech stack:</strong>\n- Ionic with React for the mobile apps\n- JavaScript and CSS for the frontend\n- Go (Golang) for backend logic and hardware communication\n- Marco personally developed the patient-facing app with a highly accessible interface\n\n<strong>Showcase:</strong> Presented at the DKIT Expo where Marco demonstrated the app and smart pill dispenser in person. The project received great interest from attendees, lecturers, and organizers.\n\nSkills: JDK, Adobe Photoshop, and 13+ additional skills."
+            ],
+            suggestions: ["Achievr details", "Other projects", "His skills"]
         },
 
         /* ── AI / ML (comprehensive) ── */
         {
             patterns: [/\bai\b|artificial intelligence|machine learning|\bml\b|llm|gpt|deep learning|neural|nlp|transformer|openai|claude|copilot/i],
             responses: [
-                "AI is central to Marco Ladeira's trajectory right now. Here's the full picture:\n\n<strong>At work:</strong> Selected for Fenergo's first AI initiative — integrating LLM workflows and MCP tooling into enterprise financial software.\n\n<strong>Certifications:</strong> Pursuing AWS Machine Learning Specialty certification.\n\n<strong>Philosophy:</strong> Practical over hype. He believes AI should augment engineering judgment, not replace it. His essay 'Software engineering is moving toward systems judgment' covers this.\n\n<strong>Technical:</strong> LLM integration, MCP server architecture, ML pipelines, prompt engineering, evaluation frameworks.\n\n<strong>Writing:</strong> Two major essays on hybrid AI workflows — combining CLI speed, MCP structure, and agent leverage.\n\nHe's not an 'AI enthusiast' — he's an engineer who ships AI into production."
+                "AI is central to Marco Ladeira's trajectory. Here's the full picture:\n\n<strong>At work:</strong> Member of Fenergo's first AI initiative — building intelligent MCP-powered AI tools using adaptive models to enhance automation, decision-making, and create smarter internal and client-facing solutions.\n\n<strong>Certifications:</strong> AWS Machine Learning Exam Prep – Specialty (completed January 2026). Covers SageMaker, model training, feature engineering, ML operations.\n\n<strong>LinkedIn post on NLP:</strong> He's posted about NLP's impact — from chatbots to sentiment analysis — highlighting LLMs, text summarization, and real-time translation.\n\n<strong>Philosophy:</strong> AI should augment engineering judgment, not replace it. His essay 'Software engineering is moving toward systems judgment' covers this thesis.\n\n<strong>Technical:</strong> LLM integration, MCP server architecture, ML pipelines, neural networks, data analysis, prompt engineering.\n\n<strong>Writing:</strong> Two essays on hybrid AI workflows — CLI speed + MCP structure + agent leverage. Plus a LinkedIn post on CLIs, MCPs, and agents.\n\nHe's not an 'AI enthusiast' — he ships AI into production."
             ],
             suggestions: ["Read his AI essays", "MCP explained", "Fenergo AI initiative"]
         },
@@ -2066,34 +2084,34 @@
         {
             patterns: [/hire|hiring|available|freelance|contract|open to|looking for|recru/i],
             responses: [
-                "Marco Ladeira is currently a Software Engineer at Fenergo, but he's always open to conversations about interesting opportunities — especially roles involving AI/ML engineering, platform architecture, or product-focused engineering. He's also interested in side collaborations and open-source work.\n\nBest way to start a conversation: marcoladeiraworkemail@gmail.com\n\nHe takes every inquiry seriously and replies within 48 hours."
+                "Marco Ladeira is currently a Fullstack Software Engineer at Fenergo. According to his LinkedIn, he's <strong>open to work</strong> — interested in roles such as Software Engineer, Software Programmer, Software Developer, IT Project Manager, and Computer Programmer.\n\nHe's also open to internal opportunities at his current company and side collaborations.\n\n<strong>Services he offers:</strong> Web Design, Web Development, Software Testing, Database Development, Custom Software Development, Cloud Management.\n\nBest way to start a conversation: marcoladeiraworkemail@gmail.com\n\nHe takes every inquiry seriously and replies within 48 hours."
             ],
             suggestions: ["Send email", "His experience", "Current role"]
         },
 
         /* ── Location ── */
         {
-            patterns: [/where|location|city|country|based|live|from|dublin|ireland|relocat/i],
+            patterns: [/where|location|city|country|based|live|from|dublin|ireland|relocat|dundalk|louth/i],
             responses: [
-                "Marco Ladeira is based in Dublin, Ireland. He works at Fenergo's Dublin office, building enterprise software for the global financial sector. Dublin's tech ecosystem — with companies like Stripe, Intercom, and major financial institutions — is a strong fit for his work across platform engineering, AI, and enterprise systems."
+                "Marco Ladeira is based in Dublin, County Dublin, Ireland (hybrid work at Fenergo). He studied at Dundalk Institute of Technology in Dundalk, County Louth, Ireland. Dublin's tech ecosystem — with companies like Stripe, Intercom, and major financial institutions — is a natural fit for his work across platform engineering, AI, and enterprise systems."
             ],
             suggestions: ["Current role", "About Marco", "Contact"]
         },
 
         /* ── Education & Certs ── */
         {
-            patterns: [/education|university|degree|study|college|school|cert|qualification|where did (he|you) (study|go|learn)/i],
+            patterns: [/education|university|degree|study|college|school|cert|qualification|where did (he|you) (study|go|learn)|dkit|dundalk/i],
             responses: [
-                "Marco Ladeira has a solid foundation in software engineering and is actively expanding his credentials. He's currently pursuing the AWS Machine Learning Specialty certification — one of AWS's most advanced certifications focused on ML model design, deployment, and operations. His learning approach is hands-on: he studies the theory and immediately ships real systems. His expertise across event-driven architecture, cloud platforms, and AI/ML systems reflects years of deliberate skill building."
+                "Marco Ladeira's education and certifications:\n\n<strong>Dundalk Institute of Technology (DKIT)</strong> — now Dundalk University College:\n- Bachelor's (Honours) in Software Development (Sep 2024 – May 2025)\n- Bachelor's in Computer Science (2021 – 2025)\n- Coursework: DK721 (Computing) and DK821 (Software Development Honours)\n- Skills covered: Full-stack dev (HTML/CSS/JS/React + Java/C#/.NET/Python), mobile dev (Swift & Android), SQL, software architecture (MVC, REST APIs, microservices), cloud computing (AWS/Azure), UI/UX (wireframing, WCAG), Agile/Scrum/Kanban, CI/CD, AI/ML fundamentals, cybersecurity (OWASP), project management\n- Vice Class Representative for 4th Year Software Development\n\n<strong>Certifications:</strong>\n- AWS Certified Machine Learning Exam Prep – Specialty (Issued Jan 2026, via Amazon Web Services)\n- React Essential Training (Issued Oct 2025, via LinkedIn Learning)\n\nHe was also part of the DKIT Expo showcasing the ORO smart medication platform."
             ],
-            suggestions: ["AWS ML cert", "Tech stack", "AI work"]
+            suggestions: ["AWS ML cert", "ORO project", "His skills"]
         },
 
         /* ── AWS specific ── */
         {
             patterns: [/aws|amazon|cloud|certification|certified/i],
             responses: [
-                "Marco Ladeira is pursuing the AWS Machine Learning Specialty certification and has production experience with several AWS services. At Fenergo, he works with DynamoDB and serverless architecture. His AWS knowledge spans cloud infrastructure, ML model deployment and evaluation, data engineering pipelines, and scalable system design. The ML Specialty cert is one of the hardest AWS certifications — it covers SageMaker, model training, feature engineering, and ML operations."
+                "Marco Ladeira completed the AWS Certified Machine Learning Exam Prep – Specialty in January 2026 (issued by Amazon Web Services). He has production experience with AWS services at Fenergo, including DynamoDB and serverless architecture. His AWS knowledge spans cloud infrastructure, ML model deployment (SageMaker), data engineering pipelines, feature engineering, and ML operations. He also studied AWS/Azure fundamentals at DKIT aligned with Oracle Cloud certifications."
             ],
             suggestions: ["His ML work", "Fenergo details", "Tech stack"]
         },
@@ -2167,16 +2185,16 @@
         {
             patterns: [/experience|years|career|background|history|journey|timeline|how long|seniority/i],
             responses: [
-                "Marco Ladeira's career trajectory:\n\n<strong>2025–present:</strong> Software Engineer at Fenergo\n- Enterprise SaaS for financial institutions\n- Backend delivery, platform reliability, production engineering\n- Selected for Fenergo's first AI initiative\n- Working with C#/.NET, EventStoreDB, DynamoDB, CQRS\n\n<strong>Project Portfolio:</strong>\n- NASA Space Explorer (full-stack web platform)\n- Achievr (iOS goal-tracking app)\n- This portfolio site (zero-dependency, 55+ terminal commands)\n\n<strong>Focus Areas:</strong> Event-driven architecture, AI/ML integration, product engineering\n<strong>Certifications:</strong> Pursuing AWS ML Specialty"
+                "Marco Ladeira's career and education timeline:\n\n<strong>Sep 2025–present:</strong> Fullstack Software Engineer at Fenergo (full-time, hybrid, Dublin)\n- Enterprise SaaS for financial institutions\n- Design, development, and maintenance of platform features\n- MCP-powered AI tools, LLM integration\n- Member of Fenergo's first AI initiative\n- C#/.NET, EventStoreDB, DynamoDB, CQRS\n\n<strong>2021–2025:</strong> Dundalk Institute of Technology\n- BSc Computer Science (2021–2025)\n- BSc (Honours) Software Development (2024–2025)\n- Vice Class Representative, 4th Year\n- DKIT Expo presenter (ORO project)\n\n<strong>Certifications:</strong>\n- AWS ML Specialty Exam Prep (Jan 2026)\n- React Essential Training (Oct 2025)\n\n<strong>Projects:</strong> Fenergo, ORO, NASA Space Explorer, Achievr, Art Gallery Website, this portfolio\n\n<strong>LinkedIn stats:</strong> 500+ connections, 1,800+ followers, 456 profile views, 134 post impressions"
             ],
-            suggestions: ["Fenergo details", "Projects", "Skills", "AI work"]
+            suggestions: ["Fenergo details", "Projects", "Skills", "Education"]
         },
 
         /* ── Hobbies / Personal ── */
         {
             patterns: [/hobby|hobbies|fun|free time|outside work|interests?|personal|life|do for fun/i],
             responses: [
-                "Outside of work, Marco Ladeira is into:\n\n- <strong>AI experimentation</strong> — building personal tools, testing new workflows, pushing boundaries\n- <strong>Technical writing</strong> — crafting essays on engineering practice and AI\n- <strong>Building things</strong> — this portfolio site (with its terminal, chatbot, and easter eggs) is a labor of love\n- <strong>Continuous learning</strong> — currently working toward AWS ML Specialty\n\nHe's fundamentally a builder — the kind of person who codes for fun and sees every project as a chance to learn something new."
+                "Outside of work, Marco Ladeira is into:\n\n- <strong>AI experimentation</strong> — building personal tools, testing new workflows, pushing boundaries\n- <strong>Technical writing</strong> — crafting essays on engineering practice and AI\n- <strong>Building things</strong> — this portfolio site (with its terminal, chatbot, and easter eggs) is a labor of love\n- <strong>Continuous learning</strong> — AWS ML Specialty, React training, exploring NLP concepts\n- <strong>Community</strong> — was Vice Class Representative at DKIT, participated in expos and showcases\n\nHe also speaks English and Portuguese natively, bridges cultures, and fundamentally builds things for fun."
             ],
             suggestions: ["His projects", "His writing", "About Marco"]
         },
@@ -2262,6 +2280,69 @@
                 "Marco Ladeira is interested in collaborations, especially around:\n- AI tooling and MCP server architecture\n- Open source projects with real utility\n- Side projects that solve genuine problems\n- Engineering content and technical writing\n\nHe's currently at Fenergo full-time, but actively engages with the broader engineering community. Reach out at marcoladeiraworkemail@gmail.com with your idea — he takes every collaboration inquiry seriously."
             ],
             suggestions: ["Send email", "His projects", "AI work"]
+        },
+
+        /* ── Services offered ── */
+        {
+            patterns: [/services?|offer|freelance work|what (can he|does he) (do|offer)|consulting/i],
+            responses: [
+                "According to his LinkedIn, Marco Ladeira offers these professional services:\n\n- <strong>Web Design</strong>\n- <strong>Web Development</strong>\n- <strong>Software Testing</strong>\n- <strong>Database Development</strong>\n- <strong>Custom Software Development</strong>\n- <strong>Cloud Management</strong>\n\nWhether you need a full-stack application, a database schema, cloud infrastructure, or a polished web experience — he can deliver. Contact him at marcoladeiraworkemail@gmail.com."
+            ],
+            suggestions: ["Contact Marco", "His skills", "His projects"]
+        },
+
+        /* ── Languages spoken ── */
+        {
+            patterns: [/speak|language|bilingual|fluent|tongue|english|portuguese|multilingual/i],
+            responses: [
+                "Marco Ladeira speaks three languages:\n\n- <strong>English</strong> — Native or bilingual proficiency\n- <strong>Portuguese</strong> — Native or bilingual proficiency\n- Plus one additional language listed on his LinkedIn\n\nBeing natively bilingual in English and Portuguese gives him a cross-cultural perspective that shows in his engineering approach — pragmatic, grounded, and collaborative."
+            ],
+            suggestions: ["About Marco", "Where is he based?", "Contact"]
+        },
+
+        /* ── LinkedIn stats / followers ── */
+        {
+            patterns: [/followers?|connections?|profile views?|impressions?|stats|popularity|social proof|how (big|popular)/i],
+            responses: [
+                "Marco Ladeira's LinkedIn presence as of March 2026:\n\n- <strong>500+</strong> connections\n- <strong>1,800+</strong> followers\n- <strong>456</strong> profile views (recent)\n- <strong>134</strong> post impressions\n- <strong>43</strong> search appearances (past 7 days)\n- <strong>98</strong> listed skills\n\nHe actively posts about AI/ML, NLP, CLI/MCP workflows, and project launches. His posts on hybrid AI workflows and Achievr both generated engagement from the tech community."
+            ],
+            suggestions: ["View LinkedIn", "His writing", "About Marco"]
+        },
+
+        /* ── Volunteering / Class Rep ── */
+        {
+            patterns: [/volunteer|class rep|representative|leadership|community|student/i],
+            responses: [
+                "Marco Ladeira served as Vice Class Representative for 4th Year Software Development at Dundalk Institute of Technology (Aug 2024 – May 2025, 10 months). This shows his leadership aptitude and willingness to engage beyond just technical work — he actively represented his peers and contributed to the education community at DKIT."
+            ],
+            suggestions: ["His education", "About Marco", "Projects"]
+        },
+
+        /* ── About section / philosophy (LinkedIn) ── */
+        {
+            patterns: [/his (linkedin )?about|his bio|his summary|what does he (believe|say about himself)|his description/i],
+            responses: [
+                "From Marco Ladeira's own words on LinkedIn:\n\n<em>\"I'm a Software Developer who believes great technology should be powerful, intuitive, and built with purpose. What started as curiosity about how systems work has evolved into a passion for creating clean, efficient, and reliable software that makes a real difference.</em>\n\n<em>I specialize in C# .NET, TypeScript, and React, with experience developing full-stack applications, internal tools, and server components that improve performance and usability. I enjoy architecting scalable solutions, writing maintainable code, and continuously refining my craft through collaboration and learning.</em>\n\n<em>Lately, I've been exploring how AI and Large Language Models (LLMs) can enhance modern development — from smarter automation to more adaptive user experiences. I'm excited by technologies that shape the future of software and help bridge the gap between complexity and simplicity.</em>\n\n<em>Always open to connecting with other engineers, innovators, and teams who share the same passion for building software that's as elegant as it is effective.\"</em>"
+            ],
+            suggestions: ["His philosophy", "Current role", "Contact"]
+        },
+
+        /* ── Java specific ── */
+        {
+            patterns: [/\bjava\b(?!script)/i],
+            responses: [
+                "Java is one of Marco Ladeira's top skills on LinkedIn. He studied Java throughout his Computer Science degree at DKIT and used it in several projects. His Java experience includes object-oriented programming, JDK development, and software architecture patterns like MVC. Combined with his C# expertise, he's strong across the JVM and .NET ecosystems."
+            ],
+            suggestions: ["His skills", "C# work", "Projects"]
+        },
+
+        /* ── OOP / Architecture patterns ── */
+        {
+            patterns: [/oop|object.oriented|design pattern|solid|mvc|rest/i],
+            responses: [
+                "Object-Oriented Programming (OOP) is one of Marco Ladeira's top 5 skills on LinkedIn. His architecture knowledge covers:\n\n- <strong>MVC</strong> — Model-View-Controller pattern\n- <strong>REST APIs</strong> — RESTful service design\n- <strong>Microservices</strong> — Distributed system architecture\n- <strong>CQRS</strong> — Command Query Responsibility Segregation\n- <strong>Event Sourcing</strong> — Immutable event streams with EventStoreDB\n- <strong>DDD</strong> — Domain-Driven Design with clean bounded contexts\n\nAt Fenergo, he applies these patterns daily in production systems handling financial compliance data."
+            ],
+            suggestions: ["Backend work", "Fenergo details", "His skills"]
         }
     ];
 
@@ -2480,6 +2561,71 @@
     }
 
     /* ================================================================
+       LIQUID GLASS CURSOR
+       ================================================================ */
+
+    function initGlassCursor() {
+        if (prefersReducedMotion.matches) return;
+        if ("ontouchstart" in window || navigator.maxTouchPoints > 0) return;
+        if (window.innerWidth < 1024) return;
+
+        var cursor = document.createElement("div");
+        cursor.className = "glass-cursor";
+        document.body.appendChild(cursor);
+
+        var cursorDot = document.createElement("div");
+        cursorDot.className = "glass-cursor__dot";
+        document.body.appendChild(cursorDot);
+
+        var mouseX = -100, mouseY = -100;
+        var cursorX = -100, cursorY = -100;
+        var dotX = -100, dotY = -100;
+
+        document.addEventListener("mousemove", function (e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        document.addEventListener("mouseenter", function () {
+            cursor.style.opacity = "1";
+            cursorDot.style.opacity = "1";
+        });
+
+        document.addEventListener("mouseleave", function () {
+            cursor.style.opacity = "0";
+            cursorDot.style.opacity = "0";
+        });
+
+        // Scale up on interactive elements
+        var hovering = false;
+        document.addEventListener("mouseover", function (e) {
+            var target = e.target.closest("a, button, input, textarea, select, [role='button'], .feature-row, .case-study, .pagination-card");
+            if (target) {
+                if (!hovering) {
+                    hovering = true;
+                    cursor.classList.add("is-hover");
+                }
+            } else if (hovering) {
+                hovering = false;
+                cursor.classList.remove("is-hover");
+            }
+        });
+
+        function animate() {
+            cursorX += (mouseX - cursorX) * 0.12;
+            cursorY += (mouseY - cursorY) * 0.12;
+            dotX += (mouseX - dotX) * 0.6;
+            dotY += (mouseY - dotY) * 0.6;
+
+            cursor.style.transform = "translate(" + (cursorX - 20) + "px, " + (cursorY - 20) + "px)";
+            cursorDot.style.transform = "translate(" + (dotX - 4) + "px, " + (dotY - 4) + "px)";
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+    }
+
+    /* ================================================================
        INIT
        ================================================================ */
 
@@ -2495,5 +2641,6 @@
     initKonami();
     initConsoleEasterEggs();
     initPageTransitions();
+    initGlassCursor();
 
 })();
