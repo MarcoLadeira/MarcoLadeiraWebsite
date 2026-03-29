@@ -1580,6 +1580,7 @@
         var observer = new IntersectionObserver(function (entries) {
             if (entries[0].isIntersecting) {
                 observer.disconnect();
+                codeBlock.classList.add("is-visible");
                 setTimeout(typeChar, 1200);
             }
         }, { threshold: 0.3 });
@@ -2561,71 +2562,6 @@
     }
 
     /* ================================================================
-       LIQUID GLASS CURSOR
-       ================================================================ */
-
-    function initGlassCursor() {
-        if (prefersReducedMotion.matches) return;
-        if ("ontouchstart" in window || navigator.maxTouchPoints > 0) return;
-        if (window.innerWidth < 1024) return;
-
-        var cursor = document.createElement("div");
-        cursor.className = "glass-cursor";
-        document.body.appendChild(cursor);
-
-        var cursorDot = document.createElement("div");
-        cursorDot.className = "glass-cursor__dot";
-        document.body.appendChild(cursorDot);
-
-        var mouseX = -100, mouseY = -100;
-        var cursorX = -100, cursorY = -100;
-        var dotX = -100, dotY = -100;
-
-        document.addEventListener("mousemove", function (e) {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        document.addEventListener("mouseenter", function () {
-            cursor.style.opacity = "1";
-            cursorDot.style.opacity = "1";
-        });
-
-        document.addEventListener("mouseleave", function () {
-            cursor.style.opacity = "0";
-            cursorDot.style.opacity = "0";
-        });
-
-        // Scale up on interactive elements
-        var hovering = false;
-        document.addEventListener("mouseover", function (e) {
-            var target = e.target.closest("a, button, input, textarea, select, [role='button'], .feature-row, .case-study, .pagination-card");
-            if (target) {
-                if (!hovering) {
-                    hovering = true;
-                    cursor.classList.add("is-hover");
-                }
-            } else if (hovering) {
-                hovering = false;
-                cursor.classList.remove("is-hover");
-            }
-        });
-
-        function animate() {
-            cursorX += (mouseX - cursorX) * 0.12;
-            cursorY += (mouseY - cursorY) * 0.12;
-            dotX += (mouseX - dotX) * 0.6;
-            dotY += (mouseY - dotY) * 0.6;
-
-            cursor.style.transform = "translate(" + (cursorX - 20) + "px, " + (cursorY - 20) + "px)";
-            cursorDot.style.transform = "translate(" + (dotX - 4) + "px, " + (dotY - 4) + "px)";
-
-            requestAnimationFrame(animate);
-        }
-        animate();
-    }
-
-    /* ================================================================
        INIT
        ================================================================ */
 
@@ -2641,6 +2577,5 @@
     initKonami();
     initConsoleEasterEggs();
     initPageTransitions();
-    initGlassCursor();
 
 })();
