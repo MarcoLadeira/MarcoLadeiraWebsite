@@ -4,7 +4,7 @@
   "start_url": "/",
   "display": "minimal-ui",
   "background_color": "#f8f6f1",
-  "theme_color": "#3159f5",
+  "theme_color": "#1a1a1a",
   "icons": [
     {
       "src": "/images/facecardicon.jpg",

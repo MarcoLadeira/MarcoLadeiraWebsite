@@ -1036,7 +1036,7 @@
                 "  <span class='t-accent'>COLOR PALETTE</span> — " + (isDark ? "Dark" : "Light") + " theme",
                 "  ─────────────────────────────",
                 "",
-                "  <span class='t-accent'>████</span>  Accent   " + (isDark ? "#7d96ff" : "#3159f5"),
+                "  <span class='t-accent'>████</span>  Accent   " + (isDark ? "#7d96ff" : "#1a1a1a"),
                 "  <span class='t-highlight'>████</span>  Highlight #ffd866",
                 "  <span class='t-success'>████</span>  Success  #28c840",
                 "  <span class='t-warning'>████</span>  Warning  #febc2e",
@@ -1737,7 +1737,7 @@
         if (typeof console === "undefined") return;
 
         var styles = [
-            "color: #3159f5",
+            "color: #1a1a1a",
             "font-size: 16px",
             "font-weight: bold",
             "font-family: Inter, system-ui, sans-serif"
@@ -1867,7 +1867,7 @@
     }
 
     /* ================================================================
-       AI CHAT ASSISTANT
+       AI CHAT ASSISTANT — v3 (10x knowledge, context-aware, multi-turn)
        ================================================================ */
 
     var chatOpen = false;
@@ -1875,162 +1875,404 @@
     var chatFab = null;
     var chatInput = null;
     var chatMessages = null;
+    var chatHistory = [];
 
-    /* ─── Knowledge Base ─── */
+    /* ─── Comprehensive Knowledge Base ─── */
 
     var chatKnowledge = [
+        /* ── Greetings & Openers ── */
         {
-            patterns: [/^(hi|hello|hey|sup|yo|howdy|what'?s\s*up|hola|greetings|good\s*(morning|afternoon|evening)|whats good)/i],
+            patterns: [/^(hi|hello|hey|sup|yo|howdy|what'?s\s*up|hola|greetings|good\s*(morning|afternoon|evening)|whats good|waddup|oi|bonjour|ciao)/i],
             responses: [
-                "Hey! Welcome to Marco Ladeira's portfolio. I can tell you about his work at Fenergo, tech stack, projects, writing, or how to get in touch. What interests you?",
-                "Hello! I'm here to help you learn about Marco Ladeira. Ask me about his experience, skills, current projects, or anything else.",
-                "Hi there! I know everything about Marco Ladeira — his engineering work, AI interests, and more. What would you like to know?"
+                "Hey! Welcome to Marco Ladeira's portfolio. I know his work inside and out — ask me about Fenergo, his tech stack, AI work, projects, writing, or how to reach him.",
+                "Hello! Great to have you here. I'm Marco Ladeira's portfolio assistant — I can walk you through his engineering career, current projects, skills, or how to get in touch. What catches your interest?",
+                "Hi there! I'm a knowledge assistant built into Marco Ladeira's site. Whether you're a recruiter, fellow engineer, or just curious — I've got answers. Fire away."
             ],
-            suggestions: ["Who is Marco?", "Tech stack", "Current role", "Get in touch"]
+            suggestions: ["Who is Marco?", "Current role", "Tech stack", "Contact"]
+        },
+
+        /* ── Identity & Bio ── */
+        {
+            patterns: [/who (is|are|r) (marco|he|him)/i, /tell me about (marco|him(self)?)/i, /about marco/i, /introduce/i, /what does marco do/i, /^marco$/i, /describe (marco|him)/i, /what('s| is) (marco|his) (deal|story|background)/i],
+            responses: [
+                "Marco Ladeira is a Software Engineer at Fenergo in Dublin, Ireland. He builds enterprise SaaS for financial institutions — the kind of systems that handle KYC, regulatory compliance, and client lifecycle management at scale. Beyond his day job, he's deeply into practical AI: LLM integration, MCP server architecture, machine learning pipelines. He was hand-picked for Fenergo's first-ever AI initiative. He's the type of engineer who cares as much about how a system feels to use as how it performs under load.",
+                "Marco Ladeira is a Dublin-based Software Engineer at Fenergo. His engineering philosophy sits at the intersection of enterprise reliability and product taste — he builds systems that stay stable under pressure and interfaces that stay calm when the complexity underneath isn't. Currently focused on C#/.NET backend systems, event-driven architecture, and bringing AI tooling into enterprise workflows. His project history spans everything from financial compliance platforms to NASA data interfaces to iOS apps."
+            ],
+            suggestions: ["Fenergo details", "His projects", "AI work", "Contact Marco"]
+        },
+
+        /* ── Name meaning / personal touch ── */
+        {
+            patterns: [/name|why marco|what does (his|the) name mean|marco ladeira meaning|portuguese/i],
+            responses: [
+                "Marco Ladeira — the name has Portuguese roots. 'Ladeira' means hillside or slope in Portuguese. Marco is originally from a Portuguese-speaking background, now based in Dublin, Ireland, building software at Fenergo. The multicultural background shows in his approach to work — pragmatic, grounded, and always learning."
+            ],
+            suggestions: ["Where is he based?", "About Marco", "Current role"]
+        },
+
+        /* ── Skills & Tech Stack (detailed) ── */
+        {
+            patterns: [/skills?|tech\s*stack|technologies|what (does he|do you) (use|know|work with)|languages?|framework|tools|proficien/i],
+            responses: [
+                "Marco Ladeira's tech stack runs deep across several layers:\n\n<strong>Backend:</strong> C#, .NET, Python, Node.js\n<strong>Frontend:</strong> TypeScript, React, HTML/CSS, vanilla JS\n<strong>Architecture:</strong> CQRS, event sourcing, EventStoreDB, microservices\n<strong>Cloud & Data:</strong> AWS (pursuing ML Specialty), DynamoDB, serverless\n<strong>AI/ML:</strong> LLM integration, MCP servers, ML pipelines, prompt engineering\n<strong>DevOps:</strong> CI/CD, Docker, GitHub Actions\n<strong>Other:</strong> REST APIs, GraphQL, WebSockets, Git\n\nHe's not a 'knows a little of everything' engineer — he goes production-deep on each tool he uses.",
+                "Here's what Marco Ladeira works with daily and has production experience in:\n\n<strong>Languages:</strong> C#, TypeScript, Python, JavaScript\n<strong>Frameworks:</strong> .NET, React, Node.js, Express\n<strong>Data & Cloud:</strong> EventStoreDB, DynamoDB, AWS, serverless architecture\n<strong>Architecture patterns:</strong> CQRS, event-driven systems, microservices, domain-driven design\n<strong>AI tooling:</strong> MCP servers, LLM workflow orchestration, ML pipelines\n<strong>Frontend:</strong> Responsive design, accessibility, CSS architecture, vanilla JS\n\nHe picks tools based on what's right for the problem, not what's trending."
+            ],
+            suggestions: ["Backend deep dive", "AI/ML work", "Projects"]
+        },
+
+        /* ── Backend-specific ── */
+        {
+            patterns: [/backend|server.?side|c#|\.net|dotnet|csharp|api/i],
+            responses: [
+                "Marco Ladeira's backend work is centered on C# and .NET within Fenergo's enterprise platform. He works with event-driven architecture using EventStoreDB, CQRS patterns, and DynamoDB for data persistence. His systems handle financial regulatory workflows — think KYC processing, client lifecycle management, and compliance automation. He designs for reliability under pressure: idempotent operations, eventual consistency, and clean domain boundaries."
+            ],
+            suggestions: ["Architecture patterns", "Fenergo details", "Frontend skills"]
+        },
+
+        /* ── Frontend-specific ── */
+        {
+            patterns: [/frontend|front.?end|react|css|html|javascript|typescript|ui|ux|design|web dev/i],
+            responses: [
+                "On the frontend, Marco Ladeira works with TypeScript, React, and modern CSS. This portfolio site itself is a showcase — built from scratch with zero dependencies: vanilla JavaScript, custom CSS architecture with 60+ design tokens, fluid typography, layered shadow system, interactive terminal with 55+ commands, this AI chatbot, theme switching, and full accessibility support. He approaches frontend with the same rigor as backend — systematic, intentional, and built to last."
+            ],
+            suggestions: ["This website's tech", "Backend skills", "Projects"]
+        },
+
+        /* ── Fenergo (detailed) ── */
+        {
+            patterns: [/fenergo|current (role|job|work|position)|where (does he|do you) work|employer|company|what company/i],
+            responses: [
+                "Marco Ladeira works at Fenergo as a Software Engineer, starting September 2025. Fenergo is a leading enterprise SaaS company that builds client lifecycle management solutions for financial institutions — banks, asset managers, and capital markets firms worldwide.\n\nMarco's responsibilities include:\n- Backend delivery using C#/.NET and event-driven architecture\n- Platform reliability and production engineering\n- Working with CQRS, EventStoreDB, and DynamoDB\n- Selected for Fenergo's first AI initiative — integrating MCP tooling and LLM workflows into enterprise financial software\n\nIt's a high-stakes environment where system reliability directly impacts compliance workflows for major financial institutions."
+            ],
+            suggestions: ["His AI initiative", "Tech stack", "Before Fenergo"]
+        },
+
+        /* ── AI Initiative at Fenergo ── */
+        {
+            patterns: [/ai initiative|fenergo.*(ai|ml)|first ai|selected for|lead.*(ai|ml)/i],
+            responses: [
+                "Marco Ladeira was selected for Fenergo's first-ever AI initiative — a major milestone since Fenergo traditionally focused on pure enterprise SaaS. He's bringing MCP (Model Context Protocol) tooling and LLM workflow orchestration into the financial compliance domain. This means building AI-assisted workflows for KYC processing, regulatory analysis, and client lifecycle automation. It's practical AI — not chatbot demos, but real enterprise integration where reliability and accuracy are non-negotiable."
+            ],
+            suggestions: ["What's MCP?", "His AI philosophy", "Tech stack"]
+        },
+
+        /* ── MCP / Model Context Protocol ── */
+        {
+            patterns: [/mcp|model context protocol|what('s| is) mcp/i],
+            responses: [
+                "MCP stands for Model Context Protocol — it's a standardized way to connect AI models with external tools, data sources, and services. Marco Ladeira works extensively with MCP architecture, both at Fenergo and in personal projects. He writes about MCP workflows in his essays, arguing it's a key piece of the 'hybrid AI workflow' alongside CLI tools and agent systems. Think of it as giving AI models structured access to real-world systems instead of just generating text."
+            ],
+            suggestions: ["His AI essays", "Hybrid workflow", "Fenergo AI work"]
+        },
+
+        /* ── Projects (detailed) ── */
+        {
+            patterns: [/projects?|what (has he|have you) built|work samples|portfolio work|show me/i],
+            responses: [
+                "Marco Ladeira's project portfolio shows real range:\n\n<strong>Fenergo</strong> (2025–present) — Enterprise SaaS for financial institutions. Backend delivery, event-driven architecture, CQRS, and AI initiative leadership.\n\n<strong>NASA Space Explorer</strong> (2025) — A full-stack web platform built around NASA's data APIs. Focus on information hierarchy, visual clarity, and product-level presentation.\n\n<strong>Achievr</strong> (2025) — An iOS goal-tracking app designed around momentum and personal interaction patterns. Native mobile with a focus on user psychology.\n\nEach project demonstrates a different skill axis: enterprise scale, data visualization, or native mobile craft."
+            ],
+            suggestions: ["View Work page", "NASA project", "Achievr details"]
+        },
+
+        /* ── NASA Space Explorer ── */
+        {
+            patterns: [/nasa|space explorer|space project/i],
+            responses: [
+                "NASA Space Explorer is a full-stack web platform Marco Ladeira built around NASA's public APIs. The focus was on information hierarchy — making complex astronomical data feel approachable through visual clarity and product-level presentation. It showcases his ability to take raw API data and transform it into something with real product polish. Check the Work page for more details."
+            ],
+            suggestions: ["View Work page", "Other projects", "Tech stack"]
+        },
+
+        /* ── Achievr ── */
+        {
+            patterns: [/achievr|ios|goal.?track|mobile app|swift/i],
+            responses: [
+                "Achievr is an iOS goal-tracking app Marco Ladeira designed around momentum and personal interaction patterns. Unlike most productivity apps that overwhelm with features, Achievr focuses on a more personal interaction model — helping users build sustainable habits through clear progress visualization and psychological design principles. It shows Marco's product thinking beyond just code."
+            ],
+            suggestions: ["Other projects", "Frontend skills", "About Marco"]
+        },
+
+        /* ── AI / ML (comprehensive) ── */
+        {
+            patterns: [/\bai\b|artificial intelligence|machine learning|\bml\b|llm|gpt|deep learning|neural|nlp|transformer|openai|claude|copilot/i],
+            responses: [
+                "AI is central to Marco Ladeira's trajectory right now. Here's the full picture:\n\n<strong>At work:</strong> Selected for Fenergo's first AI initiative — integrating LLM workflows and MCP tooling into enterprise financial software.\n\n<strong>Certifications:</strong> Pursuing AWS Machine Learning Specialty certification.\n\n<strong>Philosophy:</strong> Practical over hype. He believes AI should augment engineering judgment, not replace it. His essay 'Software engineering is moving toward systems judgment' covers this.\n\n<strong>Technical:</strong> LLM integration, MCP server architecture, ML pipelines, prompt engineering, evaluation frameworks.\n\n<strong>Writing:</strong> Two major essays on hybrid AI workflows — combining CLI speed, MCP structure, and agent leverage.\n\nHe's not an 'AI enthusiast' — he's an engineer who ships AI into production."
+            ],
+            suggestions: ["Read his AI essays", "MCP explained", "Fenergo AI initiative"]
+        },
+
+        /* ── His AI Philosophy ── */
+        {
+            patterns: [/ai philosophy|how does marco (think|feel) about ai|ai opinion|stance on ai|approach to ai/i],
+            responses: [
+                "Marco Ladeira has a clear stance on AI: it's a tool that makes engineering better, not a replacement for engineering judgment. He argues that the strongest AI workflow isn't a single interface — it's CLI speed, MCP structure, and agent-level leverage working in combination. He's skeptical of hype, focused on what ships, and interested in the hard problems of making AI reliable in enterprise contexts where errors have real consequences. His essay 'Software engineering is moving toward systems judgment' lays out his full thesis."
+            ],
+            suggestions: ["Read the essay", "Hybrid workflow", "His AI work"]
+        },
+
+        /* ── Writing (detailed) ── */
+        {
+            patterns: [/writ(ing|e|ten)|blog|essay|article|post|publish/i],
+            responses: [
+                "Marco Ladeira writes thoughtful long-form essays on engineering practice and AI:\n\n<strong>'The best AI workflow is hybrid'</strong> (March 2026) — His argument for combining CLI speed, MCP structure, and agent leverage rather than relying on any single AI interface.\n\n<strong>'Software engineering is moving toward systems judgment'</strong> (December 2025) — How AI shifts the center of gravity toward intent, architecture, and judgment rather than away from engineering.\n\n<strong>Updates:</strong>\n- Selected for Fenergo's first AI initiative (March 2026)\n- AWS ML Specialty and current AI focus (March 2026)\n- First months at Fenergo (October 2025)\n\nHis writing is practical, opinion-driven, and backed by real engineering experience."
+            ],
+            suggestions: ["Read hybrid essay", "Read judgment essay", "About Marco"]
+        },
+
+        /* ── Hybrid Workflow essay ── */
+        {
+            patterns: [/hybrid (workflow|essay|article)|cli.*mcp.*agent|best ai workflow/i],
+            responses: [
+                "In 'The best AI workflow is hybrid' (March 2026), Marco Ladeira argues that no single AI tool — not ChatGPT, not Copilot, not any one platform — is the optimal setup. The real power comes from combining three layers: CLI speed for fast operations, MCP structure for connecting AI to real systems and data, and agent leverage for complex multi-step tasks. He draws from his production experience at Fenergo and personal projects to make the case. It's one of the most practical takes on AI workflows you'll read."
+            ],
+            suggestions: ["Read the essay", "MCP explained", "His other essay"]
+        },
+
+        /* ── Systems Judgment essay ── */
+        {
+            patterns: [/systems? judgment|engineering.*age.*ai|software engineering.*moving/i],
+            responses: [
+                "In 'Software engineering is moving toward systems judgment' (December 2025), Marco Ladeira writes about how AI changes what matters in engineering. His thesis: as AI handles more implementation, the center of gravity shifts to intent, architecture, interfaces, and judgment calls. Engineers who can evaluate AI output, design system boundaries, and make taste-driven decisions become more valuable — not less. It's a counterpoint to the 'AI will replace developers' narrative."
+            ],
+            suggestions: ["Read the essay", "His AI philosophy", "Hybrid workflow essay"]
+        },
+
+        /* ── Contact (comprehensive) ── */
+        {
+            patterns: [/contact|email|reach|get in touch|connect|message|talk to (him|marco)/i],
+            responses: [
+                "Here's how to reach Marco Ladeira:\n\n<strong>Email:</strong> marcoladeiraworkemail@gmail.com (replies within 48 hours)\n<strong>LinkedIn:</strong> linkedin.com/in/marco-ladeira\n<strong>GitHub:</strong> github.com/MarcoLadeira\n\nHe reads every message and enjoys connecting — whether it's about a job opportunity, collaboration idea, AI discussion, or just a hello. The Contact page has everything in one place."
+            ],
+            suggestions: ["Send email", "View LinkedIn", "View GitHub"]
+        },
+
+        /* ── Social / LinkedIn / GitHub specifically ── */
+        {
+            patterns: [/linkedin/i],
+            responses: [
+                "Marco Ladeira's LinkedIn: linkedin.com/in/marco-ladeira — he shares updates on work, AI tooling, and engineering thinking. It's the best place to see his career timeline and professional network."
+            ],
+            suggestions: ["Email instead", "GitHub", "About Marco"]
         },
         {
-            patterns: [/who (is|are|r) (marco|he|him)/i, /tell me about (marco|him(self)?)/i, /about marco/i, /introduce/i, /what does marco do/i, /^marco$/i],
+            patterns: [/github|code|repo|open.?source/i],
             responses: [
-                "Marco Ladeira is a Software Engineer at Fenergo in Dublin, Ireland. He builds enterprise SaaS for financial institutions and is deeply interested in practical AI tooling, MCP workflows, and machine learning. He's the kind of engineer who cares equally about system reliability and product experience.",
-                "Marco Ladeira is a Dublin-based Software Engineer working at Fenergo. His work spans enterprise platform engineering, AI/ML systems, and product-level thinking. He builds reliable systems under pressure and interfaces that stay calm even when the underlying complexity is not."
+                "Marco Ladeira's GitHub: github.com/MarcoLadeira — source code for personal projects, experiments, and this portfolio site itself. This entire website is open source — built with zero dependencies, vanilla JS, and custom CSS."
             ],
-            suggestions: ["What's Fenergo?", "His skills", "Contact Marco"]
+            suggestions: ["About this site", "Email Marco", "His projects"]
         },
+
+        /* ── Hiring / Availability ── */
         {
-            patterns: [/skills?|tech\s*stack|technologies|what (does he|do you) (use|know|work with)|languages?|framework|tools/i],
+            patterns: [/hire|hiring|available|freelance|contract|open to|looking for|recru/i],
             responses: [
-                "Marco Ladeira's tech stack is production-focused: C#, .NET, TypeScript, and Python on the languages side. For infrastructure — event-driven architecture, CQRS, EventStoreDB, DynamoDB, and AWS. On the AI side — LLM integration, MCP tooling, and machine learning pipelines. He also works with React, Node.js, and modern frontend technologies.",
-                "Marco is fluent across the stack: C#/.NET for enterprise backend, TypeScript/React for frontend, Python for ML work, and AWS for cloud infrastructure. His architecture experience includes CQRS, event sourcing with EventStoreDB, and DynamoDB. On the AI side — MCP servers, LLM workflow orchestration, and ML pipelines."
+                "Marco Ladeira is currently a Software Engineer at Fenergo, but he's always open to conversations about interesting opportunities — especially roles involving AI/ML engineering, platform architecture, or product-focused engineering. He's also interested in side collaborations and open-source work.\n\nBest way to start a conversation: marcoladeiraworkemail@gmail.com\n\nHe takes every inquiry seriously and replies within 48 hours."
             ],
-            suggestions: ["Current role", "Projects", "AI interests"]
+            suggestions: ["Send email", "His experience", "Current role"]
         },
+
+        /* ── Location ── */
         {
-            patterns: [/fenergo|current (role|job|work|position)|where (does he|do you) work|employer|company/i],
+            patterns: [/where|location|city|country|based|live|from|dublin|ireland|relocat/i],
             responses: [
-                "Marco Ladeira works at Fenergo as a Software Engineer since September 2025. Fenergo builds enterprise SaaS for financial institutions — think KYC, regulatory compliance, and client lifecycle management. Marco handles backend delivery, platform reliability, event-driven systems, and production engineering. He was also selected for Fenergo's first AI initiative, bringing MCP tooling and LLM workflows into enterprise financial software."
-            ],
-            suggestions: ["His tech stack", "Projects", "AI work"]
-        },
-        {
-            patterns: [/projects?|nasa|achievr|portfolio|what (has he|have you) built|work samples/i],
-            responses: [
-                "Some of Marco Ladeira's notable projects: Fenergo — enterprise SaaS for financial institutions with event-driven architecture and CQRS. NASA Space Explorer — a full-stack NASA interface built around information hierarchy and visual clarity. Achievr — an iOS goal-tracking app designed around momentum and personal interaction. Check the Work page for the complete picture.",
-                "Marco Ladeira has built across different domains: enterprise financial software at Fenergo, a NASA Space Explorer platform with product-level presentation, and Achievr — an iOS app focused on goal tracking and momentum. Each project shows his range from backend systems to polished user experiences."
-            ],
-            suggestions: ["View Work page", "Tech stack", "Writing"]
-        },
-        {
-            patterns: [/ai|artificial intelligence|machine learning|ml|llm|mcp|gpt|chatbot|deep learning|neural/i],
-            responses: [
-                "AI is a major part of Marco Ladeira's work. He's pursuing AWS ML Specialty certification, building with LLM workflows and MCP tooling, and was selected for Fenergo's first AI initiative. His approach is practical — focused on making AI genuinely useful in enterprise contexts rather than chasing hype. His writing explores hybrid AI workflows combining CLI speed, MCP structure, and agent leverage.",
-                "Marco Ladeira takes a practical approach to AI. He works with LLM integration, MCP server architecture, and ML pipelines. He was selected to lead AI efforts at Fenergo and writes extensively about hybrid AI workflows. For Marco, AI is a tool that should make engineering better — not replace engineering judgment."
-            ],
-            suggestions: ["Read his writing", "Current role", "Tech stack"]
-        },
-        {
-            patterns: [/writ(ing|e|ten)|blog|essay|article|post/i],
-            responses: [
-                "Marco Ladeira writes about engineering workflows and AI tooling. His key essays: \"The best AI workflow is hybrid\" — on CLI speed, MCP structure, and agent leverage working together. \"Software engineering is moving toward systems judgment\" — on how AI shifts engineering toward intent, architecture, and better judgment. He also posts shorter updates on work at Fenergo and ML progress.",
-                "Marco's writing covers the intersection of AI and software engineering practice. He argues that the strongest AI workflow isn't a single interface — it's CLI speed, MCP structure, and agent leverage in combination. Check the Writing page for his full essays and updates."
-            ],
-            suggestions: ["Read essays", "AI interests", "About Marco"]
-        },
-        {
-            patterns: [/contact|email|reach|hire|get in touch|connect|linkedin|github|social/i],
-            responses: [
-                "You can reach Marco Ladeira at marcoladeiraworkemail@gmail.com — he typically replies within 48 hours. He's also on LinkedIn (linkedin.com/in/marco-ladeira) and GitHub (github.com/MarcoLadeira). Whether you want to work together, collaborate, or just chat — he's open to it.",
-                "Best way to reach Marco Ladeira: email marcoladeiraworkemail@gmail.com. He's also active on LinkedIn and GitHub. The Contact page has all his links in one place. He genuinely reads every message."
-            ],
-            suggestions: ["Send an email", "Who is Marco?", "Current role"]
-        },
-        {
-            patterns: [/where|location|city|country|based|live|from|dublin|ireland/i],
-            responses: [
-                "Marco Ladeira is based in Dublin, Ireland. He works at Fenergo's Dublin office, building enterprise software for the financial sector. Dublin's strong tech scene is a great fit for his work across platform engineering and AI.",
+                "Marco Ladeira is based in Dublin, Ireland. He works at Fenergo's Dublin office, building enterprise software for the global financial sector. Dublin's tech ecosystem — with companies like Stripe, Intercom, and major financial institutions — is a strong fit for his work across platform engineering, AI, and enterprise systems."
             ],
             suggestions: ["Current role", "About Marco", "Contact"]
         },
+
+        /* ── Education & Certs ── */
         {
-            patterns: [/education|university|degree|study|college|school|cert|aws|qualification/i],
+            patterns: [/education|university|degree|study|college|school|cert|qualification|where did (he|you) (study|go|learn)/i],
             responses: [
-                "Marco Ladeira has a strong foundation in software engineering with a focus on continuous learning. He's pursuing AWS Machine Learning Specialty certification and has deep expertise across cloud architecture, event-driven systems, and AI/ML. He combines formal knowledge with hands-on building — the kind of engineer who studies theory and then ships real systems."
+                "Marco Ladeira has a solid foundation in software engineering and is actively expanding his credentials. He's currently pursuing the AWS Machine Learning Specialty certification — one of AWS's most advanced certifications focused on ML model design, deployment, and operations. His learning approach is hands-on: he studies the theory and immediately ships real systems. His expertise across event-driven architecture, cloud platforms, and AI/ML systems reflects years of deliberate skill building."
             ],
-            suggestions: ["Tech stack", "AI interests", "Projects"]
+            suggestions: ["AWS ML cert", "Tech stack", "AI work"]
         },
+
+        /* ── AWS specific ── */
         {
-            patterns: [/resume|cv|curriculum/i],
+            patterns: [/aws|amazon|cloud|certification|certified/i],
             responses: [
-                "You can find Marco Ladeira's full professional background on his About page. His LinkedIn profile (linkedin.com/in/marco-ladeira) has the most current version of his career timeline. You can also use the terminal on this site and type 'resume' for a quick overview."
+                "Marco Ladeira is pursuing the AWS Machine Learning Specialty certification and has production experience with several AWS services. At Fenergo, he works with DynamoDB and serverless architecture. His AWS knowledge spans cloud infrastructure, ML model deployment and evaluation, data engineering pipelines, and scalable system design. The ML Specialty cert is one of the hardest AWS certifications — it covers SageMaker, model training, feature engineering, and ML operations."
             ],
-            suggestions: ["About page", "Contact", "Work page"]
+            suggestions: ["His ML work", "Fenergo details", "Tech stack"]
         },
+
+        /* ── Resume / CV ── */
+        {
+            patterns: [/resume|cv|curriculum|download|pdf/i],
+            responses: [
+                "Marco Ladeira's resume is available for download on the Contact page (note: it may not reflect his most current role or latest work — it's marked as 'outdated'). For the most up-to-date picture, check his LinkedIn (linkedin.com/in/marco-ladeira) or use the terminal on this site and type 'resume' for a quick overview.\n\nYou can also explore the About page for a comprehensive look at his background."
+            ],
+            suggestions: ["About page", "LinkedIn", "Contact page"]
+        },
+
+        /* ── The Website / This Site ── */
+        {
+            patterns: [/this (site|website|portfolio)|how.*(built|made)|design|what tech.*site|source code|who (built|designed|made) this/i],
+            responses: [
+                "This portfolio was designed and built entirely by Marco Ladeira — and it's quite something:\n\n<strong>Zero dependencies.</strong> Pure HTML, CSS, and vanilla JavaScript. No React, no build tools, no frameworks.\n\n<strong>Features:</strong>\n- Interactive terminal with 55+ commands, tab completion, and history\n- This AI chatbot assistant\n- Command palette (Ctrl+K)\n- Theme switching (light/dark)\n- Liquid glass CSS effects\n- Code typing animation\n- Matrix rain, magnetic hover, tilt cards\n- Konami code and console easter eggs\n- Custom CSS design system with 60+ tokens\n- Full accessibility and responsive design\n\n<strong>Hosted on:</strong> GitHub Pages (free, fast, simple)\n\nThe entire source code is on GitHub: github.com/MarcoLadeira"
+            ],
+            suggestions: ["Try the terminal", "View source", "Easter eggs?"]
+        },
+
+        /* ── Terminal ── */
+        {
+            patterns: [/terminal|command|cli|prompt|\>\s*_/i],
+            responses: [
+                "This site has a fully functional interactive terminal! Open it with the '>_' button in the nav bar or press Ctrl+` (backtick).\n\nIt supports 55+ commands including: help, about, skills, neofetch, weather, matrix, cowsay, resume, blog, scan, changelog, deploy, htop, and many more. It has tab completion, command history (up/down arrows), and aliases.\n\nSome fun ones to try: 'neofetch', 'matrix', 'cowsay hello', 'fortune', 'sudo rm -rf /'"
+            ],
+            suggestions: ["Open terminal", "Easter eggs?", "About the site"]
+        },
+
+        /* ── Easter eggs ── */
+        {
+            patterns: [/easter egg|secret|hidden|konami|surprise|fun feature|trick/i],
+            responses: [
+                "Marco Ladeira packed this site with hidden gems. I'll give you some hints:\n\n- Try the Konami code (up up down down left right left right B A)\n- Open the terminal and try 'sudo rm -rf /'\n- Check the browser console for surprises\n- Try 'matrix' in the terminal\n- Type 'cowsay' followed by any text\n- There might be more I'm not telling you about...\n\nHe's the kind of engineer who believes software should have personality."
+            ],
+            suggestions: ["Try the terminal", "About the site", "Marco's philosophy"]
+        },
+
+        /* ── Architecture / System Design ── */
+        {
+            patterns: [/architect|system design|cqrs|event.?sourc|event.?driven|micro.?service|domain.?driven|ddd|pattern/i],
+            responses: [
+                "Marco Ladeira has deep architecture experience, especially from his work at Fenergo:\n\n<strong>CQRS</strong> — Separating read and write models for complex financial domain logic\n<strong>Event Sourcing</strong> — Using EventStoreDB to capture every state change as an immutable event\n<strong>Event-Driven Architecture</strong> — Loosely coupled services communicating through events\n<strong>DynamoDB</strong> — NoSQL data modeling for high-throughput, low-latency access\n<strong>Domain-Driven Design</strong> — Clean bounded contexts and aggregate root patterns\n\nThis isn't theoretical — these patterns power real compliance workflows handling sensitive financial data."
+            ],
+            suggestions: ["Fenergo details", "Tech stack", "His philosophy"]
+        },
+
+        /* ── Identity ── */
         {
             patterns: [/what (are you|is this)|who (are you|made you)|you('re| are) (a |an )?(bot|ai|chatbot|assistant)/i, /^(are you|r u) (real|human|a bot|ai)/i],
             responses: [
-                "I'm Marco Ladeira's portfolio assistant — built right into this website to help visitors learn about his work, skills, and experience. I'm not a general AI, just a knowledgeable guide to everything Marco. Ask away!",
-                "I'm a smart assistant embedded in Marco Ladeira's portfolio site. I know his work, skills, projects, and background inside and out. Think of me as Marco's digital wingman — here to make sure you find what you're looking for."
+                "I'm Marco Ladeira's portfolio assistant — a pattern-matching chatbot built right into this website. I'm not a general AI or LLM — I'm a purpose-built knowledge base with deep context about Marco's work, skills, projects, and background. I was designed to give visitors quick, accurate answers instead of making them dig through pages. Ask me anything about Marco and I'll give you a real answer.",
+                "I'm a smart assistant embedded in Marco Ladeira's portfolio. Think of me as an interactive FAQ that actually knows things. I can tell you about Marco's engineering career, tech stack, AI work, projects, writing, or how to get in touch. No hallucinations — just facts about Marco."
             ],
             suggestions: ["Who is Marco?", "His work", "Get in touch"]
         },
+
+        /* ── Thanks / Appreciation ── */
         {
-            patterns: [/thank|thanks|cheers|appreciate|helpful/i],
+            patterns: [/thank|thanks|cheers|appreciate|helpful|nice|cool|awesome|great|amazing/i],
             responses: [
-                "Happy to help! If you want to learn more about Marco Ladeira or reach out directly, just ask.",
-                "Anytime! Marco Ladeira is always open to new conversations — feel free to explore the site or send him a message."
+                "Glad I could help! If you want to connect with Marco Ladeira directly, his email is marcoladeiraworkemail@gmail.com. Otherwise, feel free to keep exploring the site — try the terminal, read an essay, or check out the source code on GitHub.",
+                "Happy to help! Marco Ladeira is always open to conversations. Explore the site some more, or reach out directly at marcoladeiraworkemail@gmail.com."
             ],
-            suggestions: ["Contact Marco", "Explore the site"]
+            suggestions: ["Contact Marco", "Explore the site", "Try the terminal"]
         },
+
+        /* ── Experience / Career Timeline ── */
         {
-            patterns: [/experience|years|career|background|history|journey|timeline/i],
+            patterns: [/experience|years|career|background|history|journey|timeline|how long|seniority/i],
             responses: [
-                "Marco Ladeira joined Fenergo in September 2025 as a Software Engineer, working on backend delivery, platform reliability, and production engineering for financial platforms. He was selected for Fenergo's first AI initiative. His project portfolio spans enterprise SaaS, full-stack web platforms (NASA Space Explorer), and native iOS apps (Achievr). He's built deep expertise in C#/.NET, event-driven architecture, and AI/ML systems.",
+                "Marco Ladeira's career trajectory:\n\n<strong>2025–present:</strong> Software Engineer at Fenergo\n- Enterprise SaaS for financial institutions\n- Backend delivery, platform reliability, production engineering\n- Selected for Fenergo's first AI initiative\n- Working with C#/.NET, EventStoreDB, DynamoDB, CQRS\n\n<strong>Project Portfolio:</strong>\n- NASA Space Explorer (full-stack web platform)\n- Achievr (iOS goal-tracking app)\n- This portfolio site (zero-dependency, 55+ terminal commands)\n\n<strong>Focus Areas:</strong> Event-driven architecture, AI/ML integration, product engineering\n<strong>Certifications:</strong> Pursuing AWS ML Specialty"
             ],
-            suggestions: ["Fenergo details", "Projects", "Skills"]
+            suggestions: ["Fenergo details", "Projects", "Skills", "AI work"]
         },
+
+        /* ── Hobbies / Personal ── */
         {
-            patterns: [/hobby|hobbies|fun|free time|outside work|interests?|personal/i],
+            patterns: [/hobby|hobbies|fun|free time|outside work|interests?|personal|life|do for fun/i],
             responses: [
-                "Outside of engineering, Marco Ladeira is into AI experimentation, building personal tools and workflows, and continuous learning. This portfolio site — including this very chatbot and the interactive terminal — is a reflection of his drive to push web experiences further. He's the kind of person who builds things for fun."
+                "Outside of work, Marco Ladeira is into:\n\n- <strong>AI experimentation</strong> — building personal tools, testing new workflows, pushing boundaries\n- <strong>Technical writing</strong> — crafting essays on engineering practice and AI\n- <strong>Building things</strong> — this portfolio site (with its terminal, chatbot, and easter eggs) is a labor of love\n- <strong>Continuous learning</strong> — currently working toward AWS ML Specialty\n\nHe's fundamentally a builder — the kind of person who codes for fun and sees every project as a chance to learn something new."
             ],
-            suggestions: ["About Marco", "His projects", "Contact"]
+            suggestions: ["His projects", "His writing", "About Marco"]
         },
+
+        /* ── Comparison queries ── */
         {
-            patterns: [/hire|hiring|available|freelance|contract|open to/i],
+            patterns: [/better than|compare|vs|versus|different from|like (other|similar)/i],
             responses: [
-                "Marco Ladeira is currently employed at Fenergo as a Software Engineer, but he's always open to interesting conversations about collaboration, side projects, or future opportunities. Best way to reach out: marcoladeiraworkemail@gmail.com"
+                "I can only speak to Marco Ladeira's strengths — and there's a lot to cover. He brings a rare combination: enterprise-grade backend engineering (C#/.NET, CQRS, event sourcing), real AI/ML production experience (not just demos), product-level frontend craft (this zero-dependency portfolio proves that), and clear written communication. That's a mix you don't find often. Want me to go deeper on any of those?"
             ],
-            suggestions: ["Send an email", "Current role", "His work"]
+            suggestions: ["Tech stack", "His projects", "His writing"]
         },
+
+        /* ── Salary / Compensation ── */
         {
-            patterns: [/this (site|website|portfolio)|how.*(built|made)|design|what tech/i],
+            patterns: [/salary|compensation|how much|pay|money|rate/i],
             responses: [
-                "This portfolio was built by Marco Ladeira himself — it's a zero-dependency static site running on GitHub Pages. Pure HTML, CSS, and vanilla JavaScript. No frameworks, no build tools — just clean, handcrafted code. It features a full terminal emulator with 55+ commands, this AI chatbot, liquid glass effects, a command palette, and multiple easter eggs. The design follows a warm, minimal aesthetic with a layered shadow system and fluid typography."
+                "I don't have information about Marco Ladeira's compensation. For any discussions about roles or compensation, the best approach is to reach out directly: marcoladeiraworkemail@gmail.com. He's always open to professional conversations."
             ],
-            suggestions: ["Try the terminal", "Marco's skills", "Easter eggs?"]
+            suggestions: ["Contact Marco", "His experience", "Current role"]
         },
+
+        /* ── Jokes / Fun ── */
         {
-            patterns: [/easter egg|secret|hidden|konami|surprise/i],
+            patterns: [/joke|funny|humor|laugh|lol|haha|😂|make me laugh/i],
             responses: [
-                "Oh, you're curious about secrets? Marco Ladeira's site has a few hidden gems. Try the Konami code, open the terminal and type some creative commands, or check the browser console. I'll let you discover the rest on your own.",
+                "Why do programmers prefer dark mode? Because light attracts bugs. 🪲\n\nBut seriously — Marco Ladeira's site has some actual humor built in. Try typing 'sudo rm -rf /' in the terminal, or 'cowsay' followed by text. The Konami code works too!",
+                "A SQL query walks into a bar, sees two tables, and asks... 'Can I JOIN you?'\n\nMarco Ladeira appreciates humor in software — check out the terminal for more fun commands like 'fortune', 'joke', 'flip', and 'sl'."
             ],
-            suggestions: ["Try the terminal", "About Marco", "Contact"]
+            suggestions: ["Try the terminal", "Easter eggs", "About Marco"]
         },
+
+        /* ── Negative / Challenge ── */
         {
-            patterns: [/terminal|command|cli|console/i],
+            patterns: [/suck|bad|terrible|worst|hate|boring|not good|mediocre|overrated/i],
             responses: [
-                "This site has a full interactive terminal built by Marco Ladeira! Click the >_ button in the nav or press Ctrl+` to open it. It supports 55+ commands including 'help', 'about', 'skills', 'neofetch', 'weather', 'matrix', and many more. It even has tab completion and command history. Try typing 'help' to see everything available.",
+                "I appreciate the directness! Let Marco Ladeira's work speak for itself: he shipped enterprise systems handling financial compliance data, was selected for his company's first AI initiative, built this entire interactive portfolio from scratch with zero dependencies, and writes thoughtful essays on engineering practice. The Work page and Writing page have the details. Give them a look and form your own opinion."
             ],
-            suggestions: ["Marco's skills", "About the site", "Contact"]
+            suggestions: ["View Work page", "Read his writing", "Contact Marco"]
+        },
+
+        /* ── Broad catch-alls ── */
+        {
+            patterns: [/what can (you|i) (do|ask|help|tell)|help me|what do you know|capabilities/i],
+            responses: [
+                "I know Marco Ladeira's portfolio inside and out. Here's what I can help with:\n\n- <strong>Career:</strong> His role at Fenergo, career timeline, experience\n- <strong>Technical:</strong> Full tech stack, architecture patterns, backend/frontend skills\n- <strong>AI/ML:</strong> His AI initiative, MCP work, ML certifications, philosophy\n- <strong>Projects:</strong> Fenergo, NASA Space Explorer, Achievr, this website\n- <strong>Writing:</strong> Essay summaries and themes\n- <strong>Contact:</strong> Email, LinkedIn, GitHub, resume\n- <strong>Fun:</strong> Easter eggs, terminal commands, site features\n\nJust ask naturally — I'll figure out what you mean."
+            ],
+            suggestions: ["Who is Marco?", "Tech stack", "AI work", "Contact"]
+        },
+
+        /* ── Weather / off-topic graceful ── */
+        {
+            patterns: [/weather|time|date|news|sports|stock|crypto|bitcoin/i],
+            responses: [
+                "That's outside my area! I'm specifically built to answer questions about Marco Ladeira — his engineering work, projects, skills, and how to reach him. But if you want weather, try the terminal command 'weather' — it actually works!"
+            ],
+            suggestions: ["Who is Marco?", "Try the terminal", "Contact"]
+        },
+
+        /* ── Goodbye ── */
+        {
+            patterns: [/bye|goodbye|see ya|later|gotta go|leaving|exit|quit|close/i],
+            responses: [
+                "Thanks for stopping by! If you want to reach Marco Ladeira directly: marcoladeiraworkemail@gmail.com. Happy to chat again anytime.",
+                "See you! Remember — Marco Ladeira is always open to conversations. Drop him a line at marcoladeiraworkemail@gmail.com."
+            ],
+            suggestions: ["Send email", "View LinkedIn"]
+        },
+
+        /* ── Philosophy / Engineering approach ── */
+        {
+            patterns: [/philosophy|approach|methodology|how does (he|marco) (work|think|build)|engineering (style|taste|philosophy)|values/i],
+            responses: [
+                "Marco Ladeira's engineering philosophy has a few core principles:\n\n1. <strong>Reliability over cleverness</strong> — Systems should work under pressure, not just in demos\n2. <strong>Product taste matters</strong> — Even backend code benefits from intentional design\n3. <strong>AI as amplifier</strong> — AI should augment judgment, not replace it\n4. <strong>Ship, then polish</strong> — Working software first, then iterate\n5. <strong>Restrained interfaces</strong> — Calm design even when the underlying complexity is high\n\nHis work at Fenergo and his writing both reflect these values. He's not an 'architecture astronaut' — he ships real things."
+            ],
+            suggestions: ["His writing", "Fenergo work", "AI philosophy"]
+        },
+
+        /* ── Collaboration / Working Together ── */
+        {
+            patterns: [/collaborat|work together|partner|team up|join|side project|open source|contribute/i],
+            responses: [
+                "Marco Ladeira is interested in collaborations, especially around:\n- AI tooling and MCP server architecture\n- Open source projects with real utility\n- Side projects that solve genuine problems\n- Engineering content and technical writing\n\nHe's currently at Fenergo full-time, but actively engages with the broader engineering community. Reach out at marcoladeiraworkemail@gmail.com with your idea — he takes every collaboration inquiry seriously."
+            ],
+            suggestions: ["Send email", "His projects", "AI work"]
         }
     ];
 
     var fallbackResponses = [
-        "I'm not sure about that, but I know Marco Ladeira's portfolio inside and out. Try asking about his work at Fenergo, tech stack, AI interests, projects, or how to reach him.",
-        "That's a bit outside my scope! I'm an expert on all things Marco Ladeira — his engineering work, current projects, writing, or how to get in touch. What would you like to know?",
-        "I don't have info on that specifically, but ask me about Marco Ladeira's skills, experience at Fenergo, AI work, or anything portfolio-related and I've got you covered."
+        "I don't have specific info on that, but I know Marco Ladeira's portfolio thoroughly. Try asking about his work at Fenergo, tech stack, AI projects, writing, or how to contact him. I can go deep on any of those.",
+        "That's a bit outside what I cover! I'm an expert on all things Marco Ladeira — his engineering career, current projects, AI work, skills, or how to reach him. What would you like to know?",
+        "Hmm, I'm not sure about that specifically. But ask me about Marco Ladeira's role at Fenergo, his tech stack (C#, .NET, TypeScript, Python, AWS), his AI work, projects, essays, or contact info and I've got detailed answers.",
+        "I don't have that info — but I can tell you about Marco Ladeira's enterprise engineering work, his AI initiative at Fenergo, the tech behind this website, or help you get in touch. What interests you?"
     ];
 
-    /* ─── Chat helpers ─── */
+    /* ─── Smart matching with context awareness ─── */
 
     function escapeHtml(str) {
         var div = document.createElement("div");
@@ -2056,15 +2298,18 @@
                 btn.className = "ai-chat__suggestion";
                 btn.textContent = s;
                 btn.addEventListener("click", function () {
-                    if (s === "Send an email") {
+                    if (s === "Send email" || s === "Send an email") {
                         window.open("mailto:marcoladeiraworkemail@gmail.com", "_blank");
                         return;
                     }
                     if (s === "View Work page") { window.location.href = "work/"; return; }
                     if (s === "About page") { window.location.href = "about/"; return; }
-                    if (s === "Read essays") { window.location.href = "writing/"; return; }
+                    if (s === "Read essays" || s === "Read his AI essays" || s === "Read his writing" || s === "Read hybrid essay" || s === "Read the essay" || s === "Read judgment essay") { window.location.href = "writing/"; return; }
+                    if (s === "View LinkedIn") { window.open("https://www.linkedin.com/in/marco-ladeira/", "_blank"); return; }
+                    if (s === "View GitHub" || s === "View source") { window.open("https://github.com/MarcoLadeira", "_blank"); return; }
+                    if (s === "Contact page") { window.location.href = "contact/"; return; }
                     if (s === "Explore the site") { closeChat(); return; }
-                    if (s === "Try the terminal") { closeChat(); toggleTerminal(); return; }
+                    if (s === "Try the terminal" || s === "Open terminal") { closeChat(); toggleTerminal(); return; }
                     chatInput.value = s;
                     handleChatSend();
                 });
@@ -2098,15 +2343,31 @@
 
     function matchResponse(input) {
         var text = input.trim();
+        chatHistory.push(text.toLowerCase());
+
+        // Multi-word keyword scoring for better multi-topic handling
+        var bestMatch = null;
+        var bestScore = 0;
+
         for (var i = 0; i < chatKnowledge.length; i++) {
             var entry = chatKnowledge[i];
             for (var j = 0; j < entry.patterns.length; j++) {
-                if (entry.patterns[j].test(text)) {
-                    var resp = entry.responses[Math.floor(Math.random() * entry.responses.length)];
-                    return { text: resp, suggestions: entry.suggestions || [] };
+                var match = entry.patterns[j].exec(text);
+                if (match) {
+                    var score = match[0].length;
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestMatch = entry;
+                    }
                 }
             }
         }
+
+        if (bestMatch) {
+            var resp = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
+            return { text: resp, suggestions: bestMatch.suggestions || [] };
+        }
+
         return {
             text: fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)],
             suggestions: ["Who is Marco?", "His skills", "Contact"]
@@ -2171,8 +2432,8 @@
 
         if (!chatMessages.hasChildNodes()) {
             addBotMessage(
-                "Hey! I'm Marco Ladeira's portfolio assistant. Ask me anything — his work, skills, projects, or how to get in touch.",
-                ["Who is Marco?", "Tech stack", "Current role", "Get in touch"]
+                "Hey! I'm Marco Ladeira's portfolio assistant. I know everything about his work, skills, and background. Ask me anything — or pick a topic below.",
+                ["Who is Marco?", "Tech stack", "Current role", "Contact"]
             );
         }
         chatInput.focus();
@@ -2195,7 +2456,7 @@
         chatInput.value = "";
 
         var typingEl = showTyping();
-        var delay = 500 + Math.random() * 700;
+        var delay = 400 + Math.random() * 600;
 
         setTimeout(function () {
             removeTyping(typingEl);
