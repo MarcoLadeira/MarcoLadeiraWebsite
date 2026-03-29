@@ -49,4 +49,4 @@ projects.forEach(project => {
     // Save the image
     const buffer = canvas.toBuffer('image/jpeg');
     fs.writeFileSync(path.join(assetsDir, `${project.name}.jpg`), buffer);
-}); 
+});

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Marco Ladeira</title>
+        <description>Essays and updates from Marco Ladeira on AI workflows, systems thinking, software engineering, and practical tool design.</description>
+        <link>https://marcoladeira.github.io</link>
+        <atom:link href="https://marcoladeira.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+        <language>en</language>
+        <lastBuildDate>Sat, 29 Mar 2026 00:00:00 +0000</lastBuildDate>
+
+        <item>
+            <title>Selected for Fenergo's first AI initiative</title>
+            <description>I was selected to work on Fenergo's first AI initiative, bringing MCP tooling and LLM workflows into enterprise financial software.</description>
+            <link>https://marcoladeira.github.io/updates/fenergo-ai-initiative/</link>
+            <guid>https://marcoladeira.github.io/updates/fenergo-ai-initiative/</guid>
+            <pubDate>Sat, 29 Mar 2026 00:00:00 +0000</pubDate>
+        </item>
+
+        <item>
+            <title>The best AI workflow is hybrid</title>
+            <description>The workflow that works best for me is not CLI versus MCP versus agents. It is knowing what each one is good at and composing them intentionally.</description>
+            <link>https://marcoladeira.github.io/writing/hybrid-workflow-cli-mcp-agents/</link>
+            <guid>https://marcoladeira.github.io/writing/hybrid-workflow-cli-mcp-agents/</guid>
+            <pubDate>Wed, 18 Mar 2026 00:00:00 +0000</pubDate>
+        </item>
+
+        <item>
+            <title>AWS ML Specialty and where my AI focus is heading</title>
+            <description>Continuing to push toward practical AI systems, stronger boundaries, and production-minded experimentation.</description>
+            <link>https://marcoladeira.github.io/updates/aws-ml-specialty-and-current-ai-focus/</link>
+            <guid>https://marcoladeira.github.io/updates/aws-ml-specialty-and-current-ai-focus/</guid>
+            <pubDate>Fri, 14 Mar 2026 00:00:00 +0000</pubDate>
+        </item>
+
+        <item>
+            <title>Software engineering is moving toward systems judgment</title>
+            <description>AI is not removing the need for software engineers. It is shifting the center of gravity toward intent, architecture, interfaces, and better judgment.</description>
+            <link>https://marcoladeira.github.io/writing/software-engineering-in-the-age-of-ai/</link>
+            <guid>https://marcoladeira.github.io/writing/software-engineering-in-the-age-of-ai/</guid>
+            <pubDate>Wed, 24 Dec 2025 00:00:00 +0000</pubDate>
+        </item>
+
+        <item>
+            <title>First months at Fenergo</title>
+            <description>Getting deeper into event-driven systems, CQRS, EventStoreDB, DynamoDB, and the realities of resilient enterprise software.</description>
+            <link>https://marcoladeira.github.io/updates/first-months-at-fenergo/</link>
+            <guid>https://marcoladeira.github.io/updates/first-months-at-fenergo/</guid>
+            <pubDate>Fri, 31 Oct 2025 00:00:00 +0000</pubDate>
+        </item>
+    </channel>
+</rss>
