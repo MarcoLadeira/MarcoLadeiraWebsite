@@ -1589,77 +1589,6 @@
     }
 
     /* ================================================================
-       MAGNETIC HOVER EFFECTS
-       ================================================================ */
-
-    function initMagneticElements() {
-        if (prefersReducedMotion.matches) return;
-        if (window.innerWidth < 1024 || "ontouchstart" in window) return;
-
-        var magnetics = document.querySelectorAll(".button, .theme-toggle, .meta-pill");
-        magnetics.forEach(function (el) {
-            el.addEventListener("mousemove", function (e) {
-                var rect = el.getBoundingClientRect();
-                var x = e.clientX - rect.left - rect.width / 2;
-                var y = e.clientY - rect.top - rect.height / 2;
-                el.style.transform = "translate(" + (x * 0.15) + "px, " + (y * 0.15) + "px)";
-            });
-
-            el.addEventListener("mouseleave", function () {
-                el.style.transform = "";
-            });
-        });
-    }
-
-    /* ================================================================
-       SMOOTH SCROLL PROGRESS INDICATOR
-       ================================================================ */
-
-    function initScrollProgress() {
-        if (document.body.dataset.page !== "home") return;
-
-        var sections = document.querySelectorAll(".section[id], .hero[id]");
-        if (sections.length === 0) return;
-
-        var indicator = document.createElement("nav");
-        indicator.className = "scroll-progress";
-        indicator.setAttribute("aria-label", "Page sections");
-        indicator.innerHTML = '<div class="scroll-progress__track"></div>';
-
-        var track = indicator.querySelector(".scroll-progress__track");
-        var dots = [];
-
-        sections.forEach(function (section) {
-            var dot = document.createElement("button");
-            dot.className = "scroll-progress__dot";
-            dot.setAttribute("aria-label", "Scroll to " + (section.id || "section"));
-            dot.dataset.target = section.id;
-            dot.addEventListener("click", function () {
-                section.scrollIntoView({ behavior: "smooth" });
-            });
-            track.appendChild(dot);
-            dots.push({ el: dot, section: section });
-        });
-
-        document.body.appendChild(indicator);
-
-        // Update active dot on scroll
-        var progressObserver = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (!entry.isIntersecting) return;
-                dots.forEach(function (d) {
-                    d.el.classList.toggle("is-active", d.section === entry.target);
-                });
-            });
-        }, {
-            rootMargin: "-30% 0px -60% 0px",
-            threshold: 0
-        });
-
-        dots.forEach(function (d) { progressObserver.observe(d.section); });
-    }
-
-    /* ================================================================
        STAGGERED LIST ANIMATIONS
        ================================================================ */
 
@@ -1672,28 +1601,6 @@
             for (var i = 0; i < items.length; i++) {
                 items[i].style.setProperty("--stagger-index", i);
             }
-        });
-    }
-
-    /* ================================================================
-       HOVER TILT ON CASE STUDY VISUALS
-       ================================================================ */
-
-    function initTiltCards() {
-        if (prefersReducedMotion.matches) return;
-        if ("ontouchstart" in window) return;
-
-        var visuals = document.querySelectorAll(".case-study__visual");
-        visuals.forEach(function (card) {
-            card.addEventListener("mousemove", function (e) {
-                var rect = card.getBoundingClientRect();
-                var x = (e.clientX - rect.left) / rect.width - 0.5;
-                var y = (e.clientY - rect.top) / rect.height - 0.5;
-                card.style.transform = "perspective(600px) rotateY(" + (x * 8) + "deg) rotateX(" + (-y * 8) + "deg) translateY(-4px)";
-            });
-            card.addEventListener("mouseleave", function () {
-                card.style.transform = "";
-            });
         });
     }
 
@@ -2152,7 +2059,7 @@
             keywords: ["this site", "this website", "this portfolio", "built", "how made", "source code", "designed"],
             boost: function (t) { return /this (site|website|portfolio)/i.test(t) ? 8 : /who (built|made|designed)/i.test(t) ? 7 : 0; },
             responses: [
-                "Marco built this entire site from scratch — zero dependencies, no frameworks. Pure HTML, CSS, and vanilla JavaScript.\n\nHighlights: interactive terminal with 55+ commands, this chatbot, command palette (Ctrl+K), theme switching, code typing animation, matrix rain, magnetic hover effects, Konami code, and console easter eggs. Custom CSS design system with 60+ tokens. Fully responsive and accessible.\n\nSource code on GitHub: github.com/MarcoLadeira"
+                "Marco built this entire site from scratch — zero dependencies, no frameworks. Pure HTML, CSS, and vanilla JavaScript.\n\nHighlights: interactive terminal with 55+ commands, this chatbot, command palette (Ctrl+K), theme switching, code typing animation, Konami code, and console easter eggs. Custom CSS design system with 60+ tokens. Fully responsive and accessible.\n\nSource code on GitHub: github.com/MarcoLadeira"
             ],
             suggestions: ["Try the terminal", "Easter eggs?", "View source"]
         },
@@ -2675,10 +2582,7 @@
     buildChat();
     initScrollToTop();
     initCodeTyping();
-    initMagneticElements();
-    initScrollProgress();
     initStaggeredLists();
-    initTiltCards();
     initKonami();
     initConsoleEasterEggs();
     initPageTransitions();
