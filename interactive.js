@@ -1944,7 +1944,7 @@
             keywords: ["writing", "write", "written", "blog", "essay", "article", "post", "publish"],
             responses: [
                 "Marco writes long-form essays on engineering and AI:\n\n<strong>'The best AI workflow is hybrid'</strong> — Why combining CLI speed, MCP structure, and agent leverage beats any single AI tool.\n\n<strong>'Software engineering is moving toward systems judgment'</strong> — How AI shifts engineering toward intent, architecture, and judgment rather than away from it.\n\nHe also posts updates on his work, certifications, and projects. His writing is practical and opinion-driven — not corporate content.",
-                "Two main essays on the Writing page:\n\n1. On <strong>hybrid AI workflows</strong> — his argument for combining CLI + MCP + agents\n2. On <strong>systems judgment</strong> — how AI changes what matters in engineering\n\nBoth draw from his actual production experience. He also publishes shorter updates about his work and thinking."
+                "Two main essays on the Writing page:\n\n1. On <strong>hybrid AI workflows</strong> — his argument for combining CLI + MCP + agents\n2. On <strong>systems judgment</strong> — how AI changes what matters in engineering\n\nBoth draw from his actual production experience. He also publishes shorter updates about his work and thinking. Latest: portfolio redesign (March 2026), AWS ML Specialty (March 2026), Fenergo AI initiative (January 2026)."
             ],
             suggestions: ["Read the essays", "About Marco", "AI work"]
         },
