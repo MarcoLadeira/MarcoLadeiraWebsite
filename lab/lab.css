@@ -1,0 +1,376 @@
+/* ================================================================
+   LAB — Experiment 01: System Architecture Generator
+   Page-specific styles. Reuses tokens from styles.css.
+   ================================================================ */
+
+.lab-hero h1 {
+    max-width: 16ch;
+}
+
+/* ─── Prompt field ─── */
+
+.lab-prompt {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 36px;
+}
+
+.lab-prompt__field {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 8px 8px 18px;
+    border: 1px solid var(--border-strong);
+    border-radius: 14px;
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--t-fast), box-shadow var(--t-normal), transform var(--t-fast);
+}
+
+.lab-prompt__field:focus-within {
+    border-color: var(--text);
+    box-shadow: var(--shadow-md), 0 0 0 4px var(--accent-soft);
+}
+
+.lab-prompt__caret {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.95rem;
+    color: var(--muted-strong);
+    user-select: none;
+}
+
+.lab-prompt__input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 0;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 1rem;
+    letter-spacing: -0.005em;
+    outline: 0;
+}
+
+.lab-prompt__input::placeholder {
+    color: var(--muted);
+    opacity: 0.85;
+}
+
+.lab-prompt__submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--text);
+    color: var(--bg);
+    font-family: var(--font-display);
+    font-size: 0.86rem;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    transition: transform var(--t-fast), opacity var(--t-fast);
+}
+
+.lab-prompt__submit:hover {
+    transform: translateY(-1px);
+}
+
+.lab-prompt__submit:active {
+    transform: translateY(0);
+    opacity: 0.92;
+}
+
+.lab-prompt__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.lab-chip {
+    padding: 7px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+    transition: color var(--t-fast), border-color var(--t-fast), background-color var(--t-fast), transform var(--t-fast);
+}
+
+.lab-chip:hover {
+    color: var(--text);
+    border-color: var(--border-hover);
+    background: var(--surface-muted);
+    transform: translateY(-1px);
+}
+
+/* ─── Stage (canvas + decisions) ─── */
+
+.lab-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.lab-stage__diagram {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* Definite height so the flex:1 canvas resolves correctly */
+    height: clamp(460px, 62vh, 640px);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    background: var(--visual-bg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.lab-stage__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--visual-line);
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.lab-stage__identity {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.lab-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border: 1px solid var(--visual-line-strong);
+    border-radius: 6px;
+    background: var(--visual-surface);
+    color: rgba(245, 240, 232, 0.85);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.lab-tag[data-tag="confidence"] {
+    color: rgba(245, 240, 232, 0.65);
+}
+
+.lab-stage__legend {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lab-legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(245, 240, 232, 0.6);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.lab-legend__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(245, 240, 232, 0.85);
+}
+
+.lab-legend__dot--pulse {
+    animation: labPulse 1.6s var(--ease-in-out) infinite;
+}
+
+@keyframes labPulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+}
+
+.lab-canvas {
+    flex: 1 1 0;
+    min-height: 0;
+    width: 100%;
+    display: block;
+}
+
+.lab-stage__empty {
+    position: absolute;
+    inset: 60px 0 0;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    text-align: center;
+    color: rgba(245, 240, 232, 0.55);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    pointer-events: none;
+    transition: opacity var(--t-normal);
+}
+
+.lab-stage[data-state="ready"] .lab-stage__empty {
+    opacity: 0;
+}
+
+/* ─── Decisions panel ─── */
+
+.lab-decisions {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 22px 22px 24px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.lab-decisions__header {
+    display: grid;
+    gap: 8px;
+}
+
+.lab-decisions__header h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: var(--text);
+}
+
+.lab-decisions__header p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+.lab-decisions__list {
+    display: grid;
+    gap: 14px;
+}
+
+.lab-decision {
+    display: grid;
+    gap: 4px;
+    padding: 14px 0 0;
+    border-top: 1px solid var(--border);
+}
+
+.lab-decision__label {
+    margin: 0;
+    color: var(--muted);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.lab-decision__value {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.94rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+}
+
+.lab-decision__why {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.86rem;
+    line-height: 1.55;
+}
+
+/* ─── Notes ─── */
+
+.lab-notes {
+    margin-top: 24px;
+    max-width: 72ch;
+}
+
+.lab-notes p {
+    color: var(--muted);
+    font-size: 0.84rem;
+    line-height: 1.7;
+}
+
+/* ─── Stage entrance ─── */
+
+.lab-stage[data-state="ready"] .lab-canvas {
+    animation: labFade 0.5s var(--ease-out-expo) both;
+}
+
+.lab-stage[data-state="ready"] .lab-decisions {
+    animation: labRise 0.5s var(--ease-out-expo) both;
+}
+
+@keyframes labFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes labRise {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lab-legend__dot--pulse,
+    .lab-stage[data-state="ready"] .lab-canvas,
+    .lab-stage[data-state="ready"] .lab-decisions {
+        animation: none;
+    }
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 920px) {
+    .lab-stage {
+        grid-template-columns: 1fr;
+    }
+
+    .lab-stage__diagram {
+        height: clamp(420px, 56vh, 560px);
+    }
+}
+
+@media (max-width: 560px) {
+    .lab-prompt__field {
+        padding: 6px 6px 6px 14px;
+    }
+
+    .lab-prompt__submit span {
+        display: none;
+    }
+
+    .lab-prompt__submit {
+        padding: 12px 14px;
+    }
+
+    .lab-stage__bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .lab-stage__diagram {
+        height: clamp(380px, 60vh, 480px);
+    }
+
+    .lab-decisions {
+        padding: 18px;
+    }
+}

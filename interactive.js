@@ -8,6 +8,23 @@
 
     var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+    /* Keyboard shortcut toggle (WCAG 2.1.4) */
+    var shortcutsEnabled = localStorage.getItem("keyboardShortcuts") !== "false";
+
+    function announceStatus(message) {
+        var el = document.getElementById("sr-announcer");
+        if (!el) {
+            el = document.createElement("div");
+            el.id = "sr-announcer";
+            el.className = "sr-only";
+            el.setAttribute("aria-live", "polite");
+            el.setAttribute("aria-atomic", "true");
+            document.body.appendChild(el);
+        }
+        el.textContent = "";
+        requestAnimationFrame(function () { el.textContent = message; });
+    }
+
     /* ================================================================
        COMMAND PALETTE (Ctrl+K / Cmd+K)
        ================================================================ */
@@ -22,6 +39,7 @@
     var commands = [
         { label: "Home", keys: "g h", action: function () { navigate("/"); }, icon: "⌂", group: "Navigate" },
         { label: "Work", keys: "g w", action: function () { navigate("/work/"); }, icon: "◆", group: "Navigate" },
+        { label: "Lab", keys: "g l", action: function () { navigate("/lab/"); }, icon: "▲", group: "Navigate" },
         { label: "Writing", keys: "g e", action: function () { navigate("/writing/"); }, icon: "✎", group: "Navigate" },
         { label: "About", keys: "g a", action: function () { navigate("/about/"); }, icon: "◉", group: "Navigate" },
         { label: "Now", keys: "g n", action: function () { navigate("/now/"); }, icon: "◷", group: "Navigate" },
@@ -30,8 +48,10 @@
         { label: "Toggle theme", keys: "t", action: function () { toggleTheme(); }, icon: "◐", group: "Actions" },
         { label: "Open terminal", keys: "`", action: function () { openTerminal(); }, icon: ">_", group: "Actions" },
         { label: "View source", keys: "", action: function () { window.open("https://github.com/MarcoLadeira/MarcoLadeira.github.io", "_blank"); }, icon: "</>", group: "Actions" },
-        { label: "Download resume (outdated)", keys: "", action: function () { var a = document.createElement("a"); a.href = "/assets/cv.pdf"; a.download = ""; a.click(); }, icon: "↓", group: "Actions" },
-        { label: "Scroll to top", keys: "", action: function () { window.scrollTo({ top: 0, behavior: "smooth" }); }, icon: "↑", group: "Actions" }
+        { label: "Download resume", keys: "", action: function () { var a = document.createElement("a"); a.href = "/assets/cv.pdf"; a.download = ""; a.click(); }, icon: "↓", group: "Actions" },
+        { label: "Scroll to top", keys: "", action: function () { window.scrollTo({ top: 0, behavior: "smooth" }); }, icon: "↑", group: "Actions" },
+        { label: "Disable keyboard shortcuts", keys: "", action: function () { shortcutsEnabled = false; localStorage.setItem("keyboardShortcuts", "false"); announceStatus("Keyboard shortcuts disabled"); }, icon: "⌨", group: "Accessibility" },
+        { label: "Enable keyboard shortcuts", keys: "", action: function () { shortcutsEnabled = true; localStorage.setItem("keyboardShortcuts", "true"); announceStatus("Keyboard shortcuts enabled"); }, icon: "⌨", group: "Accessibility" }
     ];
 
     function buildPalette() {
@@ -181,6 +201,7 @@
     var terminalOutput = null;
     var terminalInput = null;
     var terminalHistory = [];
+    var terminalTrigger = null;
     var historyIndex = -1;
     var bootTime = Date.now();
     var tabState = { lastInput: "", matches: [], index: 0 };
@@ -1204,8 +1225,11 @@
         terminalEl = document.createElement("div");
         terminalEl.className = "dev-terminal";
         terminalEl.setAttribute("role", "dialog");
+        terminalEl.setAttribute("aria-modal", "true");
         terminalEl.setAttribute("aria-label", "Interactive terminal");
         terminalEl.innerHTML =
+            '<h2 class="sr-only" id="terminal-title">Interactive Terminal</h2>' +
+            '<p class="sr-only" id="terminal-desc">Type help for available commands. Press Escape to close.</p>' +
             '<div class="dev-terminal__header">' +
                 '<div class="dev-terminal__dots">' +
                     '<span class="dot dot--red"></span>' +
@@ -1213,15 +1237,18 @@
                     '<span class="dot dot--green"></span>' +
                 '</div>' +
                 '<span class="dev-terminal__title">marco@portfolio ~ zsh</span>' +
-                '<button class="dev-terminal__close" aria-label="Close terminal">×</button>' +
+                '<button class="dev-terminal__close" aria-label="Close terminal">\u00d7</button>' +
             '</div>' +
             '<div class="dev-terminal__body">' +
-                '<div class="dev-terminal__output"></div>' +
+                '<div class="dev-terminal__output" role="log" aria-live="polite" aria-relevant="additions"></div>' +
                 '<div class="dev-terminal__prompt">' +
                     '<span class="dev-terminal__ps1"><span class="t-accent">marco</span><span class="t-muted">@</span><span class="t-highlight">portfolio</span> <span class="t-success">~</span> <span class="t-muted">$</span>&nbsp;</span>' +
                     '<input class="dev-terminal__input" type="text" autocomplete="off" spellcheck="false" aria-label="Terminal input">' +
                 '</div>' +
             '</div>';
+
+        terminalEl.setAttribute("aria-labelledby", "terminal-title");
+        terminalEl.setAttribute("aria-describedby", "terminal-desc");
 
         document.body.appendChild(terminalEl);
         terminalOutput = terminalEl.querySelector(".dev-terminal__output");
@@ -1397,6 +1424,7 @@
 
     function openTerminal() {
         if (!terminalEl) buildTerminal();
+        terminalTrigger = document.activeElement;
         terminalOpen = true;
         terminalEl.classList.add("is-open");
         requestAnimationFrame(function () { terminalInput.focus(); });
@@ -1406,6 +1434,10 @@
         if (!terminalEl) return;
         terminalOpen = false;
         terminalEl.classList.remove("is-open");
+        if (terminalTrigger && terminalTrigger.focus) {
+            terminalTrigger.focus();
+            terminalTrigger = null;
+        }
     }
 
     function toggleTerminal() {
@@ -1694,15 +1726,15 @@
             // Don't intercept when palette/terminal is open
             if (paletteOpen || terminalOpen) return;
 
-            // Backtick — terminal
-            if (e.key === "`" && !e.ctrlKey && !e.metaKey) {
+            // Backtick — terminal (gated by shortcutsEnabled)
+            if (shortcutsEnabled && e.key === "`" && !e.ctrlKey && !e.metaKey) {
                 e.preventDefault();
                 toggleTerminal();
                 return;
             }
 
-            // t — toggle theme
-            if (e.key === "t") {
+            // t — toggle theme (gated by shortcutsEnabled)
+            if (shortcutsEnabled && e.key === "t") {
                 toggleTheme();
                 return;
             }
@@ -1751,6 +1783,7 @@
             btn.setAttribute("aria-pressed", String(next === "dark"));
             btn.textContent = next === "dark" ? "Dark" : "Light";
         }
+        announceStatus(next === "dark" ? "Dark mode enabled" : "Light mode enabled");
     }
 
     function escapeHtml(str) {
@@ -1765,7 +1798,7 @@
         var btn = document.createElement("button");
         btn.className = "scroll-top";
         btn.setAttribute("aria-label", "Scroll to top");
-        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="18 15 12 9 6 15"></polyline></svg>';
         btn.addEventListener("click", function () {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
@@ -1792,6 +1825,7 @@
     var chatFab = null;
     var chatInput = null;
     var chatMessages = null;
+    var chatTrigger = null;
     var chatContext = { history: [], lastTopic: null, turnCount: 0 };
 
     /* ─── Knowledge Base ─── */
@@ -2474,13 +2508,14 @@
         chatFab = document.createElement("button");
         chatFab.className = "ai-chat-fab";
         chatFab.setAttribute("aria-label", "Chat with Marco's assistant");
-        chatFab.innerHTML = '<svg class="ai-chat-fab__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>';
+        chatFab.innerHTML = '<svg class="ai-chat-fab__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>';
         chatFab.addEventListener("click", toggleChat);
         document.body.appendChild(chatFab);
 
         chatEl = document.createElement("div");
         chatEl.className = "ai-chat";
         chatEl.setAttribute("role", "dialog");
+        chatEl.setAttribute("aria-modal", "true");
         chatEl.setAttribute("aria-label", "Chat with Marco's assistant");
         chatEl.innerHTML =
             '<div class="ai-chat__header">' +
@@ -2493,12 +2528,12 @@
                 '</div>' +
                 '<button class="ai-chat__close" aria-label="Close">&times;</button>' +
             '</div>' +
-            '<div class="ai-chat__messages" id="chat-messages"></div>' +
+            '<div class="ai-chat__messages" id="chat-messages" role="log" aria-live="polite" aria-relevant="additions"></div>' +
             '<div class="ai-chat__bar">' +
                 '<form class="ai-chat__form">' +
                     '<input class="ai-chat__input" type="text" placeholder="Ask about Marco..." autocomplete="off" maxlength="500">' +
                     '<button class="ai-chat__send" type="submit" aria-label="Send">' +
-                        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>' +
+                        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>' +
                     '</button>' +
                 '</form>' +
             '</div>';
@@ -2520,6 +2555,7 @@
 
     function openChat() {
         if (!chatEl) buildChat();
+        chatTrigger = document.activeElement;
         chatOpen = true;
         chatEl.classList.add("is-open");
         chatFab.classList.add("is-hidden");
@@ -2537,6 +2573,10 @@
         chatOpen = false;
         if (chatEl) chatEl.classList.remove("is-open");
         if (chatFab) chatFab.classList.remove("is-hidden");
+        if (chatTrigger && chatTrigger.focus) {
+            chatTrigger.focus();
+            chatTrigger = null;
+        }
     }
 
     function handleChatSend() {

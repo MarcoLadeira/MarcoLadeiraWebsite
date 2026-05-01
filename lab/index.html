@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab | Marco Ladeira</title>
+    <meta name="description" content="An experimental engineering playground. Generate live system architectures from a natural-language prompt — pattern matched, animated request flow, and a decision panel grounded in real distributed systems tradeoffs.">
+    <link rel="canonical" href="https://marcoladeira.github.io/lab/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lab | Marco Ladeira">
+    <meta property="og:description" content="An experimental engineering playground. Generate live system architectures from a natural-language prompt.">
+    <meta property="og:url" content="https://marcoladeira.github.io/lab/">
+    <meta property="og:image" content="https://marcoladeira.github.io/images/facecardicon.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Lab | Marco Ladeira">
+    <meta name="twitter:description" content="Generate live system architectures from a natural-language prompt.">
+
+    <link rel="icon" href="../images/facecardicon.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#1a1a1a">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="lab.css">
+</head>
+<body data-page="lab">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header" id="site-header">
+        <div class="site-header__inner">
+            <a class="brand" href="../">Marco Ladeira</a>
+
+            <nav class="site-nav" aria-label="Primary">
+                <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav-list" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <div class="site-nav__list" id="site-nav-list">
+                    <a class="site-nav__link" data-nav="work" href="../work/">Work</a>
+                    <a class="site-nav__link" data-nav="lab" href="./">Lab</a>
+                    <a class="site-nav__link" data-nav="writing" href="../writing/">Writing</a>
+                    <a class="site-nav__link" data-nav="about" href="../about/">About</a>
+                    <a class="site-nav__link" data-nav="now" href="../now/">Now</a>
+                    <a class="site-nav__link" data-nav="contact" href="../contact/">Contact</a>
+                </div>
+            </nav>
+
+            <button class="terminal-toggle" type="button" aria-label="Open terminal"><span class="terminal-toggle__icon">&gt;_</span><span class="terminal-toggle__label">Terminal</span></button>
+            <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle theme">Mode</button>
+        </div>
+    </header>
+
+    <main class="site-main" id="main-content" tabindex="-1">
+        <section class="page-hero reveal lab-hero">
+            <div class="page-hero__copy">
+                <p class="section-kicker">Lab / Experiment 01</p>
+                <h1>System architecture, generated.</h1>
+                <p class="page-hero__summary">
+                    Type a system you want to build. The engine identifies the pattern, picks a scale tier, and assembles a live diagram of services, data stores, queues, and traffic — with the decisions and tradeoffs that justify it. Pure client-side. No backend, no API key, no waiting.
+                </p>
+            </div>
+        </section>
+
+        <section class="section section--tight reveal">
+            <form class="lab-prompt" id="lab-prompt" autocomplete="off">
+                <div class="lab-prompt__field">
+                    <span class="lab-prompt__caret" aria-hidden="true">&gt;</span>
+                    <input
+                        class="lab-prompt__input"
+                        id="lab-prompt-input"
+                        type="text"
+                        spellcheck="false"
+                        placeholder="Build Uber for 10 million users"
+                        aria-label="System to design"
+                    >
+                    <button class="lab-prompt__submit" type="submit">
+                        <span>Generate</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+                    </button>
+                </div>
+                <div class="lab-prompt__chips" role="group" aria-label="Example prompts">
+                    <button type="button" class="lab-chip" data-prompt="Build Uber for 10 million users">Uber, 10M users</button>
+                    <button type="button" class="lab-chip" data-prompt="Build Twitter for 100 million users">Twitter, 100M</button>
+                    <button type="button" class="lab-chip" data-prompt="Build a Discord-like chat for 5 million users">Discord, 5M</button>
+                    <button type="button" class="lab-chip" data-prompt="Build Netflix for 50 million subscribers">Netflix, 50M</button>
+                    <button type="button" class="lab-chip" data-prompt="Build Shopify for 1 million sellers">Shopify, 1M</button>
+                    <button type="button" class="lab-chip" data-prompt="Build a Notion-like collaborative editor for 1 million teams">Notion, 1M teams</button>
+                </div>
+            </form>
+
+            <div class="lab-stage" id="lab-stage" data-state="empty">
+                <div class="lab-stage__diagram">
+                    <div class="lab-stage__bar">
+                        <div class="lab-stage__identity">
+                            <span class="lab-tag" data-tag="pattern">—</span>
+                            <span class="lab-tag" data-tag="scale">—</span>
+                            <span class="lab-tag" data-tag="confidence">—</span>
+                        </div>
+                        <div class="lab-stage__legend" aria-hidden="true">
+                            <span class="lab-legend"><span class="lab-legend__dot lab-legend__dot--pulse"></span>Live request flow</span>
+                        </div>
+                    </div>
+                    <canvas class="lab-canvas" id="lab-canvas" aria-label="Generated architecture diagram" role="img"></canvas>
+                    <div class="lab-stage__empty">
+                        <p>Type a prompt or pick an example. The diagram, traffic, and decisions render live.</p>
+                    </div>
+                </div>
+
+                <aside class="lab-decisions" aria-label="Design decisions">
+                    <header class="lab-decisions__header">
+                        <p class="section-kicker">Decisions</p>
+                        <h3 data-decisions="title">Awaiting prompt</h3>
+                        <p data-decisions="summary">Each generation produces a tier-based topology and the reasoning behind the database, cache, queue, and sharding choices for the matched pattern.</p>
+                    </header>
+                    <div class="lab-decisions__list" data-decisions="list"></div>
+                </aside>
+            </div>
+
+            <div class="lab-notes">
+                <p class="section-note">Patterns are matched from a curated knowledge base of six canonical systems. Topology renders to canvas with a force-balanced tier layout; particles animate request flux per edge weight. Theme-aware. Reduced-motion aware. ~14&nbsp;KB of JS, no dependencies.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-footer__inner">
+            <p class="site-footer__year" data-year></p>
+            <div class="site-footer__links">
+                <a href="../work/">Work</a>
+                <a href="./">Lab</a>
+                <a href="../writing/">Writing</a>
+                <a href="../about/">About</a>
+                <a href="../now/">Now</a>
+                <a href="../contact/">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script src="../interactive.js"></script>
+    <script src="lab.js"></script>
+</body>
+</html>
