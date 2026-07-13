@@ -1,3 +1,2 @@
-# Test Pull Request
-
-This is a test pull request to verify my ability to push code and create pull requests.
+# Test PR
+This is a test PR to verify if I can create PRs.
