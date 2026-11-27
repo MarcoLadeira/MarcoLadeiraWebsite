@@ -33,7 +33,7 @@
 <link rel="preload" href="/MarcoLadeiraWebsite/assets/fonts/newsreader-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/MarcoLadeiraWebsite/assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <script>(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}var d=document.documentElement;d.classList.add("js");setTimeout(function(){if(!d.hasAttribute("data-ready"))d.classList.remove("js")},2500)})();</script>
-<link rel="stylesheet" href="/MarcoLadeiraWebsite/assets/css/site.css?v=20261127">
+<link rel="stylesheet" href="/MarcoLadeiraWebsite/assets/css/site.min.css?v=20261127">
 
 <script type="module" src="/MarcoLadeiraWebsite/assets/js/site.js?v=20261127"></script>
 
@@ -73,7 +73,7 @@
       <dl class="case__facts" data-reveal>
         <div><dt>Role</dt><dd>Product Owner &amp; Technical Lead · four-person team</dd></div>
         <div><dt>When</dt><dd>Sep 2026</dd></div>
-        <div><dt>Team</dt><dd>Four engineers</dd></div>
+        <div><dt>Team</dt><dd>Four-person team</dd></div>
         <div><dt>Status</dt><dd><span class="status status--done"><span class="status__dot" aria-hidden="true"></span>Hackathon prototype · complete</span></dd></div>
         <div class="case__stack"><dt>Stack</dt><dd><ul class="tags"><li>Python</li><li>JavaScript</li><li>Forecasting model (GridToEv)</li><li>Constraint-based optimisation</li><li>Node test runner</li></ul></dd></div>
       </dl>
@@ -92,7 +92,7 @@
       
       <section id="overview" aria-labelledby="h-overview"><h2 id="h-overview">Overview</h2><p>SaveThePlanet was built in September 2026 for Hack the Climate, an energy-industry hackathon held at Microsoft&#39;s Dublin campus, where teams worked with real energy datasets and Microsoft AI tools on renewable curtailment. Our prototype connects Irish grid data, a 30-minute-ahead forecast of energy at risk, real charging-site constraints, an EV charging plan and a transparent business model in one product.</p></section>
       <section id="problem" aria-labelledby="h-problem"><h2 id="h-problem">The problem</h2><p>Ireland dispatches down a meaningful share of its wind and solar output when the grid can&#39;t use it. Meanwhile EVs charge whenever drivers plug in. The interesting question isn&#39;t &#39;is there surplus?&#39; but &#39;can a specific charger, at a specific site, with specific cars, actually use it in time — and is it cheaper than ordinary smart charging?&#39;</p><h3>Why it mattered to me</h3><p>It was a chance to lead: to turn a broad climate brief into a product a judge could understand in seven minutes, without overstating anything a prototype can&#39;t prove.</p></section>
-      <section id="role" aria-labelledby="h-role"><h2 id="h-role">My role</h2><ul class="ticks"><li>Product ownership: problem definition, product flow (Forecast → Recover → Charge → Impact), scope and priorities.</li><li>Team leadership: divided the work across four people, ran integration and kept the build demoable.</li><li>Engineering: dashboard development, coordination of backend and model integration, and code review.</li><li>The business case, the demo script and the evidence ledger behind every number on the slides.</li></ul></section>
+      <section id="role" aria-labelledby="h-role"><h2 id="h-role">My role</h2><ul class="ticks"><li>Product ownership: problem definition, product flow (Forecast → Recover → Charge → Impact), scope and priorities.</li><li>Team leadership: divided the work across four people, ran integration and kept the build demoable.</li><li>Engineering: dashboard development, coordination of backend and model integration, and code review.</li><li>The business case, the demo script and the evidence ledger behind every number on the slides. Forecasting (the team&#39;s GridToEv model), battery and EV work were shared across the team.</li></ul></section>
       <section id="product" class="bleed" aria-labelledby="h-product"><h2 id="h-product">The product</h2>
         
         <div class="gallery"><figure class="shot shot--browser ">
@@ -106,6 +106,7 @@
   <figcaption>Impact: estimated outcomes, clearly marked as simulated.</figcaption>
 </figure></div>
       </section>
+      
       <section id="architecture" aria-labelledby="h-arch"><h2 id="h-arch">Architecture</h2><figure class="arch" data-reveal>
   <ol class="arch__layers" aria-label="SaveThePlanet architecture, top to bottom">
     <li class="arch__layer" style="--i:0">
@@ -146,7 +147,7 @@
           
         </div><div class="challenge" data-reveal>
           <h3><span class="challenge__num" aria-hidden="true">03</span>Saying exactly what is real</h3>
-          <p>I wrote an evidence ledger that tags every number in the pitch as recorded, predicted, deterministic, illustrative or hypothetical, with its source file. The tariffs, fleet, battery and hydrogen pathway are examples, and the product says so on screen.</p>
+          <p>I led an evidence ledger that tags every number in the pitch as recorded, predicted, deterministic, illustrative or hypothetical, with its source file. The tariffs, fleet, battery and hydrogen pathway are examples, and the product says so on screen.</p>
           
         </div></section>
       
@@ -157,7 +158,7 @@
       <section id="testing" aria-labelledby="h-testing"><h2 id="h-testing">Testing & reliability</h2><p>The demo&#39;s evidence ledger documents 475 automated tests: 392 backend (Python <code>unittest</code>, including eight hosted-model checks) and 83 frontend (Node&#39;s built-in test runner), run in CI on every pull request. These are documented historical counts from September 2026.</p></section>
       <section id="results" aria-labelledby="h-results"><h2 id="h-results">Results</h2><ul class="ticks"><li>A working end-to-end prototype across four product areas, demonstrated in a seven-minute pitch.</li><li>A worked pilot model that breaks even for the platform at 300 charges a month per site — clearly labelled illustrative, not revenue.</li><li>A public repository with product spec, architecture, decision log, demo script, Q&amp;A and evidence ledger.</li></ul></section>
       <section id="lessons" aria-labelledby="h-lessons"><h2 id="h-lessons">Lessons</h2><ol class="lessons"><li>As a lead, the most valuable artefact I produced wasn&#39;t code — it was the shared product flow that let four people build towards the same seven minutes.</li><li>Credibility comes from what you refuse to claim. Separating real from simulated made the pitch stronger, not weaker.</li><li>Deterministic fallbacks are cheap insurance for live demos.</li></ol></section>
-      <section id="status" aria-labelledby="h-status"><h2 id="h-status">Status</h2><p><span class="status status--done"><span class="status__dot" aria-hidden="true"></span>Hackathon prototype · complete</span></p><p>Complete as a hackathon prototype. A real pilot would need live feeds, a site partner, metering and an independent emissions check.</p>
+      <section id="status" aria-labelledby="h-status"><h2 id="h-status">Status</h2><p><span class="status status--done"><span class="status__dot" aria-hidden="true"></span>Hackathon prototype · complete</span></p><p>Complete as a hackathon prototype. The public repository is a re-publication of the team&#39;s work. A real pilot would need live feeds, a site partner, metering and an independent emissions check.</p>
         <ul class="link-list"><li><a class="link-arrow" href="https://github.com/MarcoLadeira/SaveThePlanet" rel="noopener">Source on GitHub <svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 11 11 5M6 5h5v5"/></svg></a></li></ul>
       </section>
     </div>

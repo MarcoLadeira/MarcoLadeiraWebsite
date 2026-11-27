@@ -25,6 +25,12 @@ export function lab() {
 <section class="section section--tight lab" aria-label="Capacity Lab">
   <div class="wrap lab__grid">
     <form class="lab__controls" data-lab-form novalidate>
+      <fieldset class="lab__failures">
+        <legend>Break something</legend>
+        <label class="switch"><input type="checkbox" name="cacheCold"><span>Cache goes cold</span></label>
+        <label class="switch"><input type="checkbox" name="loseAppNode"><span>Lose an app instance</span></label>
+        <label class="switch"><input type="checkbox" name="primaryFailover"><span>Database primary fails over</span></label>
+      </fieldset>
       <fieldset>
         <legend>Workload</legend>
         <div class="field">
@@ -55,12 +61,7 @@ export function lab() {
           ${field("failoverSeconds", "Failover pause", DEFAULT_CAPACITY.failoverSeconds, { min: 1, max: 3600, unit: "seconds" })}
         </fieldset>
       </details>
-      <fieldset class="lab__failures">
-        <legend>Break something</legend>
-        <label class="switch"><input type="checkbox" name="cacheCold"><span>Cache goes cold</span></label>
-        <label class="switch"><input type="checkbox" name="loseAppNode"><span>Lose an app instance</span></label>
-        <label class="switch"><input type="checkbox" name="primaryFailover"><span>Database primary fails over</span></label>
-      </fieldset>
+
       <p class="field__error" role="alert" data-lab-error hidden></p>
     </form>
 

@@ -20,9 +20,9 @@ export const flagship = [
       "One of a three-person team that built an enterprise AI application from scratch and took it to beta, inside regulated KYC/AML software.",
     accent: "ink",
     proof: [
-      ["Beta", "built from scratch"],
-      ["3", "engineers on the build"],
-      ["Regulated", "KYC / AML domain"],
+      ["3", "engineers, from empty repo to beta"],
+      ["1st", "AI initiative at the company"],
+      ["Sep 2025", "joined, as a graduate"],
     ],
     caseStudy: {
       confidential: true,
@@ -72,7 +72,7 @@ export const flagship = [
     proof: [
       ["7,900+", "Python test functions"],
       ["1,300+", "Vitest & Playwright cases"],
-      ["660+", "pull requests merged"],
+      ["550+", "merged pull requests"],
     ],
     hero: "vesta/chat",
     caseStudy: {
@@ -141,8 +141,9 @@ export const flagship = [
         "Every behaviour that matters is tested at more than one layer. The repository contains about 7,900 pytest functions and around 1,360 Vitest and Playwright cases, including visual-regression snapshots of the interface in three themes and at phone, tablet and desktop sizes. A mock Qt bridge lets the real front-end JavaScript run in Chromium without Qt. Model runtimes are mocked (`FakeAccountRunner`, `FakeStreamingRunner`), so no test launches a paid CLI or makes a network call.",
       results: [
         "A working desktop app and CLI in private alpha, built through 1,800+ commits since May 2026.",
+        "How it is built: I design, direct and review the work; AI coding agents do much of the typing, and every change has to pass the test suites before it merges. Vesta exists partly to make that way of working cheaper and safer.",
         "A reproducible savings report: five everyday tasks routed to free local tiers instead of a frontier model (`docs/PROOF.md`).",
-        "Around 126,000 lines of Python and 660+ merged pull requests, each carrying its own tests.",
+        "Around 126,000 lines of Python across 550+ merged pull requests."
       ],
       lessons: [
         "'It works' is not the same as 'it can be stopped'. Cancellation, timeouts and stale results deserve as much design as the happy path.",
@@ -173,7 +174,7 @@ export const flagship = [
     proof: [
       ["20,000", "generated boards re-verified"],
       ["11", "kinds of goal"],
-      ["1,100+", "unit & end-to-end test cases"],
+      ["1,100+", "tests across the ONE codebase"],
     ],
     hero: "oddlings/run",
     caseStudy: {
@@ -186,7 +187,7 @@ export const flagship = [
       responsibilities: [
         "Game design: rules, goals, pacing, scoring, praise, the daily run and streaks.",
         "Engineering: board generator, independent verifier, adaptive skill model, input (tap, drag and keyboard), sound and motion.",
-        "Character art direction and asset pipeline: sprite QA scripts, measured eye contours for blinks, right-sized WebP copies.",
+        "Characters created with AI image generation under my direction, then cleaned, sized and checked by my own asset scripts: sprite QA, measured eye contours for blinks, right-sized WebP copies.",
         "Quality: unit, replay and end-to-end tests; accessibility and reduced-motion support; release gates.",
       ],
       media: [
@@ -194,6 +195,7 @@ export const flagship = [
         { key: "oddlings/run", caption: "A run in progress. The goal card shows the rule in words and as a picture; Oddlings that already fit wear a tick." },
         { key: "oddlings/meet", caption: "Meet the Oddlings: each character has idle, picked, oops and happy poses." },
       ],
+      demo: "verifier",
       video: {
         src: "assets/img/work/oddlings/run-desktop.mp4",
         poster: "assets/img/work/oddlings/run-desktop-poster.webp",
@@ -252,9 +254,9 @@ export function checkedRepairs(grid: readonly Glyph[], goal: Goal): Pair[] {
         ["Motion", "Short, fast animations; reduced motion removes movement, never information", "Long celebratory sequences", "Feels quick; every animation must earn its time."],
       ],
       testing:
-        "The ONE repository has 150+ test files and roughly 1,100 unit and end-to-end cases, including replay tests that pin old board schedules, a 20,000-board quality run, sprite QA (alpha, halos, framing and a shared foot line for all 20 sprites) and an art manifest check that fails the build if a web copy goes stale. End-to-end tests run in Chromium, with Firefox and WebKit available.",
+        "The ONE repository (both games) has 150+ test files and roughly 1,100 unit and end-to-end cases, including replay tests that pin old board schedules, a 20,000-board quality run, sprite QA (alpha, halos, framing and a shared foot line for all 20 sprites) and an art manifest check that fails the build if a web copy goes stale. End-to-end tests run in Chromium, with Firefox and WebKit available.",
       results: [
-        "Both games are implemented on the main branch; Oddlings is in the preview build.",
+        "Both games are implemented on the main branch; Oddlings runs in the preview build.",
         "Zero failures across 20,000 generated boards in the latest quality run.",
         "Keyboard, drag and tap input; reduced-motion and dark-theme support; sound off by default.",
       ],
@@ -264,7 +266,7 @@ export function checkedRepairs(grid: readonly Glyph[], goal: Goal): Pair[] {
         "Game feel is engineering: tick marks on settled pieces, a draining time bar and a rising pitch for each fix in a row made the biggest difference.",
       ],
       statusText:
-        "In development, targeting a public release. Nothing is public yet; remaining gates include real-player tests and art rights paperwork. Screenshots and footage are from the current preview build.",
+        "In development, targeting a public release. Nothing is public yet; remaining gates include real-player tests and recording the rights for the character art. Screenshots and footage are from the current preview build.",
       links: [],
     },
   },
@@ -277,7 +279,7 @@ export function checkedRepairs(grid: readonly Glyph[], goal: Goal): Pair[] {
     status: "Hackathon prototype · complete",
     statusTone: "done",
     role: "Product Owner & Technical Lead · four-person team",
-    team: "Four engineers",
+    team: "Four-person team",
     stack: ["Python", "JavaScript", "Forecasting model (GridToEv)", "Constraint-based optimisation", "Node test runner"],
     lede:
       "Can we forecast renewable electricity that is about to be wasted, and turn it into cheaper, better-timed EV charging? A four-person hackathon prototype built on real Irish grid data.",
@@ -287,7 +289,7 @@ export function checkedRepairs(grid: readonly Glyph[], goal: Goal): Pair[] {
     proof: [
       ["475", "automated tests documented"],
       ["+30 min", "ahead renewable forecasts"],
-      ["4", "people led as PO & tech lead"],
+      ["4-person", "team, led as PO & tech lead"],
     ],
     hero: "savetheplanet/dashboard",
     caseStudy: {
@@ -301,7 +303,7 @@ export function checkedRepairs(grid: readonly Glyph[], goal: Goal): Pair[] {
         "Product ownership: problem definition, product flow (Forecast → Recover → Charge → Impact), scope and priorities.",
         "Team leadership: divided the work across four people, ran integration and kept the build demoable.",
         "Engineering: dashboard development, coordination of backend and model integration, and code review.",
-        "The business case, the demo script and the evidence ledger behind every number on the slides.",
+        "The business case, the demo script and the evidence ledger behind every number on the slides. Forecasting (the team's GridToEv model), battery and EV work were shared across the team."
       ],
       media: [
         { key: "savetheplanet/dashboard", caption: "Dashboard: renewable energy at risk for a target half-hour, why it is at risk, and how much flexible charging could use it." },
@@ -344,7 +346,7 @@ export function checkedRepairs(grid: readonly Glyph[], goal: Goal): Pair[] {
         },
         {
           title: "Saying exactly what is real",
-          body: "I wrote an evidence ledger that tags every number in the pitch as recorded, predicted, deterministic, illustrative or hypothetical, with its source file. The tariffs, fleet, battery and hydrogen pathway are examples, and the product says so on screen.",
+          body: "I led an evidence ledger that tags every number in the pitch as recorded, predicted, deterministic, illustrative or hypothetical, with its source file. The tariffs, fleet, battery and hydrogen pathway are examples, and the product says so on screen.",
         },
       ],
       decisions: [
@@ -364,7 +366,7 @@ export function checkedRepairs(grid: readonly Glyph[], goal: Goal): Pair[] {
         "Credibility comes from what you refuse to claim. Separating real from simulated made the pitch stronger, not weaker.",
         "Deterministic fallbacks are cheap insurance for live demos.",
       ],
-      statusText: "Complete as a hackathon prototype. A real pilot would need live feeds, a site partner, metering and an independent emissions check.",
+      statusText: "Complete as a hackathon prototype. The public repository is a re-publication of the team's work. A real pilot would need live feeds, a site partner, metering and an independent emissions check.",
       links: [["Source on GitHub", "https://github.com/MarcoLadeira/SaveThePlanet"]],
     },
   },

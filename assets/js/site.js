@@ -129,7 +129,7 @@ function initSchematic() {
       if (on) caps.add(t.dataset.cap);
     });
     s.querySelectorAll(".cap").forEach((c) => c.classList.toggle("is-on", caps.has(c.dataset.cap)));
-    s.querySelectorAll(".node").forEach((n) => n.classList.toggle("is-on", n.dataset.station === id));
+    s.querySelectorAll(".node, .junction").forEach((n) => n.classList.toggle("is-on", n.dataset.station === id));
   };
   s.querySelectorAll(".station").forEach((st) => {
     const id = st.dataset.station;
@@ -140,10 +140,17 @@ function initSchematic() {
   });
 
   if (reduceMotion.matches) return;
-  requestAnimationFrame(() => {
-    s.classList.add("is-drawn");
-    setTimeout(() => s.classList.add("is-live"), 1400);
-  });
+  // Draw the wiring when the schematic is actually on screen, not at page load.
+  const draw = new IntersectionObserver(
+    ([e]) => {
+      if (!e.isIntersecting) return;
+      draw.disconnect();
+      s.classList.add("is-drawn");
+      setTimeout(() => s.classList.add("is-live"), 1500);
+    },
+    { threshold: 0.35 }
+  );
+  draw.observe(s);
   // Pause the ambient signal when off screen or the tab is hidden.
   const io = new IntersectionObserver(([e]) => s.classList.toggle("is-paused", !e.isIntersecting));
   io.observe(s);

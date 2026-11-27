@@ -43,7 +43,7 @@ Caveat: the sandbox blocks Google Fonts, so the old site rendered with fallback 
 | Fenergo since Sep 2025; Graduate → Associate Software Engineer | Owner brief; existing site |
 | BSc (Hons) Software Development, Level 8, DkIT, 2025, **2.2** | Owner brief (corrects CV) |
 | BSc in Computing, Level 7, DkIT, 2021–2024 | Old CV |
-| Vesta: v0.2.1 Alpha.1, not publicly released; ~126k lines of Python, ~7,900 pytest functions, ~1,360 Vitest/Playwright cases, 1,000+ PRs | `MarcoLadeira/Vesta` README, `docs/`, test tree |
+| Vesta: v0.2.1 Alpha.1, not publicly released; ~126k lines of Python, ~7,900 pytest functions, ~1,360 Vitest/Playwright cases, ~554 merged PRs (GitHub search; issue and PR numbers are shared, so the #1099 numbering overstates PRs) | `MarcoLadeira/Vesta` README, `docs/`, test tree |
 | ONE / Oddlings: two games on `main`; not public; 20,000-board verifier run; adaptive Glicko-style skill model; art rights unrecorded (#85) | `MarcoLadeira/ONE` `docs/ODDLINGS.md`, `docs/ADAPTIVE.md` |
 | SaveThePlanet: Hack the Climate 2026, four-person team, Product Owner & Technical Lead, 475 documented tests, evidence ledger | `SaveThePlanet/README.md`, `docs/demo/evidence-ledger.md` |
 | AWS Certified Machine Learning – Specialty | Existing site only — **owner to confirm** |

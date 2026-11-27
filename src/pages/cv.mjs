@@ -9,9 +9,9 @@ import { readFileSync } from "node:fs";
 const font = (f) => `url(data:font/woff2;base64,${readFileSync(new URL(`../../assets/fonts/${f}`, import.meta.url)).toString("base64")})`;
 
 const projects = [
-  ["Vesta — AI coding workspace (private alpha)", "2026 — now", "Sole developer of a local-first desktop app and CLI (Python, PySide6, JavaScript) that routes coding tasks to the cheapest capable model, streams live activity, cancels whole process trees on Stop and records a cost ledger. ~126k lines of Python; ~7,900 pytest functions and ~1,360 Vitest/Playwright cases; 660+ merged PRs."],
-  ["ONE Oddlings — browser puzzle game (in development)", "2026 — now", "Sole developer (TypeScript, React, Vite). Seeded board generator with an independent verifier (20,000 boards re-checked, zero failures), an on-device Glicko-style adaptive difficulty model, daily runs, streaks and versioned replay links. ~1,100 unit and end-to-end tests."],
-  ["SaveThePlanet — Hack the Climate 2026, Dublin", "Sep 2026", "Product Owner and Technical Lead of a four-person team. Prototype linking real Irish grid data and 30-minute-ahead curtailment forecasts to a constraint-aware EV charging plan and incentive model; evidence ledger separating real from simulated figures; 475 documented automated tests."],
+  ["Vesta — AI coding workspace (private alpha)", "2026 — now", "Sole developer of a local-first desktop app and CLI (Python, PySide6, JavaScript) that routes coding tasks to the cheapest capable model, streams live activity, cancels whole process trees on Stop and records a cost ledger. ~126k lines of Python; ~7,900 pytest functions and ~1,360 Vitest/Playwright cases; 550+ merged PRs."],
+  ["ONE Oddlings — browser puzzle game (in development)", "2026 — now", "Sole developer (TypeScript, React, Vite). Seeded board generator with an independent verifier (20,000 boards re-checked, zero failures), an on-device Glicko-style adaptive difficulty model, daily runs, streaks and versioned replay links. ~1,100 tests across the ONE codebase."],
+  ["SaveThePlanet — Hack the Climate 2026, Dublin", "Sep 2026", "Product Owner and Technical Lead of a four-person team at an energy-industry hackathon. Prototype linking real Irish grid data and 30-minute-ahead curtailment forecasts to a constraint-aware EV charging plan and incentive model; evidence ledger separating real from simulated figures; 475 documented automated tests."],
 ];
 
 const skills = [
@@ -59,7 +59,7 @@ footer{margin-top:3mm;font-size:7.6pt;color:#45423a}
   <div><h1>${site.name}</h1><p class="role">${site.role} · <em>${site.employer}</em></p></div>
   <div class="contact">${site.location}<br><a href="mailto:${site.email}">${site.email}</a><br><a href="${site.linkedin}">linkedin.com/in/marco-ladeira</a><br><a href="${site.github}">github.com/MarcoLadeira</a><br><a href="${absUrl("")}">marcoladeira.github.io/MarcoLadeiraWebsite</a></div>
 </header>
-<p class="summary">Software engineer in Dublin building enterprise AI for financial-services compliance at Fenergo — promoted from Graduate to Associate Software Engineer, and one of a three-person team that built an enterprise AI application from scratch to beta. Independently builds and ships products end to end, with a focus on reliability, human oversight and software that can prove what it claims.</p>
+<p class="summary">Software engineer in Dublin building enterprise AI for financial-services compliance at Fenergo — promoted from Graduate to Associate Software Engineer, and one of a three-person team that built an enterprise AI application from scratch to beta. Builds his own products end to end — two are in private preview — with a focus on reliability, human oversight and honest measurement.</p>
 <h2>Experience</h2>
 ${roles.map(
   (r) => html`<div class="item"><h3>${r.title} <span>· ${r.org}, ${r.place}</span></h3><span class="when">${r.period}</span>
@@ -79,7 +79,7 @@ ${certifications.map((c) => html`<div class="item"><h3>${c.title}</h3><span clas
 <dl class="skills">${skills.map(([k, v]) => html`<dt>${k}</dt><dd>${v}</dd>`)}</dl>
 </div>
 </div>
-<footer>Case studies and source: ${absUrl("work/")} · References available on request.</footer>
+<footer>Case studies and source: ${absUrl("work/")}</footer>
 </body></html>`}`;
 }
 

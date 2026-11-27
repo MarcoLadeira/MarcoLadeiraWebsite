@@ -4,7 +4,6 @@ import { site, url } from "../data/site.mjs";
 import { roles, education, certifications, recognition } from "../data/experience.mjs";
 import { icon } from "../components/icons.mjs";
 import { contactBlock } from "../components/contact.mjs";
-import { capabilityRows } from "../components/capabilities.mjs";
 
 const pageHead = (eyebrow, lines, lede) => html`<section class="page-head">
   <div class="wrap">
@@ -16,7 +15,7 @@ const pageHead = (eyebrow, lines, lede) => html`<section class="page-head">
 
 export function experience() {
   const body = html`
-${pageHead("Experience", ["Enterprise AI by day,", "<em>products by evening.</em>"], "A short career so far, moving quickly: from graduate to Associate Software Engineer at Fenergo, with two serious products of my own alongside.")}
+${pageHead("Career", ["Experience"], "Graduate to Associate Software Engineer at Fenergo, a hackathon team I led, and two products of my own in private preview.")}
 <section class="section section--tight" aria-labelledby="xp-work">
   <div class="wrap xp">
     <h2 class="xp__heading" id="xp-work" data-reveal>Professional</h2>
@@ -75,12 +74,6 @@ ${pageHead("Experience", ["Enterprise AI by day,", "<em>products by evening.</em
     </ol>
   </div>
 </section>
-<section class="section capabilities" aria-labelledby="cap-title">
-  <div class="wrap">
-    <header class="section__head"><p class="eyebrow" data-reveal>Capabilities</p><h2 class="section__title" id="cap-title" data-reveal>Skills, <em>with receipts.</em></h2></header>
-    ${capabilityRows()}
-  </div>
-</section>
 <section class="section section--tight">
   <div class="wrap cv-callout" data-reveal>
     <p class="cv-callout__text">The same information, on one page.</p>
@@ -99,7 +92,7 @@ ${pageHead("Experience", ["Enterprise AI by day,", "<em>products by evening.</em
 
 export function about() {
   const body = html`
-${pageHead("About", ["I like software that", "can <em>prove it works.</em>"])}
+${pageHead("Marco Ladeira", ["About"])}
 <section class="section section--tight">
   <div class="wrap about">
     <div class="about__main prose">
@@ -147,8 +140,32 @@ ${contactBlock({ heading: "Say <em>hello.</em>" })}`;
 
 export function contact() {
   const body = html`
-${pageHead("Contact", ["Let's <em>talk.</em>"], "The quickest way to reach me is email. My CV, LinkedIn and GitHub are one click away below.")}
-${contactBlock({ heading: "Email is quickest.", id: "reach", level: 2 })}`;
+<section class="page-head">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>Contact</p>
+    <h1 class="page-head__title" data-split><span class="line"><span>Get in touch</span></span></h1>
+  </div>
+</section>
+<section class="section section--tight contact-page">
+  <div class="wrap contact-page__grid">
+    <div class="contact-page__main" data-reveal>
+      <p class="eyebrow">Email — quickest</p>
+      <p class="closer__email contact-page__email"><a class="closer__address" href="mailto:${site.email}">${site.email}</a>
+        <button class="btn btn--ghost copy" type="button" data-copy="${site.email}" hidden><span class="copy__icon" aria-hidden="true">${raw(icon("copy"))}</span><span class="copy__label">Copy address</span></button>
+        <span class="visually-hidden" role="status" aria-live="polite" data-copy-status></span></p>
+      <ul class="contact-page__links">
+        <li><a href="${site.linkedin}" rel="me noopener"><span>LinkedIn</span><span class="contact-page__handle">in/marco-ladeira</span>${raw(icon("arrow-ne"))}</a></li>
+        <li><a href="${site.github}" rel="me noopener"><span>GitHub</span><span class="contact-page__handle">MarcoLadeira</span>${raw(icon("arrow-ne"))}</a></li>
+        <li><a href="${url(site.cv)}" download><span>CV</span><span class="contact-page__handle">PDF, one page</span>${raw(icon("download"))}</a></li>
+      </ul>
+    </div>
+    <dl class="side-facts contact-page__facts" data-reveal>
+      <div><dt>Based in</dt><dd>Dublin, Ireland (Irish time, GMT/IST)</dd></div>
+      <div><dt>Replies</dt><dd>Usually within two working days</dd></div>
+      <div><dt>Happy to talk about</dt><dd>Engineering, AI systems in regulated software, developer tools, games and products</dd></div>
+    </dl>
+  </div>
+</section>`;
   return layout({
     path: "contact/",
     section: "contact/",

@@ -139,3 +139,28 @@ test("content is visible immediately with reduced motion and without JavaScript"
   await expect(p2.getByRole("link", { name: "Experience", exact: true }).first()).toBeVisible();
   await nojs.close();
 });
+
+test("no page overflows horizontally at 320px", async ({ browser }) => {
+  const ctx = await browser.newContext({ viewport: { width: 320, height: 640 } });
+  const page = await ctx.newPage();
+  for (const path of PAGES) {
+    await page.goto(`http://localhost:4173/MarcoLadeiraWebsite/${path}`);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    expect(overflow, path).toBeLessThanOrEqual(0);
+  }
+  await ctx.close();
+});
+
+test("Oddlings rules demo: a correct swap is confirmed by the checker", async ({ page }) => {
+  await page.goto("work/oddlings/");
+  const demo = page.locator("[data-verifier]");
+  await expect(demo).toBeVisible();
+  await page.locator("[data-vf-hint]").click();
+  const hinted = page.locator(".vf-cell.is-hint");
+  await expect(hinted).toHaveCount(2);
+  await hinted.nth(0).click();
+  await hinted.nth(1).click();
+  await expect(page.locator("[data-vf-out]")).toContainText("Fixed");
+  await page.locator("[data-vf-next]").click();
+  await expect(page.locator("[data-vf-out]")).toContainText("Checker:");
+});

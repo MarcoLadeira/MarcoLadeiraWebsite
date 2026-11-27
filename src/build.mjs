@@ -1,7 +1,7 @@
 // Static site build. No dependencies: `node src/build.mjs`.
 // Renders every page from src/data into the repository root, which GitHub Pages serves.
 
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { site, absUrl } from "./data/site.mjs";
@@ -26,6 +26,15 @@ function out(path, content) {
   writeFileSync(file, content.endsWith("\n") ? content : content + "\n");
   written.push(path);
 }
+
+// Minify the stylesheet (comments and whitespace only — values are untouched).
+const css = readFileSync(join(ROOT, "assets/css/site.css"), "utf8")
+  .replace(/\/\*[\s\S]*?\*\//g, "")
+  .replace(/\s+/g, " ")
+  .replace(/\s*([{};])\s*/g, "$1")
+  .replace(/;}/g, "}")
+  .trim();
+out("assets/css/site.min.css", css);
 
 const pages = [];
 const page = (path, render, { priority = 0.6, index = true } = {}) => {

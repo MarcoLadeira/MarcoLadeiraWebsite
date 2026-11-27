@@ -17,8 +17,8 @@ export function workIndex() {
   const body = html`
 <section class="page-head">
   <div class="wrap">
-    <p class="eyebrow" data-reveal>Work</p>
-    <h1 class="page-head__title" data-split><span class="line"><span>Selected work,</span></span><span class="line"><span><em>with the evidence.</em></span></span></h1>
+    <p class="eyebrow" data-reveal>Case studies</p>
+    <h1 class="page-head__title" data-split><span class="line"><span>Work</span></span></h1>
     <p class="page-head__lede" data-reveal>Professional work comes first, then products I build on my own, then a team I led. Every status line says exactly where a project stands today.</p>
   </div>
 </section>
@@ -59,7 +59,7 @@ ${groups.map(
     </ul>
   </div>
 </section>
-${contactBlock({ heading: "Want the detail behind <em>any of this?</em>" })}`;
+${contactBlock({ heading: "Questions about <em>any of this?</em>" })}`;
   return layout({
     path: "work/",
     section: "work/",
@@ -77,6 +77,7 @@ export function caseStudy(p, index) {
     ["problem", "Problem"],
     ["role", "My role"],
     c.media || c.video ? ["product", "The product"] : null,
+    c.demo ? ["try", "Try the rules"] : null,
     c.architecture ? ["architecture", "Architecture"] : null,
     c.challenges ? ["challenges", "Hard problems"] : null,
     c.principles ? ["principles", "How I work here"] : null,
@@ -119,6 +120,19 @@ export function caseStudy(p, index) {
         ? html`<section id="product" class="bleed" aria-labelledby="h-product"><h2 id="h-product">The product</h2>
         ${c.video ? video(c.video, { label: `${p.name} gameplay recording` }) : ""}
         <div class="gallery">${(c.media || []).map((m) => figure(m.key, { caption: m.caption, sizes: "(min-width: 1100px) 70vw, 100vw" }))}</div>
+      </section>`
+        : ""}
+      ${c.demo === "verifier"
+        ? html`<section id="try" aria-labelledby="h-try"><h2 id="h-try">Try the rules</h2>
+        <p>A simplified version of the game's board rules, using plain shapes instead of the characters. Each board is generated broken; the checker — a direct port of the game's independent verifier — counts the fixing swaps and judges yours. Tap or press two pieces to swap them.</p>
+        <p class="vf-fallback" data-vf-fallback>This interactive demo needs JavaScript.</p>
+        <div class="vf" data-verifier hidden>
+          <p class="vf__goal" data-vf-goal></p>
+          <div class="vf__board" data-vf-board role="group" aria-label="Puzzle board, three by three"></div>
+          <p class="vf__out" data-vf-out></p>
+          <p class="visually-hidden" role="status" aria-live="polite" data-vf-status></p>
+          <div class="vf__actions"><button class="btn btn--small" type="button" data-vf-hint>Show a fix</button><button class="btn btn--small" type="button" data-vf-next>Next goal ${raw(icon("arrow-right"))}</button></div>
+        </div>
       </section>`
         : ""}
       ${c.architecture
@@ -171,6 +185,7 @@ export function caseStudy(p, index) {
     body,
     ogImage: `assets/img/og/${p.slug}.png`,
     ogType: "article",
+    scripts: c.demo === "verifier" ? ["assets/js/verifier.js"] : [],
     jsonLd: [
       {
         "@context": "https://schema.org",

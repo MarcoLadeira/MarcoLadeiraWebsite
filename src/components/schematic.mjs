@@ -60,8 +60,9 @@ const stationX = (i) => 150 + i * 300;
 const R = 10; // corner radius
 
 function trace(sx, cx, lane, dx) {
-  // Up from the station, across on its lane, up into the capability pin.
-  const x0 = sx + dx;
+  // One riser per station, then across on the station's lane, then up into the
+  // capability pin (offset by station so wires land side by side on the pin).
+  const x0 = sx;
   const x1 = cx + dx;
   if (Math.abs(x1 - x0) < 1) return `M${x0} ${BUS_Y} V${CAP_Y + 16}`;
   const dir = x1 > x0 ? 1 : -1;
@@ -82,7 +83,7 @@ export function schematic() {
   stations.forEach((s, si) => {
     s.caps.forEach((c) => {
       const ci = capabilities.findIndex((k) => k.id === c);
-      paths.push({ station: s.id, cap: c, d: trace(stationX(si), capX(ci), lanes[si], offsets[si]) });
+      paths.push({ station: s.id, si, cap: c, d: trace(stationX(si), capX(ci), lanes[si], offsets[si]) });
     });
   });
 
@@ -105,18 +106,23 @@ export function schematic() {
     ${paths
       .map(
         (t, i) =>
-          `<path class="signal" data-station="${t.station}" data-cap="${t.cap}" d="${t.d}" pathLength="1000" style="--i:${i}"/>`
+          `<path class="signal" data-station="${t.station}" data-cap="${t.cap}" d="${t.d}" pathLength="1000" style="--i:${i};--s:${t.si}"/>`
       )
       .join("")}
   </g>
   <g class="schematic__nodes">
+    ${stations.map((s, i) => `<circle class="junction" data-station="${s.id}" cx="${stationX(i)}" cy="${lanes[i]}" r="3"/>`).join("")}
     ${stations.map((s, i) => `<circle class="node" data-station="${s.id}" cx="${stationX(i)}" cy="${BUS_Y}" r="5"/>`).join("")}
   </g>
 </svg>`;
 
   return html`<div class="schematic" data-schematic>
   <div class="schematic__drawing">${raw(svg)}</div>
-  <ol class="stations" aria-label="Selected work, and what each proves">
+  <div class="matrix" aria-hidden="true">
+    <span></span>${raw(capabilities.map((c) => `<span class="matrix__cap">${c.label}</span>`).join(""))}
+    ${raw(stations.map((st) => `<span class="matrix__name">${st.name}</span>${capabilities.map((c) => `<span class="matrix__pin${st.caps.includes(c.id) ? " is-on" : ""}"></span>`).join("")}`).join(""))}
+  </div>
+  <ol class="stations" aria-label="Selected work and the skills each shows">
     ${stations.map(
       (s, i) => html`<li class="station" data-station="${s.id}">
       <a href="${url(s.href)}" class="station__link">

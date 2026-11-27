@@ -80,7 +80,7 @@ ${p.noindex ? raw('<meta name="robots" content="noindex">') : ""}
 <script>${raw(
     `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}var d=document.documentElement;d.classList.add("js");setTimeout(function(){if(!d.hasAttribute("data-ready"))d.classList.remove("js")},2500)})();`
   )}</script>
-<link rel="stylesheet" href="${url(`assets/css/site.css?v=${ASSET_VERSION}`)}">
+<link rel="stylesheet" href="${url(`assets/css/site.min.css?v=${ASSET_VERSION}`)}">
 ${(p.styles || []).map((s) => html`<link rel="stylesheet" href="${url(`${s}?v=${ASSET_VERSION}`)}">`)}
 <script type="module" src="${url(`assets/js/site.js?v=${ASSET_VERSION}`)}"></script>
 ${(p.scripts || []).map((s) => html`<script type="module" src="${url(`${s}?v=${ASSET_VERSION}`)}"></script>`)}
