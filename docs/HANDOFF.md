@@ -27,9 +27,9 @@ python3 scripts/prepare-media.py   # only when replacing screenshots (needs loca
 
 ## Waiting on Marco (factual confirmations)
 
-1. Which email is current — the site uses `marcoladeiraworkemail@gmail.com` (from the old site); the old CV used `marcoladeirawork@gmail.com`. Change in `src/data/site.mjs`.
+1. ~~Which email is current~~ — confirmed by Marco 27 Nov 2026: `marcoladeirawork@gmail.com` (site, CV, structured data).
 2. Month of the promotion to Associate Software Engineer (shown as "2026"). Change in `src/data/experience.mjs`.
-3. Confirm the AWS Certified Machine Learning – Specialty (carried over from the old site) and, ideally, a Credly link.
+3. AWS Certified Machine Learning – Specialty confirmed by Marco 27 Nov 2026; a Credly link would still help.
 4. Whether to keep ONE Oddlings screenshots public before the game launches.
 5. Optional: two or three specific, employer-safe contributions for the Fenergo case study.
 6. Optional: a professional headshot for About.

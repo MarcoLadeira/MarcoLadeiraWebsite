@@ -11,7 +11,7 @@ export const site = {
   employer: "Fenergo",
   employerUrl: "https://www.fenergo.com/",
   location: "Dublin, Ireland",
-  email: "marcoladeiraworkemail@gmail.com",
+  email: "marcoladeirawork@gmail.com",
   linkedin: "https://www.linkedin.com/in/marco-ladeira/",
   github: "https://github.com/MarcoLadeira",
   cv: "assets/marco-ladeira-cv.pdf",

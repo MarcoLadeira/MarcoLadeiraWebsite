@@ -34,7 +34,7 @@ test("homepage communicates identity and offers every contact route above the fo
   await expect(page.getByRole("heading", { level: 1 })).toContainText("shows its working");
   await expect(page.getByText("Associate Software Engineer at Fenergo")).toBeVisible();
   for (const name of ["See the work", "Download CV"]) await expect(page.getByRole("link", { name }).first()).toBeInViewport();
-  await expect(page.locator('a[href^="mailto:"]').first()).toHaveAttribute("href", "mailto:marcoladeiraworkemail@gmail.com");
+  await expect(page.locator('a[href^="mailto:"]').first()).toHaveAttribute("href", "mailto:marcoladeirawork@gmail.com");
 });
 
 test("schematic stations highlight their traces on focus", async ({ page, isMobile }) => {
