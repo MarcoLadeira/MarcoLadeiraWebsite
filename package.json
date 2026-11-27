@@ -1,0 +1,20 @@
+{
+  "name": "marco-ladeira-portfolio",
+  "private": true,
+  "type": "module",
+  "description": "Marco Ladeira's portfolio — static site generated from src/ into the repository root for GitHub Pages.",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "assets": "python3 scripts/render-assets.py",
+    "serve": "node scripts/serve.mjs 4173",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "node --test tests/unit/*.test.mjs",
+    "test:e2e": "playwright test",
+    "check": "npm run build && git diff --exit-code -- . ':(exclude)package-lock.json' && npm run test:unit"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@playwright/test": "^1.56.0"
+  },
+  "engines": { "node": ">=20" }
+}
