@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en-IE" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ONE Oddlings — case study — Marco Ladeira</title>
+<meta name="description" content="A five-minute browser puzzle game. Four characters stand on a 3×3 board and two are in the wrong place: swap them to fix the pattern, then fix as many boards as you can before the clock runs out.">
+<link rel="canonical" href="https://marcoladeira.github.io/MarcoLadeiraWebsite/work/oddlings/">
+
+<meta name="author" content="Marco Ladeira">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Marco Ladeira">
+<meta property="og:locale" content="en_IE">
+<meta property="og:title" content="ONE Oddlings — case study">
+<meta property="og:description" content="A five-minute browser puzzle game. Four characters stand on a 3×3 board and two are in the wrong place: swap them to fix the pattern, then fix as many boards as you can before the clock runs out.">
+<meta property="og:url" content="https://marcoladeira.github.io/MarcoLadeiraWebsite/work/oddlings/">
+<meta property="og:image" content="https://marcoladeira.github.io/MarcoLadeiraWebsite/assets/img/og/oddlings.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Marco Ladeira — Software that shows its working.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ONE Oddlings — case study">
+<meta name="twitter:description" content="A five-minute browser puzzle game. Four characters stand on a 3×3 board and two are in the wrong place: swap them to fix the pattern, then fix as many boards as you can before the clock runs out.">
+<meta name="twitter:image" content="https://marcoladeira.github.io/MarcoLadeiraWebsite/assets/img/og/oddlings.png">
+<meta name="theme-color" content="#f2efe7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11100d" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/MarcoLadeiraWebsite/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/MarcoLadeiraWebsite/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/MarcoLadeiraWebsite/apple-touch-icon.png">
+<link rel="manifest" href="/MarcoLadeiraWebsite/manifest.json">
+<link rel="alternate" type="application/rss+xml" title="Marco Ladeira — Writing" href="/MarcoLadeiraWebsite/feed.xml">
+<link rel="preload" href="/MarcoLadeiraWebsite/assets/fonts/newsreader-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/MarcoLadeiraWebsite/assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}var d=document.documentElement;d.classList.add("js");setTimeout(function(){if(!d.hasAttribute("data-ready"))d.classList.remove("js")},2500)})();</script>
+<link rel="stylesheet" href="/MarcoLadeiraWebsite/assets/css/site.css?v=20261127">
+
+<script type="module" src="/MarcoLadeiraWebsite/assets/js/site.js?v=20261127"></script>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CreativeWork","name":"ONE Oddlings","description":"A five-minute browser puzzle game. Four characters stand on a 3×3 board and two are in the wrong place: swap them to fix the pattern, then fix as many boards as you can before the clock runs out.","author":{"@type":"Person","name":"Marco Ladeira","url":"https://marcoladeira.github.io/MarcoLadeiraWebsite/"},"url":"https://marcoladeira.github.io/MarcoLadeiraWebsite/work/oddlings/","keywords":"TypeScript, React, Vite, CSS Modules, Web Audio, Playwright, Vitest"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Work","item":"https://marcoladeira.github.io/MarcoLadeiraWebsite/work/"},{"@type":"ListItem","position":2,"name":"ONE Oddlings","item":"https://marcoladeira.github.io/MarcoLadeiraWebsite/work/oddlings/"}]}</script>
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead" data-masthead>
+  <div class="masthead__inner">
+    <a class="brand" href="/MarcoLadeiraWebsite/" aria-label="Marco Ladeira, home">
+      <span class="brand__mark" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><rect x="0.75" y="0.75" width="26.5" height="26.5" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 20V8l7 8 7-8v8.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter"/><circle cx="21" cy="20" r="2" fill="var(--signal)"/></svg></span>
+      <span class="brand__name">Marco Ladeira</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-list" data-nav-toggle>
+        <span class="nav__toggle-label">Menu</span>
+        <span class="nav__toggle-icon" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__list" id="nav-list">
+        <li><a href="/MarcoLadeiraWebsite/work/" aria-current="page">Work</a></li><li><a href="/MarcoLadeiraWebsite/experience/">Experience</a></li><li><a href="/MarcoLadeiraWebsite/about/">About</a></li><li><a href="/MarcoLadeiraWebsite/lab/">Lab</a></li><li><a href="/MarcoLadeiraWebsite/writing/">Writing</a></li><li><a href="/MarcoLadeiraWebsite/contact/">Contact</a></li>
+        <li class="nav__cv"><a class="btn btn--small" href="/MarcoLadeiraWebsite/assets/marco-ladeira-cv.pdf" download><svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg><span>CV</span></a></li>
+      </ul>
+    </nav>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme">
+      <span class="theme-toggle__icon" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
+
+<article class="case case--oddlings">
+  <header class="case__head">
+    <div class="wrap">
+      <p class="eyebrow" data-reveal><a href="/MarcoLadeiraWebsite/work/">Work</a> <span aria-hidden="true">/</span> Independent product</p>
+      <h1 class="case__title" data-split><span class="line"><span>ONE Oddlings</span></span></h1>
+      <p class="case__lede" data-reveal>A five-minute browser puzzle game. Four characters stand on a 3×3 board and two are in the wrong place: swap them to fix the pattern, then fix as many boards as you can before the clock runs out.</p>
+      <dl class="case__facts" data-reveal>
+        <div><dt>Role</dt><dd>Sole developer — game design, engineering and production</dd></div>
+        <div><dt>When</dt><dd>2026 — now</dd></div>
+        <div><dt>Team</dt><dd>Solo</dd></div>
+        <div><dt>Status</dt><dd><span class="status status--alpha"><span class="status__dot" aria-hidden="true"></span>In development · not yet public</span></dd></div>
+        <div class="case__stack"><dt>Stack</dt><dd><ul class="tags"><li>TypeScript</li><li>React</li><li>Vite</li><li>CSS Modules</li><li>Web Audio</li><li>Playwright</li><li>Vitest</li></ul></dd></div>
+      </dl>
+    </div>
+    <div class="wrap case__hero" data-reveal="rise"><div class="plate plate--oddlings">
+  <div class="plate__window"><img class="" src="/MarcoLadeiraWebsite/assets/img/work/oddlings/run-1600.webp" srcset="/MarcoLadeiraWebsite/assets/img/work/oddlings/run-640.webp 640w, /MarcoLadeiraWebsite/assets/img/work/oddlings/run-1080.webp 1080w, /MarcoLadeiraWebsite/assets/img/work/oddlings/run-1600.webp 1600w" sizes="(min-width: 1100px) 56vw, 100vw" width="1600" height="1000" alt="A ONE Oddlings run: a 3×3 board of cartoon shapes, a timer and the goal card &#39;Row buddies&#39;" fetchpriority="high" decoding="async"></div>
+  <div class="plate__phone"><img class="" src="/MarcoLadeiraWebsite/assets/img/work/oddlings/run-phone-1170.webp" srcset="/MarcoLadeiraWebsite/assets/img/work/oddlings/run-phone-640.webp 640w, /MarcoLadeiraWebsite/assets/img/work/oddlings/run-phone-1080.webp 1080w, /MarcoLadeiraWebsite/assets/img/work/oddlings/run-phone-1170.webp 1170w" sizes="(min-width: 1100px) 12vw, 30vw" width="1170" height="2532" alt="The same run on a phone" loading="lazy" decoding="async"></div>
+</div></div>
+  </header>
+
+  <div class="wrap case__body">
+    <nav class="case__toc" aria-label="On this page">
+      <p class="eyebrow">On this page</p>
+      <ol><li><a href="#overview">Overview</a></li><li><a href="#problem">Problem</a></li><li><a href="#role">My role</a></li><li><a href="#product">The product</a></li><li><a href="#architecture">Architecture</a></li><li><a href="#challenges">Hard problems</a></li><li><a href="#decisions">Decisions &amp; trade-offs</a></li><li><a href="#testing">Testing</a></li><li><a href="#results">Results</a></li><li><a href="#lessons">Lessons</a></li><li><a href="#status">Status</a></li></ol>
+    </nav>
+    <div class="case__content prose">
+      
+      <section id="overview" aria-labelledby="h-overview"><h2 id="h-overview">Overview</h2><p>ONE is a small site with two original puzzle games. ONE Classic is a daily 3×3 visual-reasoning puzzle; ONE Oddlings is the faster, more playful one. Circle, Square, Triangle and Diamond stand on a board that breaks its goal in exactly one place. One swap fixes it, the next board drops in, and a five-minute run asks how many you can fix.</p></section>
+      <section id="problem" aria-labelledby="h-problem"><h2 id="h-problem">The problem</h2><p>Most casual puzzle games either hand-author a few hundred levels or generate boards that are occasionally unfair. I wanted endless, genuinely fresh boards that are always solvable, that get harder as you improve, and that never use dark patterns to keep people playing.</p><h3>Why it mattered to me</h3><p>Games are the most honest product test there is: if it isn&#39;t fun in the first ten seconds, nobody stays. It also let me combine algorithms, interaction design, motion and sound in one product.</p></section>
+      <section id="role" aria-labelledby="h-role"><h2 id="h-role">My role</h2><ul class="ticks"><li>Game design: rules, goals, pacing, scoring, praise, the daily run and streaks.</li><li>Engineering: board generator, independent verifier, adaptive skill model, input (tap, drag and keyboard), sound and motion.</li><li>Character art direction and asset pipeline: sprite QA scripts, measured eye contours for blinks, right-sized WebP copies.</li><li>Quality: unit, replay and end-to-end tests; accessibility and reduced-motion support; release gates.</li></ul></section>
+      <section id="product" class="bleed" aria-labelledby="h-product"><h2 id="h-product">The product</h2>
+        <figure class="shot shot--video">
+  <div class="shot__frame">
+    <video class="clip" src="/MarcoLadeiraWebsite/assets/img/work/oddlings/run-desktop.mp4" poster="/MarcoLadeiraWebsite/assets/img/work/oddlings/run-desktop-poster.webp" width="1280" height="800" muted playsinline loop preload="none" controls aria-label="ONE Oddlings gameplay recording" data-autoplay-when-visible></video>
+  </div>
+  <figcaption>Real gameplay, recorded with Playwright against a production build: five boards fixed in a row across three kinds of goal. No sound.</figcaption>
+</figure>
+        <div class="gallery"><figure class="shot shot--browser ">
+  <div class="shot__frame"><img class="" src="/MarcoLadeiraWebsite/assets/img/work/oddlings/today-1600.webp" srcset="/MarcoLadeiraWebsite/assets/img/work/oddlings/today-640.webp 640w, /MarcoLadeiraWebsite/assets/img/work/oddlings/today-1080.webp 1080w, /MarcoLadeiraWebsite/assets/img/work/oddlings/today-1600.webp 1600w" sizes="(min-width: 1100px) 70vw, 100vw" width="1600" height="1000" alt="Today: the daily run ticket and a free five-minute run." loading="lazy" decoding="async"></div>
+  <figcaption>Today: the daily run ticket and a free five-minute run.</figcaption>
+</figure><figure class="shot shot--browser ">
+  <div class="shot__frame"><img class="" src="/MarcoLadeiraWebsite/assets/img/work/oddlings/run-1600.webp" srcset="/MarcoLadeiraWebsite/assets/img/work/oddlings/run-640.webp 640w, /MarcoLadeiraWebsite/assets/img/work/oddlings/run-1080.webp 1080w, /MarcoLadeiraWebsite/assets/img/work/oddlings/run-1600.webp 1600w" sizes="(min-width: 1100px) 70vw, 100vw" width="1600" height="1000" alt="A run in progress. The goal card shows the rule in words and as a picture; Oddlings that already fit wear a tick." loading="lazy" decoding="async"></div>
+  <figcaption>A run in progress. The goal card shows the rule in words and as a picture; Oddlings that already fit wear a tick.</figcaption>
+</figure><figure class="shot shot--browser ">
+  <div class="shot__frame"><img class="" src="/MarcoLadeiraWebsite/assets/img/work/oddlings/meet-1600.webp" srcset="/MarcoLadeiraWebsite/assets/img/work/oddlings/meet-640.webp 640w, /MarcoLadeiraWebsite/assets/img/work/oddlings/meet-1080.webp 1080w, /MarcoLadeiraWebsite/assets/img/work/oddlings/meet-1600.webp 1600w" sizes="(min-width: 1100px) 70vw, 100vw" width="1600" height="1000" alt="Meet the Oddlings: each character has idle, picked, oops and happy poses." loading="lazy" decoding="async"></div>
+  <figcaption>Meet the Oddlings: each character has idle, picked, oops and happy poses.</figcaption>
+</figure></div>
+      </section>
+      <section id="architecture" aria-labelledby="h-arch"><h2 id="h-arch">Architecture</h2><figure class="arch" data-reveal>
+  <ol class="arch__layers" aria-label="ONE Oddlings architecture, top to bottom">
+    <li class="arch__layer" style="--i:0">
+      <p class="arch__label"><span aria-hidden="true">A</span>Input</p>
+      <ul class="arch__parts"><li>Tap-tap, drag or keyboard</li><li>Movement threshold between tap and drag</li></ul>
+    </li><li class="arch__layer" style="--i:1">
+      <p class="arch__label"><span aria-hidden="true">B</span>Run</p>
+      <ul class="arch__parts"><li>Seeded run state · 5:00 clock</li><li>Wrong swap: board restored, −15 s</li><li>Praise, milestones, stars</li></ul>
+    </li><li class="arch__layer" style="--i:2">
+      <p class="arch__label"><span aria-hidden="true">C</span>Boards</p>
+      <ul class="arch__parts"><li>Generator: finished picture + one breaking swap</li><li>Independent verifier</li><li>Adaptive skill model (free runs only)</li></ul>
+    </li><li class="arch__layer" style="--i:3">
+      <p class="arch__label"><span aria-hidden="true">D</span>Persistence</p>
+      <ul class="arch__parts"><li>Local results &amp; streaks (versioned keys)</li><li>Replayable challenge links (v1–v3)</li></ul>
+    </li>
+  </ol>
+  <figcaption>Boards are built from a seed and checked by code that shares nothing with the generator. Daily boards never depend on the player.</figcaption>
+</figure></section>
+      <section id="challenges" aria-labelledby="h-challenges"><h2 id="h-challenges">Hard problems</h2>
+        <div class="challenge" data-reveal>
+          <h3><span class="challenge__num" aria-hidden="true">01</span>Every board must be fair</h3>
+          <p>The generator builds a finished picture, then breaks it with one swap. That is not enough on its own: a bug could still ship an unsolvable board. A separate checker re-reads each board as literal rows and columns — no gameplay helpers — and confirms at least one swap satisfies the visible goal. Any swap that satisfies the goal is accepted, not just the generator&#39;s. A quality script builds 500 runs of 40 boards (20,000) and re-checks every one; the last run had zero failures.</p>
+          <figure class="code"><figcaption>src/experiments/fix/arcade/verify.ts — excerpt</figcaption><pre tabindex="0"><code class="lang-ts">// Independent stated-goal checker: operates on literal row strings,
+// not gameplay helpers.
+export function checkedRepairs(grid: readonly Glyph[], goal: Goal): Pair[] {
+  const found: Pair[] = [];
+  for (let a = 0; a &lt; 8; a++)
+    for (let b = a + 1; b &lt; 9; b++) {
+      const left = grid[a], right = grid[b];
+      if (!left || !right || sameLook(left, right)) continue;
+      const trial = grid.map((g, i) =&gt; (i === a ? right : i === b ? left : g));
+      if (check(trial, goal)) found.push([a, b]);
+    }
+  return found;
+}</code></pre></figure>
+        </div><div class="challenge" data-reveal>
+          <h3><span class="challenge__num" aria-hidden="true">02</span>Difficulty that adapts without being creepy</h3>
+          <p>Free runs adapt to the player using an on-device skill model in the style of Glicko: one ability estimate per kind of goal, each with its own uncertainty, and a logistic chance of a clean solve. Nothing about time spent, purchases, device or account influences a choice. Daily runs never adapt, so everyone gets the same boards.</p>
+          
+        </div><div class="challenge" data-reveal>
+          <h3><span class="challenge__num" aria-hidden="true">03</span>Measuring how much novelty really exists</h3>
+          <p>A stress test built 110,000 candidate boards and counted repeats at three strengths: exact boards, look-alikes (the same layout with shapes renamed) and structures (the same solving logic under the goal&#39;s own symmetries). Most goals have only two to seven genuinely different structures, which proved that real variety has to come from mixing goals — and changed the roadmap.</p>
+          
+        </div><div class="challenge" data-reveal>
+          <h3><span class="challenge__num" aria-hidden="true">04</span>Links that never change what they replay</h3>
+          <p>Runs are seeded and versioned (<code>v=1</code>, <code>v=2</code>, <code>v=3</code>). A digest of 6,000 boards pins older schedules in a replay test, so a friend&#39;s challenge link always rebuilds the exact boards it was shared with.</p>
+          
+        </div></section>
+      
+      <section id="decisions" aria-labelledby="h-decisions"><h2 id="h-decisions">Decisions & trade-offs</h2>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Decisions and trade-offs table">
+        <table class="decisions"><thead><tr><th scope="col">Decision</th><th scope="col">Chose</th><th scope="col">Considered</th><th scope="col">Trade-off</th></tr></thead>
+        <tbody><tr><th scope="row">Board source</th><td>Generated from seeds + independent verifier</td><td>Hand-authored levels</td><td>Endless content and replayable links; costs a second implementation of the rules to check the first.</td></tr><tr><th scope="row">Adaptivity</th><td>On-device skill estimates, free runs only</td><td>Server-side tuning; adapt everything</td><td>Private and explainable; dailies stay identical for everyone.</td></tr><tr><th scope="row">Penalty</th><td>Wrong swap restores the board and costs 15 s</td><td>Lives; game over</td><td>Keeps runs flowing for beginners while still rewarding accuracy.</td></tr><tr><th scope="row">Motion</th><td>Short, fast animations; reduced motion removes movement, never information</td><td>Long celebratory sequences</td><td>Feels quick; every animation must earn its time.</td></tr></tbody></table></div></section>
+      <section id="testing" aria-labelledby="h-testing"><h2 id="h-testing">Testing & reliability</h2><p>The ONE repository has 150+ test files and roughly 1,100 unit and end-to-end cases, including replay tests that pin old board schedules, a 20,000-board quality run, sprite QA (alpha, halos, framing and a shared foot line for all 20 sprites) and an art manifest check that fails the build if a web copy goes stale. End-to-end tests run in Chromium, with Firefox and WebKit available.</p></section>
+      <section id="results" aria-labelledby="h-results"><h2 id="h-results">Results</h2><ul class="ticks"><li>Both games are implemented on the main branch; Oddlings is in the preview build.</li><li>Zero failures across 20,000 generated boards in the latest quality run.</li><li>Keyboard, drag and tap input; reduced-motion and dark-theme support; sound off by default.</li></ul></section>
+      <section id="lessons" aria-labelledby="h-lessons"><h2 id="h-lessons">Lessons</h2><ol class="lessons"><li>If the rules are the product, check them twice — with two pieces of code that don&#39;t share assumptions.</li><li>Measure novelty before promising it. The stress test changed the roadmap more than any opinion did.</li><li>Game feel is engineering: tick marks on settled pieces, a draining time bar and a rising pitch for each fix in a row made the biggest difference.</li></ol></section>
+      <section id="status" aria-labelledby="h-status"><h2 id="h-status">Status</h2><p><span class="status status--alpha"><span class="status__dot" aria-hidden="true"></span>In development · not yet public</span></p><p>In development, targeting a public release. Nothing is public yet; remaining gates include real-player tests and art rights paperwork. Screenshots and footage are from the current preview build.</p>
+        
+      </section>
+    </div>
+  </div>
+
+  <nav class="next-case" aria-label="Next case study">
+    <div class="wrap">
+      <a href="/MarcoLadeiraWebsite/work/savetheplanet/" class="next-case__link">
+        <span class="eyebrow">Next case study</span>
+        <span class="next-case__name">SaveThePlanet <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+      </a>
+    </div>
+  </nav>
+</article>
+</main>
+<footer class="colophon">
+  <div class="colophon__inner">
+    <div class="colophon__cta">
+      <p class="eyebrow">Contact</p>
+      <p class="colophon__line">Have something worth building?<br><a href="mailto:marcoladeiraworkemail@gmail.com">marcoladeiraworkemail@gmail.com</a></p>
+    </div>
+    <ul class="colophon__links">
+      <li><a href="https://www.linkedin.com/in/marco-ladeira/" rel="me noopener">LinkedIn <svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 11 11 5M6 5h5v5"/></svg></a></li>
+      <li><a href="https://github.com/MarcoLadeira" rel="me noopener">GitHub <svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 11 11 5M6 5h5v5"/></svg></a></li>
+      <li><a href="/MarcoLadeiraWebsite/assets/marco-ladeira-cv.pdf" download>CV (PDF)</a></li>
+      <li><a href="/MarcoLadeiraWebsite/feed.xml">RSS</a></li>
+    </ul>
+    <div class="colophon__meta">
+      <p>Dublin, Ireland · Hand-built static site · No trackers · <a href="https://github.com/MarcoLadeira/MarcoLadeiraWebsite" rel="noopener">Source</a></p>
+      <p>Updated <time datetime="2026-11-27">November 2026</time></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
