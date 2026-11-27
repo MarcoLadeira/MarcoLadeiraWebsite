@@ -3,3 +3,6 @@ dist/
 output/
 .claude/
 .DS_Store
+.generated/
+test-results/
+playwright-report/

@@ -1,166 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-IE" data-theme="auto">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Software engineering is moving toward systems judgment | Marco Ladeira</title>
-    <meta name="description" content="Marco Ladeira on why AI shifts software engineering toward systems thinking, planning, architecture, and better judgment.">
-    <link rel="canonical" href="https://marcoladeira.github.io/writing/software-engineering-in-the-age-of-ai/">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Software engineering is moving toward systems judgment | Marco Ladeira">
-    <meta property="og:description" content="Why AI shifts software engineering toward systems thinking, planning, architecture, and better judgment.">
-    <meta property="og:url" content="https://marcoladeira.github.io/writing/software-engineering-in-the-age-of-ai/">
-    <meta property="og:image" content="https://marcoladeira.github.io/images/facecardicon.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Software engineering is moving toward systems judgment">
-    <meta name="twitter:description" content="Why AI shifts software engineering toward systems thinking, planning, architecture, and better judgment.">
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": "Software engineering is moving toward systems judgment",
-        "author": { "@type": "Person", "name": "Marco Ladeira", "url": "https://marcoladeira.github.io" },
-        "url": "https://marcoladeira.github.io/writing/software-engineering-in-the-age-of-ai/",
-        "datePublished": "2025-07-01",
-        "publisher": { "@type": "Person", "name": "Marco Ladeira" }
-    }
-    </script>
-    <link rel="icon" href="../../images/facecardicon.jpg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="manifest" href="../../manifest.json">
-    <meta name="theme-color" content="#1a1a1a">
-    <link rel="stylesheet" href="../../styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Software engineering is moving toward systems judgment — Marco Ladeira</title>
+<meta name="description" content="AI isn&#39;t removing the need for engineers. It&#39;s moving the centre of gravity toward intent, interfaces and reliable boundaries.">
+<meta http-equiv="Content-Security-Policy" content="default-src &#39;self&#39;; script-src &#39;self&#39; &#39;sha256-Iw4BlYPN5CRkWwF7Fs3BakVpKFzNf3nu18WXyBGXEOQ=&#39;; style-src &#39;self&#39; &#39;unsafe-inline&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39;; media-src &#39;self&#39;; connect-src &#39;self&#39;; object-src &#39;none&#39;; base-uri &#39;self&#39;; form-action &#39;self&#39;">
+<link rel="canonical" href="https://marcoladeira.github.io/MarcoLadeiraWebsite/writing/software-engineering-in-the-age-of-ai/">
+<meta name="author" content="Marco Ladeira">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Marco Ladeira">
+<meta property="og:locale" content="en_IE">
+<meta property="og:title" content="Software engineering is moving toward systems judgment">
+<meta property="og:description" content="AI isn&#39;t removing the need for engineers. It&#39;s moving the centre of gravity toward intent, interfaces and reliable boundaries.">
+<meta property="og:url" content="https://marcoladeira.github.io/MarcoLadeiraWebsite/writing/software-engineering-in-the-age-of-ai/">
+<meta property="og:image" content="https://marcoladeira.github.io/MarcoLadeiraWebsite/assets/img/og/default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Marco Ladeira — Software that shows its working.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Software engineering is moving toward systems judgment">
+<meta name="twitter:description" content="AI isn&#39;t removing the need for engineers. It&#39;s moving the centre of gravity toward intent, interfaces and reliable boundaries.">
+<meta name="twitter:image" content="https://marcoladeira.github.io/MarcoLadeiraWebsite/assets/img/og/default.png">
+<meta name="theme-color" content="#f2efe7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11100d" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/MarcoLadeiraWebsite/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/MarcoLadeiraWebsite/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/MarcoLadeiraWebsite/apple-touch-icon.png">
+<link rel="manifest" href="/MarcoLadeiraWebsite/manifest.json">
+<link rel="alternate" type="application/rss+xml" title="Marco Ladeira — Writing" href="/MarcoLadeiraWebsite/feed.xml">
+<link rel="preload" href="/MarcoLadeiraWebsite/assets/fonts/newsreader-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/MarcoLadeiraWebsite/assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}var d=document.documentElement;d.classList.add("js");setTimeout(function(){if(!d.hasAttribute("data-ready"))d.classList.remove("js")},2500)})();</script>
+<link rel="stylesheet" href="/MarcoLadeiraWebsite/assets/css/site.css?v=0b47e61510">
+
+<script type="module" src="/MarcoLadeiraWebsite/assets/js/site.js?v=30ba2f6150"></script>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Software engineering is moving toward systems judgment","description":"AI isn't removing the need for engineers. It's moving the centre of gravity toward intent, interfaces and reliable boundaries.","datePublished":"2025-12-24","author":{"@type":"Person","name":"Marco Ladeira","url":"https://marcoladeira.github.io/MarcoLadeiraWebsite/"},"mainEntityOfPage":"https://marcoladeira.github.io/MarcoLadeiraWebsite/writing/software-engineering-in-the-age-of-ai/"}</script>
 </head>
-<body data-page="writing" data-article="essay">
-    <a class="skip-link" href="#main-content">Skip to content</a>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead" data-masthead>
+  <div class="masthead__inner">
+    <a class="brand" href="/MarcoLadeiraWebsite/" aria-label="Marco Ladeira, home">
+      <span class="brand__mark" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><rect x="0.75" y="0.75" width="26.5" height="26.5" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 20V8l7 8 7-8v8.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter"/><circle cx="21" cy="20" r="2" fill="var(--signal)"/></svg></span>
+      <span class="brand__name">Marco Ladeira</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-list" data-nav-toggle>
+        <span class="nav__toggle-label">Menu</span>
+        <span class="nav__toggle-icon" aria-hidden="true"></span>
+      </button>
+      <ul class="nav__list" id="nav-list">
+        <li><a href="/MarcoLadeiraWebsite/work/">Work</a></li><li><a href="/MarcoLadeiraWebsite/experience/">Experience</a></li><li><a href="/MarcoLadeiraWebsite/about/">About</a></li><li><a href="/MarcoLadeiraWebsite/lab/">Lab</a></li><li><a href="/MarcoLadeiraWebsite/writing/" aria-current="page">Writing</a></li><li><a href="/MarcoLadeiraWebsite/contact/">Contact</a></li>
+        <li class="nav__cv"><a class="btn btn--small" href="/MarcoLadeiraWebsite/assets/marco-ladeira-cv.pdf" download><svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg><span>CV</span></a></li>
+      </ul>
+    </nav>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme">
+      <span class="theme-toggle__icon" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+<main id="main" tabindex="-1">
 
-    <header class="site-header" id="site-header">
-        <div class="site-header__inner">
-            <a class="brand" href="../../">Marco Ladeira</a>
+<article class="article">
+  <header class="page-head page-head--article">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow" data-reveal><a href="/MarcoLadeiraWebsite/writing/">Writing</a> / Essay</p>
+      <h1 class="article__title" data-reveal>Software engineering is moving toward systems judgment</h1>
+      <p class="page-head__lede" data-reveal>AI isn&#39;t removing the need for engineers. It&#39;s moving the centre of gravity toward intent, interfaces and reliable boundaries.</p>
+      <p class="article__meta" data-reveal><time datetime="2025-12-24">24 December 2025</time> · 3 min read · Marco Ladeira</p>
+    </div>
+  </header>
+  <div class="wrap wrap--narrow prose article__body" data-reveal>
+    <p>The first time I saw AI solve a programming problem in seconds, I had the same reaction a lot of developers had: part of me was impressed, and part of me was uneasy.</p>
+<p>After spending more time actually building with these tools, my answer changed. What I see now is amplification, not replacement.</p>
+<h2>Execution is accelerating, but intent still decides the outcome</h2>
+<p>AI is very good at drafting, exploration, summarisation, scaffolding, and repetitive transformations. But the work that matters most has not gone away.</p>
+<p>Someone still needs to decide what should be built, what should not be built, how the system should behave under pressure, where the trust boundaries are, and what good means in the context of a real product.</p>
+<h2>The centre of gravity is moving upward</h2>
+<p>I think software engineering is becoming less about memorising syntax and more about designing systems with intention. That includes abstractions, interfaces, failure modes, orchestration, and reviewing generated work with taste and scepticism.</p>
+<h2>Agentic systems make the shift more obvious</h2>
+<p>Once a model can use tools, call external systems, or operate with broader autonomy, the job becomes much less about code generation and much more about control surfaces: what tools exist, what context they get, what actions are allowed, how state is tracked, and how humans intervene.</p>
+<p>In other words, the hard part becomes architecture.</p>
+<h2>Planning is becoming a stronger differentiator</h2>
+<p>If AI can help execute faster, poor intent becomes more expensive. The clearer you are about goals, boundaries, and success criteria, the better the outcome tends to be.</p>
+<ul>
+<li>Scoping</li>
+<li>Sequencing</li>
+<li>Communicating intent</li>
+<li>Structuring context</li>
+<li>Evaluating trade-offs</li>
+</ul>
+<h2>My conclusion</h2>
+<p>I do not think the future belongs to people who can memorise the most syntax. I think it belongs to engineers who can understand how the pieces connect, define clear intent, shape good systems, and use AI as a force multiplier instead of a substitute for thought.</p>
 
-            <nav class="site-nav" aria-label="Primary">
-                <button class="site-nav__toggle" type="button" aria-expanded="false" aria-controls="site-nav-list" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                </button>
-
-                <div class="site-nav__list" id="site-nav-list">
-                    <a class="site-nav__link" data-nav="work" href="../../work/">Work</a>
-                    <a class="site-nav__link" data-nav="lab" href="../../lab/">Lab</a>
-                    <a class="site-nav__link" data-nav="writing" href="../">Writing</a>
-                    <a class="site-nav__link" data-nav="about" href="../../about/">About</a>
-                    <a class="site-nav__link" data-nav="now" href="../../now/">Now</a>
-                    <a class="site-nav__link" data-nav="contact" href="../../contact/">Contact</a>
-                </div>
-            </nav>
-
-            <button class="terminal-toggle" type="button" aria-label="Open terminal"><span class="terminal-toggle__icon">&gt;_</span><span class="terminal-toggle__label">Terminal</span></button>
-            <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle theme">Mode</button>
-        </div>
-    </header>
-
-    <main class="site-main" id="main-content" tabindex="-1">
-        <section class="page-hero page-hero--entry reveal">
-            <div class="page-hero__copy">
-                <p class="section-kicker">Essay</p>
-                <h1>Software engineering is moving toward systems judgment</h1>
-                <p class="page-hero__summary">
-                    AI is not removing the need for software engineers. It is shifting the center of gravity toward intent, system design, and the ability to shape reliable boundaries.
-                </p>
-            </div>
-
-            <div class="page-hero__meta">
-                <p>December 24, 2025</p>
-                <p>5 min read</p>
-            </div>
-        </section>
-
-        <section class="section section--tight">
-            <div class="article-shell">
-                <aside class="article-aside reveal">
-                    <div class="article-note">
-                        <p class="article-note__label">On this page</p>
-                        <nav class="article-toc" data-toc hidden aria-label="Table of contents"></nav>
-                        <a class="text-link" href="../">Back to writing</a>
-                    </div>
-                </aside>
-
-                <article class="article-body reveal">
-                    <p>
-                        The first time I saw AI solve a programming problem in seconds, I had the same reaction a lot of developers had: part of me was impressed, and part of me was uneasy.
-                    </p>
-                    <p>
-                        After spending more time actually building with these tools, my answer changed. What I see now is amplification, not replacement.
-                    </p>
-
-                    <h2>Execution is accelerating, but intent still decides the outcome</h2>
-                    <p>
-                        AI is very good at drafting, exploration, summarisation, scaffolding, and repetitive transformations. But the work that matters most has not gone away.
-                    </p>
-                    <p>
-                        Someone still needs to decide what should be built, what should not be built, how the system should behave under pressure, where the trust boundaries are, and what good means in the context of a real product.
-                    </p>
-
-                    <h2>The center of gravity is moving upward</h2>
-                    <p>
-                        I think software engineering is becoming less about memorising syntax and more about designing systems with intention. That includes abstractions, interfaces, failure modes, orchestration, and reviewing generated work with taste and skepticism.
-                    </p>
-
-                    <h2>Agentic systems make the shift more obvious</h2>
-                    <p>
-                        Once a model can use tools, call external systems, or operate with broader autonomy, the job becomes much less about code generation and much more about control surfaces: what tools exist, what context they get, what actions are allowed, how state is tracked, and how humans intervene.
-                    </p>
-                    <p>
-                        In other words, the hard part becomes architecture.
-                    </p>
-
-                    <h2>Planning is becoming a stronger differentiator</h2>
-                    <p>
-                        If AI can help execute faster, poor intent becomes more expensive. The clearer you are about goals, boundaries, and success criteria, the better the outcome tends to be.
-                    </p>
-                    <ul>
-                        <li>Scoping</li>
-                        <li>Sequencing</li>
-                        <li>Communicating intent</li>
-                        <li>Structuring context</li>
-                        <li>Evaluating trade-offs</li>
-                    </ul>
-
-                    <h2>My conclusion</h2>
-                    <p>
-                        I do not think the future belongs to people who can memorise the most syntax. I think it belongs to engineers who can understand how the pieces connect, define clear intent, shape good systems, and use AI as a force multiplier instead of a substitute for thought.
-                    </p>
-
-                    <div class="entry-pagination">
-                        <a class="pagination-card" href="../hybrid-workflow-cli-mcp-agents/">
-                            <span class="pagination-card__label">Previous essay</span>
-                            <strong>The best AI workflow is hybrid</strong>
-                        </a>
-                        <span class="pagination-card pagination-card--empty" aria-hidden="true"></span>
-                    </div>
-                </article>
-            </div>
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="site-footer__inner">
-            <p class="site-footer__year" data-year></p>
-            <div class="site-footer__links">
-                <a href="../../">Home</a>
-                <a href="../">Writing</a>
-                <a href="../../updates/">Updates</a>
-                <a href="../../about/">About</a>
-                <a href="../../contact/">Contact</a>
-            </div>
-        </div>
-    </footer>
-
-    <script src="../../script.js"></script>
-    <script src="../../interactive.js"></script>
+  </div>
+  <nav class="wrap wrap--narrow article__next" aria-label="More writing">
+    <a class="next-case__link" href="/MarcoLadeiraWebsite/writing/hybrid-workflow-cli-mcp-agents/"><span class="eyebrow">Next essay</span><span class="next-case__name">The best AI workflow is hybrid <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+  </nav>
+</article>
+</main>
+<footer class="colophon">
+  <div class="colophon__inner">
+    <div class="colophon__cta">
+      <p class="eyebrow">Contact</p>
+      <p class="colophon__line">Have something worth building?<br><a href="mailto:marcoladeirawork@gmail.com">marcoladeirawork@gmail.com</a></p>
+    </div>
+    <ul class="colophon__links">
+      <li><a href="https://www.linkedin.com/in/marco-ladeira/" rel="me noopener">LinkedIn <svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 11 11 5M6 5h5v5"/></svg></a></li>
+      <li><a href="https://github.com/MarcoLadeira" rel="me noopener">GitHub <svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 11 11 5M6 5h5v5"/></svg></a></li>
+      <li><a href="/MarcoLadeiraWebsite/assets/marco-ladeira-cv.pdf" download>CV (PDF)</a></li>
+      <li><a href="/MarcoLadeiraWebsite/feed.xml">RSS</a></li>
+    </ul>
+    <div class="colophon__meta">
+      <p>Dublin, Ireland · Hand-built static site · No trackers · <a href="https://github.com/MarcoLadeira/MarcoLadeiraWebsite" rel="noopener">Source</a></p>
+      <p>Updated <time datetime="2026-11-27">November 2026</time></p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>

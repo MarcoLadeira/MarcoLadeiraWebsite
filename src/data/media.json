@@ -1,0 +1,223 @@
+{
+ "vesta/chat": {
+  "w": 876,
+  "h": 842,
+  "variants": [
+   {
+    "w": 640,
+    "h": 615,
+    "src": "assets/img/work/vesta/chat-640.webp"
+   },
+   {
+    "w": 876,
+    "h": 842,
+    "src": "assets/img/work/vesta/chat-876.webp"
+   }
+  ]
+ },
+ "vesta/chat-dark": {
+  "w": 876,
+  "h": 842,
+  "variants": [
+   {
+    "w": 640,
+    "h": 615,
+    "src": "assets/img/work/vesta/chat-dark-640.webp"
+   },
+   {
+    "w": 876,
+    "h": 842,
+    "src": "assets/img/work/vesta/chat-dark-876.webp"
+   }
+  ]
+ },
+ "vesta/usage": {
+  "w": 1392,
+  "h": 842,
+  "variants": [
+   {
+    "w": 640,
+    "h": 387,
+    "src": "assets/img/work/vesta/usage-640.webp"
+   },
+   {
+    "w": 1080,
+    "h": 653,
+    "src": "assets/img/work/vesta/usage-1080.webp"
+   },
+   {
+    "w": 1392,
+    "h": 842,
+    "src": "assets/img/work/vesta/usage-1392.webp"
+   }
+  ]
+ },
+ "vesta/safety": {
+  "w": 1392,
+  "h": 842,
+  "variants": [
+   {
+    "w": 640,
+    "h": 387,
+    "src": "assets/img/work/vesta/safety-640.webp"
+   },
+   {
+    "w": 1080,
+    "h": 653,
+    "src": "assets/img/work/vesta/safety-1080.webp"
+   },
+   {
+    "w": 1392,
+    "h": 842,
+    "src": "assets/img/work/vesta/safety-1392.webp"
+   }
+  ]
+ },
+ "oddlings/today": {
+  "w": 2880,
+  "h": 1800,
+  "variants": [
+   {
+    "w": 640,
+    "h": 400,
+    "src": "assets/img/work/oddlings/today-640.webp"
+   },
+   {
+    "w": 1080,
+    "h": 675,
+    "src": "assets/img/work/oddlings/today-1080.webp"
+   },
+   {
+    "w": 1600,
+    "h": 1000,
+    "src": "assets/img/work/oddlings/today-1600.webp"
+   }
+  ]
+ },
+ "oddlings/run": {
+  "w": 2880,
+  "h": 1800,
+  "variants": [
+   {
+    "w": 640,
+    "h": 400,
+    "src": "assets/img/work/oddlings/run-640.webp"
+   },
+   {
+    "w": 1080,
+    "h": 675,
+    "src": "assets/img/work/oddlings/run-1080.webp"
+   },
+   {
+    "w": 1600,
+    "h": 1000,
+    "src": "assets/img/work/oddlings/run-1600.webp"
+   }
+  ]
+ },
+ "oddlings/run-phone": {
+  "w": 1170,
+  "h": 2532,
+  "variants": [
+   {
+    "w": 640,
+    "h": 1385,
+    "src": "assets/img/work/oddlings/run-phone-640.webp"
+   },
+   {
+    "w": 1080,
+    "h": 2337,
+    "src": "assets/img/work/oddlings/run-phone-1080.webp"
+   },
+   {
+    "w": 1170,
+    "h": 2532,
+    "src": "assets/img/work/oddlings/run-phone-1170.webp"
+   }
+  ]
+ },
+ "oddlings/meet": {
+  "w": 2880,
+  "h": 1800,
+  "variants": [
+   {
+    "w": 640,
+    "h": 400,
+    "src": "assets/img/work/oddlings/meet-640.webp"
+   },
+   {
+    "w": 1080,
+    "h": 675,
+    "src": "assets/img/work/oddlings/meet-1080.webp"
+   },
+   {
+    "w": 1600,
+    "h": 1000,
+    "src": "assets/img/work/oddlings/meet-1600.webp"
+   }
+  ]
+ },
+ "savetheplanet/dashboard": {
+  "w": 1440,
+  "h": 900,
+  "variants": [
+   {
+    "w": 640,
+    "h": 400,
+    "src": "assets/img/work/savetheplanet/dashboard-640.webp"
+   },
+   {
+    "w": 1080,
+    "h": 675,
+    "src": "assets/img/work/savetheplanet/dashboard-1080.webp"
+   },
+   {
+    "w": 1440,
+    "h": 900,
+    "src": "assets/img/work/savetheplanet/dashboard-1440.webp"
+   }
+  ]
+ },
+ "savetheplanet/charging": {
+  "w": 1440,
+  "h": 900,
+  "variants": [
+   {
+    "w": 640,
+    "h": 400,
+    "src": "assets/img/work/savetheplanet/charging-640.webp"
+   },
+   {
+    "w": 1080,
+    "h": 675,
+    "src": "assets/img/work/savetheplanet/charging-1080.webp"
+   },
+   {
+    "w": 1440,
+    "h": 900,
+    "src": "assets/img/work/savetheplanet/charging-1440.webp"
+   }
+  ]
+ },
+ "savetheplanet/impact": {
+  "w": 1440,
+  "h": 900,
+  "variants": [
+   {
+    "w": 640,
+    "h": 400,
+    "src": "assets/img/work/savetheplanet/impact-640.webp"
+   },
+   {
+    "w": 1080,
+    "h": 675,
+    "src": "assets/img/work/savetheplanet/impact-1080.webp"
+   },
+   {
+    "w": 1440,
+    "h": 900,
+    "src": "assets/img/work/savetheplanet/impact-1440.webp"
+   }
+  ]
+ }
+}
