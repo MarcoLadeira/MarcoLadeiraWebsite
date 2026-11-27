@@ -38,11 +38,13 @@ export function html(strings, ...values) {
 /** Inline rich text: allows *emphasis* and [links](url) in data strings, escaping everything else. */
 export function md(text) {
   let s = escape(text);
-  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, href) => {
+  s = s.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  s = s.replace(/`([^`]+)`/g, "<code>$1</code>");
+  // Links last, and only safe schemes.
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (all, label, href) => {
+    if (!/^(https?:|mailto:|\/|#)/.test(href)) return label;
     const ext = /^https?:/.test(href);
     return `<a href="${href}"${ext ? ' rel="noopener"' : ""}>${label}</a>`;
   });
-  s = s.replace(/\*([^*]+)\*/g, "<em>$1</em>");
-  s = s.replace(/`([^`]+)`/g, "<code>$1</code>");
   return raw(s);
 }

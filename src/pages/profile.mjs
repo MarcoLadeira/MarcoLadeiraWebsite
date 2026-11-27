@@ -18,10 +18,10 @@ export function experience() {
 ${pageHead("Career", ["Experience"], "Graduate to Associate Software Engineer at Fenergo, a hackathon team I led, and two products of my own in private preview.")}
 <section class="section section--tight" aria-labelledby="xp-work">
   <div class="wrap xp">
-    <h2 class="xp__heading" id="xp-work" data-reveal>Professional</h2>
+    <h2 class="xp__heading" id="xp-work">Professional</h2>
     <ol class="xp__list">
       ${roles.map(
-        (r) => html`<li class="xp__item" data-reveal>
+        (r, i) => html`<li class="xp__item" ${i === 0 ? "" : raw("data-reveal")}>
         <div class="xp__when"><p>${r.period}</p><p class="xp__kind">${r.kind}</p></div>
         <div class="xp__body">
           <h3 class="xp__title">${r.title}<span class="xp__org"> · ${r.org}</span></h3>
@@ -96,10 +96,10 @@ ${pageHead("Marco Ladeira", ["About"])}
 <section class="section section--tight">
   <div class="wrap about">
     <div class="about__main prose">
-      <p class="lead" data-reveal>I'm Marco Ladeira, a software engineer in Dublin. At work I build enterprise AI for financial-services compliance at Fenergo. In my own time I build products from the ground up — at the moment, an AI coding workspace called Vesta and a puzzle game called ONE Oddlings.</p>
-      <h2 data-reveal>How I got here</h2>
-      <p data-reveal>I studied at Dundalk Institute of Technology from 2021, first for a BSc in Computing and then an honours degree in Software Development, which I finished in 2025. I worked hospitality shifts through the first years of college, took on freelance development for a start-up in my final year, and was the sole developer of the patient app in our final-year smart pill-dispenser project.</p>
-      <p data-reveal>I joined Fenergo as a Graduate Software Engineer in September 2025, on event-driven backend work for client lifecycle management software. A few months later I was selected for the company's first AI initiative, and I've since helped build an enterprise AI application from scratch to a beta release as one of a three-person engineering team. Along the way I was promoted to Associate Software Engineer.</p>
+      <p class="lead">I'm Marco Ladeira, a software engineer in Dublin. At work I build enterprise AI for financial-services compliance at Fenergo. In my own time I build products from the ground up — at the moment, an AI coding workspace called Vesta and a puzzle game called ONE Oddlings.</p>
+      <h2>How I got here</h2>
+      <p>I studied at Dundalk Institute of Technology from 2021, first for a BSc in Computing and then an honours degree in Software Development, which I finished in 2025. I worked hospitality shifts through the first years of college, took on freelance development for a start-up in my final year, and was the sole developer of the patient app in our final-year smart pill-dispenser project.</p>
+      <p>I joined Fenergo as a Graduate Software Engineer in September 2025, on event-driven backend work for client lifecycle management software. A few months later I was selected for the company's first AI initiative, and I've since helped build an enterprise AI application from scratch to a beta release as one of a three-person engineering team. Along the way I was promoted to Associate Software Engineer.</p>
       <h2 data-reveal>How I work</h2>
       <dl class="principles">
         <div data-reveal><dt>Show the working</dt><dd>If a system makes a claim — a cost, a forecast, a fix — it should be able to show where the claim comes from. I'd rather label an estimate than oversell it.</dd></div>

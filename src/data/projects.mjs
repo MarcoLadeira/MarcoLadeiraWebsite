@@ -89,7 +89,7 @@ export const flagship = [
         "Test strategy across Python unit/integration, headless GUI, Vitest and Playwright end-to-end suites.",
       ],
       media: [
-        { key: "vesta/chat", caption: "A finished run: summary, checks that passed, the code that changed and the diff — all in one turn. Rendered from Vesta's own visual-regression suite." },
+        { key: "vesta/chat", caption: "A finished run as rendered by Vesta's visual-regression suite, using fixture data: the summary, the checks that passed and the files changed, in one turn." },
         { key: "vesta/usage", caption: "Usage: what Vesta has spent today and this month, spending limits, and an 'ask before a task exceeds' threshold." },
         { key: "vesta/safety", caption: "Safety & Privacy: run modes, permissions and what is kept locally." },
       ],
@@ -142,7 +142,7 @@ export const flagship = [
       results: [
         "A working desktop app and CLI in private alpha, built through 1,800+ commits since May 2026.",
         "How it is built: I design, direct and review the work; AI coding agents do much of the typing, and every change has to pass the test suites before it merges. Vesta exists partly to make that way of working cheaper and safer.",
-        "A reproducible savings report: five everyday tasks routed to free local tiers instead of a frontier model (`docs/PROOF.md`).",
+        "A small, reproducible savings demo: five everyday tasks routed to free local tiers instead of a frontier model (`docs/PROOF.md`). Routing-quality evaluation at scale is still to do.",
         "Around 126,000 lines of Python across 550+ merged pull requests."
       ],
       lessons: [

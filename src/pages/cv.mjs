@@ -28,7 +28,7 @@ export function cvHtml() {
 @font-face{font-family:"Newsreader";src:${raw(font("newsreader-latin-normal.woff2"))} format("woff2");font-weight:300 600}
 @font-face{font-family:"Newsreader";src:${raw(font("newsreader-latin-italic.woff2"))} format("woff2");font-weight:300 600;font-style:italic}
 @font-face{font-family:"Plex";src:${raw(font("ibm-plex-sans-latin-400-normal.woff2"))} format("woff2");font-weight:400}
-@font-face{font-family:"Plex";src:${raw(font("ibm-plex-sans-latin-600-normal.woff2"))} format("woff2");font-weight:600}
+@font-face{font-family:"Plex";src:${raw(font("ibm-plex-sans-latin-500-normal.woff2"))} format("woff2");font-weight:500 600}
 @font-face{font-family:"PlexMono";src:${raw(font("ibm-plex-mono-latin-500-normal.woff2"))} format("woff2");font-weight:500}
 @page{size:A4;margin:11mm 13mm 10mm}
 *{box-sizing:border-box}

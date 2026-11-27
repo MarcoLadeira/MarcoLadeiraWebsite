@@ -1,7 +1,7 @@
 // Static site build. No dependencies: `node src/build.mjs`.
 // Renders every page from src/data into the repository root, which GitHub Pages serves.
 
-import { mkdirSync, writeFileSync, readFileSync } from "node:fs";
+import { mkdirSync, writeFileSync, readFileSync, existsSync, rmSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { site, absUrl } from "./data/site.mjs";
@@ -26,15 +26,6 @@ function out(path, content) {
   writeFileSync(file, content.endsWith("\n") ? content : content + "\n");
   written.push(path);
 }
-
-// Minify the stylesheet (comments and whitespace only — values are untouched).
-const css = readFileSync(join(ROOT, "assets/css/site.css"), "utf8")
-  .replace(/\/\*[\s\S]*?\*\//g, "")
-  .replace(/\s+/g, " ")
-  .replace(/\s*([{};])\s*/g, "$1")
-  .replace(/;}/g, "}")
-  .trim();
-out("assets/css/site.min.css", css);
 
 const pages = [];
 const page = (path, render, { priority = 0.6, index = true } = {}) => {
@@ -121,5 +112,13 @@ out(`${GEN}cv.html`, cvHtml());
 out(`${GEN}og-default.html`, ogHtml({ eyebrow: "Software engineer · Dublin", title: "Software that shows its <em>working.</em>", sub: "Associate Software Engineer at Fenergo. Builder of Vesta and ONE Oddlings." }));
 const ogAccent = { fenergo: "#15140f", vesta: "#3b6fd8", oddlings: "#d99a00", savetheplanet: "#1f7a55" };
 flagship.forEach((p, i) => out(`${GEN}og-${p.slug}.html`, ogHtml({ eyebrow: "Case study", title: p.name, sub: p.card, accent: ogAccent[p.slug], on: i })));
+
+// Remove files a previous build generated that this build no longer produces
+// (e.g. a renamed case study), so stale pages can't stay published.
+const MANIFEST = join(ROOT, "src/.build-manifest.json");
+const previous = existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, "utf8")) : [];
+const now = written.filter((p) => !p.startsWith(GEN)).map((p) => (p.endsWith("/") || p === "" ? `${p}index.html` : p));
+for (const old of previous) if (!now.includes(old)) rmSync(join(ROOT, old), { force: true }) || console.log(`Removed stale ${old}`);
+writeFileSync(MANIFEST, JSON.stringify(now.sort(), null, 1) + "\n");
 
 console.log(`Built ${written.length} files.`);

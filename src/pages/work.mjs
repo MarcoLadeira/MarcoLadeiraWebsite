@@ -103,7 +103,7 @@ export function caseStudy(p, index) {
         <div class="case__stack"><dt>Stack</dt><dd><ul class="tags">${p.stack.map((s) => html`<li>${s}</li>`)}</ul></dd></div>
       </dl>
     </div>
-    <div class="wrap case__hero" data-reveal="rise">${featureVisual(p, { eager: true })}</div>
+    <div class="wrap case__hero" data-reveal="rise">${featureVisual(p, { eager: true, wide: true })}</div>
   </header>
 
   <div class="wrap case__body">
@@ -119,7 +119,7 @@ export function caseStudy(p, index) {
       ${c.media || c.video
         ? html`<section id="product" class="bleed" aria-labelledby="h-product"><h2 id="h-product">The product</h2>
         ${c.video ? video(c.video, { label: `${p.name} gameplay recording` }) : ""}
-        <div class="gallery">${(c.media || []).map((m) => figure(m.key, { caption: m.caption, sizes: "(min-width: 1100px) 70vw, 100vw" }))}</div>
+        <div class="gallery">${(c.media || []).map((m) => figure(m.key, { caption: m.caption, sizes: "(min-width: 961px) min(60rem, 62vw), 92vw" }))}</div>
       </section>`
         : ""}
       ${c.demo === "verifier"

@@ -2,7 +2,6 @@
 import { PRESETS, DEFAULT_CAPACITY, compute, fmt, pct } from "./lab-model.js";
 
 const form = document.querySelector("[data-lab-form]");
-if (form) init();
 
 function level(u) {
   return u > 1 ? "over" : u > 0.85 ? "warn" : "ok";
@@ -21,36 +20,65 @@ function invalidFields() {
   return [...form.querySelectorAll("input[type=number]")].filter((i) => !i.checkValidity() || i.value === "");
 }
 
+let announceTimer;
+function announce(text) {
+  // Screen readers hear the verdict once typing settles, not on every keystroke.
+  clearTimeout(announceTimer);
+  announceTimer = setTimeout(() => {
+    const el = document.querySelector("[data-lab-announce]");
+    if (el) el.textContent = text;
+  }, 800);
+}
+
 function render() {
+  const inputs = [...form.querySelectorAll("input[type=number]")];
   const bad = invalidFields();
+  inputs.forEach((i) => {
+    if (bad.includes(i)) {
+      i.setAttribute("aria-invalid", "true");
+      i.setAttribute("aria-errormessage", "lab-error");
+    } else {
+      i.removeAttribute("aria-invalid");
+      i.removeAttribute("aria-errormessage");
+    }
+  });
   const err = form.querySelector("[data-lab-error]");
+  const output = document.querySelector("[data-lab-output]");
+  const verdict = document.querySelector("[data-lab-verdict]");
   if (bad.length) {
+    const names = bad.map((i) => form.querySelector(`label[for="${i.id}"]`).firstChild.textContent.trim());
     err.hidden = false;
-    err.textContent = `Check ${bad.map((i) => form.querySelector(`label[for="${i.id}"]`).firstChild.textContent.trim()).join(", ")} — the value is missing or out of range.`;
+    err.textContent = `${names.join(", ")}: enter a number between ${bad[0].min} and ${Number(bad[0].max).toLocaleString("en-IE")}.`;
+    output.setAttribute("aria-busy", "true");
+    verdict.textContent = "Results are paused until every field has a valid number.";
+    verdict.dataset.level = "warn";
+    announce(err.textContent);
     return;
   }
   err.hidden = true;
+  output.removeAttribute("aria-busy");
   const { load, cap, fail } = read();
   const r = compute(load, cap, fail);
 
-  const verdict = document.querySelector("[data-lab-verdict]");
   verdict.textContent = r.verdict;
   verdict.dataset.level = fail.primaryFailover && !Number.isFinite(r.drainSeconds) ? "over" : level(r.hottest.util);
+  announce(r.verdict);
 
   const set = (k, v) => {
     const el = document.querySelector(`[data-out="${k}"]`);
     if (el) el.textContent = v;
   };
+  const small = (n) => (n === 0 ? "0" : n < 10 ? n.toFixed(1) : fmt(n));
   set("avgRps", fmt(r.avgRps));
   set("peakRps", fmt(r.peakRps));
   set("peakWrites", fmt(r.peakWrites));
   set("dbReads", fmt(r.dbReads));
-  set("storageTbYear", r.storageTbYear < 10 ? r.storageTbYear.toFixed(1) : fmt(r.storageTbYear));
-  set("egressTbMonth", r.egressTbMonth < 10 ? r.egressTbMonth.toFixed(1) : fmt(r.egressTbMonth));
+  set("storageTbYear", small(r.storageTbYear));
+  set("egressTbMonth", small(r.egressTbMonth));
 
   document.querySelector("[data-lab-tiers]").innerHTML = r.tiers
     .map(
-      (t) => `<tr data-tier="${t.id}" data-level="${level(t.util)}"><th scope="row">${t.label}</th><td>${t.count}</td><td><span class="meter" style="--u:${Math.min(1, t.util)}"><span></span></span> ${pct(t.util)}</td><td>${t.note}</td></tr>`
+      (t) => `<tr data-tier="${t.id}" data-level="${level(t.util)}"><th scope="row">${t.label}</th><td>${fmt(t.count)}</td><td><span class="meter" style="--u:${Math.min(1, t.util)}"><span></span></span> ${pct(t.util)}</td><td>${t.note}</td></tr>`
     )
     .join("");
 
@@ -72,7 +100,7 @@ function drawDiagram(r, fail) {
   const edge = (d, rps, down = false) =>
     `<g class="${down ? "ld-down" : ""}"><path class="ld-edge" d="${d}" stroke-width="${w(rps)}"/><path class="ld-flow" d="${d}" stroke-width="2" style="--flow:${flow(rps)}"/></g>`;
   const midY = 121;
-  const appLabel = r.appActive !== r.appNodes ? `${r.appActive}/${r.appNodes}` : String(r.appNodes);
+  const appLabel = r.appActive !== r.appNodes ? `${fmt(r.appActive)}/${fmt(r.appNodes)}` : fmt(r.appNodes);
   const vw = fail.primaryFailover ? W : 556;
   return `<svg viewBox="-8 0 ${vw + 16} ${H}" preserveAspectRatio="xMidYMid meet" focusable="false">
     ${edge(`M${BW} ${midY + BH / 2} H${200}`, r.peakRps)}
@@ -81,9 +109,9 @@ function drawDiagram(r, fail) {
     ${edge(`M${200 + BW} ${midY + BH / 2} C ${380} ${midY + BH / 2} ${380} ${222 + BH / 2} ${420} ${222 + BH / 2}`, r.peakWrites, fail.primaryFailover)}
     ${box(0, midY, "Clients", fmt(r.peakRps), "rps")}
     ${box(200, midY, "App", appLabel, pct(t.app.util), level(t.app.util))}
-    ${box(420, 20, "Cache", r.cacheNodes, fail.cacheCold ? "cold" : pct(t.cache.util), fail.cacheCold ? "warn" : level(t.cache.util))}
-    ${box(420, midY, "Replicas", r.replicas, pct(t.replica.util), level(t.replica.util))}
-    ${box(420, 222, r.shards > 1 ? "Shards" : "Primary", r.shards, fail.primaryFailover ? "failover" : pct(t.primary.util), fail.primaryFailover ? "over" : level(t.primary.util))}
+    ${box(420, 20, "Cache", fmt(r.cacheNodes), fail.cacheCold ? "cold" : pct(t.cache.util), fail.cacheCold ? "warn" : level(t.cache.util))}
+    ${box(420, midY, "Replicas", fmt(r.replicas), pct(t.replica.util), level(t.replica.util))}
+    ${box(420, 222, r.shards > 1 ? "Shards" : "Primary", fmt(r.shards), fail.primaryFailover ? "failover" : pct(t.primary.util), fail.primaryFailover ? "over" : level(t.primary.util))}
     ${fail.primaryFailover ? `<g transform="translate(600 222)"><rect class="ld-box" width="150" height="${BH}" rx="4"/><text class="ld-label" x="12" y="23">Write queue</text><text class="ld-count" x="12" y="58">${fmt(r.queued)}</text></g>` : ""}
   </svg>`;
 }
@@ -104,3 +132,5 @@ function init() {
   form.addEventListener("submit", (e) => e.preventDefault());
   render();
 }
+
+if (form) init();

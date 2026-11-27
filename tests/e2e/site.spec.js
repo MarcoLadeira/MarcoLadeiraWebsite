@@ -164,3 +164,16 @@ test("Oddlings rules demo: a correct swap is confirmed by the checker", async ({
   await page.locator("[data-vf-next]").click();
   await expect(page.locator("[data-vf-out]")).toContainText("Checker:");
 });
+
+test("dark theme passes axe on every page", async ({ browser }) => {
+  const ctx = await browser.newContext({ colorScheme: "dark" });
+  const page = await ctx.newPage();
+  for (const path of PAGES) {
+    await page.goto(`http://localhost:4173/MarcoLadeiraWebsite/${path}`);
+    await page.evaluate(() => document.querySelectorAll("[data-reveal],[data-split]").forEach((el) => el.classList.add("is-in")));
+    await page.waitForTimeout(700);
+    const axe = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"]).analyze();
+    expect(axe.violations.map((v) => `${path} ${v.id}: ${v.nodes.map((n) => n.target.join(" ")).join(", ")}`)).toEqual([]);
+  }
+  await ctx.close();
+});

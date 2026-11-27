@@ -59,7 +59,8 @@ test("every page has a title, description, canonical under the base path, and ex
     assert.match(p.html, /<title>[^<]{5,}<\/title>/, p.rel);
     assert.match(p.html, /<meta name="description" content="[^"]{30,}"/, p.rel);
     const canon = p.html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
-    assert.ok(canon?.startsWith(site.origin + site.base), `${p.rel} canonical ${canon}`);
+    if (p.html.includes('content="noindex"')) assert.equal(canon, undefined, `${p.rel} noindex page has no canonical`);
+    else assert.ok(canon?.startsWith(site.origin + site.base), `${p.rel} canonical ${canon}`);
     assert.equal((p.html.match(/<h1[\s>]/g) || []).length, 1, `${p.rel} h1 count`);
     assert.match(p.html, /<html lang="en-IE"/, p.rel);
   }
@@ -67,6 +68,8 @@ test("every page has a title, description, canonical under the base path, and ex
 
 test("titles and canonicals are unique", () => {
   const titles = content.map((p) => p.html.match(/<title>([^<]+)/)[1]);
+  const csp = content.filter((p) => !p.html.includes('http-equiv="Content-Security-Policy"'));
+  assert.deepEqual(csp.map((p) => p.rel), [], "every page carries a CSP");
   assert.equal(new Set(titles).size, titles.length);
 });
 

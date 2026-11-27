@@ -3,9 +3,9 @@ import { layout } from "../lib/layout.mjs";
 import { url } from "../data/site.mjs";
 import { PRESETS, DEFAULT_CAPACITY, compute, fmt, pct } from "../../assets/js/lab-model.js";
 
-const field = (id, label, value, { min, max, step = 1, unit = "", hint = "" } = {}) => html`<div class="field">
+const field = (id, label, value, { min, max, unit = "", hint = "" } = {}) => html`<div class="field">
   <label for="${id}">${label}${unit ? html` <span class="field__unit">(${unit})</span>` : ""}</label>
-  <input id="${id}" name="${id}" type="number" inputmode="decimal" value="${value}" min="${min}" max="${max}" step="${step}" ${raw(hint ? `aria-describedby="${id}-hint"` : "")} required>
+  <input id="${id}" name="${id}" type="number" inputmode="decimal" value="${value}" min="${min}" max="${max}" step="any" ${raw(hint ? `aria-describedby="${id}-hint"` : "")} required>
   ${hint ? html`<p class="field__hint" id="${id}-hint">${hint}</p>` : ""}
 </div>`;
 
@@ -62,11 +62,12 @@ export function lab() {
         </fieldset>
       </details>
 
-      <p class="field__error" role="alert" data-lab-error hidden></p>
+      <p class="field__error" id="lab-error" data-lab-error hidden></p>
     </form>
 
-    <div class="lab__output">
-      <p class="lab__verdict" data-lab-verdict aria-live="polite">${r.verdict}</p>
+    <div class="lab__output" data-lab-output>
+      <p class="lab__verdict" data-lab-verdict>${r.verdict}</p>
+      <p class="visually-hidden" role="status" aria-live="polite" data-lab-announce></p>
       <div class="lab__diagram" data-lab-diagram aria-hidden="true"></div>
       <dl class="lab__numbers">
         <div><dt>Average load</dt><dd><span class="n" data-out="avgRps">${fmt(r.avgRps)}</span><span class="u">requests/s</span></dd></div>

@@ -2,7 +2,28 @@ import { html, raw } from "./html.mjs";
 import { site, nav, url, absUrl } from "../data/site.mjs";
 import { icon } from "../components/icons.mjs";
 
-const ASSET_VERSION = "20261127";
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+
+// Content-hashed query strings: a changed file always gets a new URL.
+const ROOT = new URL("../../", import.meta.url);
+const hashOf = (path) => createHash("sha256").update(readFileSync(new URL(path, ROOT))).digest("hex").slice(0, 10);
+const v = (path) => url(`${path}?v=${hashOf(path)}`);
+
+const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}var d=document.documentElement;d.classList.add("js");setTimeout(function(){if(!d.hasAttribute("data-ready"))d.classList.remove("js")},2500)})();`;
+const THEME_HASH = createHash("sha256").update(THEME_SCRIPT).digest("base64");
+const CSP = [
+  "default-src 'self'",
+  `script-src 'self' 'sha256-${THEME_HASH}'`,
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  "media-src 'self'",
+  "connect-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join("; ");
 
 export function personJsonLd() {
   return {
@@ -50,15 +71,15 @@ ${html`<html lang="${site.lang}" data-theme="auto">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${fullTitle}</title>
 <meta name="description" content="${p.description}">
-<link rel="canonical" href="${canonical}">
-${p.noindex ? raw('<meta name="robots" content="noindex">') : ""}
+<meta http-equiv="Content-Security-Policy" content="${CSP}">
+${p.noindex ? raw('<meta name="robots" content="noindex">') : html`<link rel="canonical" href="${canonical}">`}
 <meta name="author" content="${site.name}">
 <meta property="og:type" content="${p.ogType || "website"}">
 <meta property="og:site_name" content="${site.name}">
 <meta property="og:locale" content="${site.locale}">
 <meta property="og:title" content="${p.title}">
 <meta property="og:description" content="${p.description}">
-<meta property="og:url" content="${canonical}">
+${p.noindex ? "" : html`<meta property="og:url" content="${canonical}">`}
 <meta property="og:image" content="${og}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -77,13 +98,11 @@ ${p.noindex ? raw('<meta name="robots" content="noindex">') : ""}
 <link rel="alternate" type="application/rss+xml" title="${site.name} — Writing" href="${url("feed.xml")}">
 <link rel="preload" href="${url("assets/fonts/newsreader-latin-normal.woff2")}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${url("assets/fonts/ibm-plex-sans-latin-400-normal.woff2")}" as="font" type="font/woff2" crossorigin>
-<script>${raw(
-    `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}var d=document.documentElement;d.classList.add("js");setTimeout(function(){if(!d.hasAttribute("data-ready"))d.classList.remove("js")},2500)})();`
-  )}</script>
-<link rel="stylesheet" href="${url(`assets/css/site.min.css?v=${ASSET_VERSION}`)}">
-${(p.styles || []).map((s) => html`<link rel="stylesheet" href="${url(`${s}?v=${ASSET_VERSION}`)}">`)}
-<script type="module" src="${url(`assets/js/site.js?v=${ASSET_VERSION}`)}"></script>
-${(p.scripts || []).map((s) => html`<script type="module" src="${url(`${s}?v=${ASSET_VERSION}`)}"></script>`)}
+<script>${raw(THEME_SCRIPT)}</script>
+<link rel="stylesheet" href="${v("assets/css/site.css")}">
+${(p.styles || []).map((s) => html`<link rel="stylesheet" href="${v(s)}">`)}
+<script type="module" src="${v("assets/js/site.js")}"></script>
+${(p.scripts || []).map((s) => html`<script type="module" src="${v(s)}"></script>`)}
 ${ld.map((o) => html`<script type="application/ld+json">${raw(JSON.stringify(o).replace(/</g, "\\u003c"))}</script>`)}
 </head>
 <body class="${p.bodyClass || ""}">

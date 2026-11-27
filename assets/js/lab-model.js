@@ -90,9 +90,12 @@ export function compute(load, cap = DEFAULT_CAPACITY, fail = DEFAULT_FAILURES) {
 }
 
 function verdict(hottest, { queued, drainSeconds, fail }) {
+  if (fail.primaryFailover && queued === 0) {
+    return "With no writes at peak, a primary failover queues nothing; reads keep flowing from the replicas.";
+  }
   if (fail.primaryFailover) {
     return Number.isFinite(drainSeconds)
-      ? `During a primary failover, writes back up in a queue and drain in about ${fmtDuration(drainSeconds)} once the new primary takes over. The queue needs to hold ${fmt(queued)} writes without dropping any.`
+      ? `During a primary failover, writes back up in a queue and drain in ${drainSeconds < 1 ? "" : "about "}${fmtDuration(drainSeconds)} once the new primary takes over. The queue needs to hold ${fmt(queued)} writes without dropping any.`
       : "The primary has no spare write capacity, so a queue built up during failover would never drain. Add a shard or reduce write volume.";
   }
   const u = hottest.util;
@@ -112,16 +115,18 @@ function advice(id) {
 
 export function fmt(n) {
   if (!Number.isFinite(n)) return "∞";
+  if (n === 0) return "0";
   if (n >= 1e9) return `${(n / 1e9).toFixed(1)}B`;
   if (n >= 1e6) return `${(n / 1e6).toFixed(1)}M`;
   if (n >= 1e4) return `${Math.round(n / 1e3)}k`;
   if (n >= 1e3) return `${(n / 1e3).toFixed(1)}k`;
-  if (n >= 10) return String(Math.round(n));
+  if (n >= 10 || Number.isInteger(n)) return String(Math.round(n));
   return n.toFixed(1);
 }
 export const pct = (u) => `${Math.round(u * 100)}%`;
 export function fmtDuration(s) {
   if (!Number.isFinite(s)) return "never";
+  if (s < 1) return "under a second";
   if (s < 60) return `${Math.round(s)} s`;
   if (s < 3600) return `${Math.round(s / 60)} min`;
   return `${(s / 3600).toFixed(1)} h`;

@@ -2,7 +2,6 @@
 const root = document.documentElement;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
-root.setAttribute("data-ready", "");
 
 /* ---------- Theme ---------- */
 function effectiveTheme() {
@@ -28,7 +27,7 @@ function initTheme() {
     if (document.startViewTransition && !reduceMotion.matches) document.startViewTransition(apply);
     else apply();
   });
-  darkQuery.addEventListener("change", () => syncThemeButton(btn));
+  darkQuery.addEventListener?.("change", () => syncThemeButton(btn));
 }
 
 /* ---------- Navigation ---------- */
@@ -56,7 +55,11 @@ function initNav() {
   document.addEventListener("click", (e) => {
     if (toggle.getAttribute("aria-expanded") === "true" && !e.target.closest(".nav")) setOpen(false);
   });
-  window.matchMedia("(min-width: 961px)").addEventListener("change", (e) => e.matches && setOpen(false));
+  // Close when keyboard focus leaves the menu.
+  toggle.closest(".nav").addEventListener("focusout", (e) => {
+    if (toggle.getAttribute("aria-expanded") === "true" && e.relatedTarget && !e.relatedTarget.closest(".nav")) setOpen(false);
+  });
+  window.matchMedia("(min-width: 961px)").addEventListener?.("change", (e) => e.matches && setOpen(false));
 }
 
 function initMasthead() {
@@ -190,14 +193,26 @@ function initVideos() {
     (entries) =>
       entries.forEach((e) => {
         const v = e.target;
+        if (v.dataset.userPaused) return; // respect an explicit pause
         if (e.isIntersecting) {
           v.preload = "auto";
+          v.dataset.autoplaying = "1";
           v.play().catch(() => {});
-        } else v.pause();
+        } else {
+          v.dataset.autoplaying = "";
+          v.pause();
+        }
       }),
     { threshold: 0.5 }
   );
-  vids.forEach((v) => io.observe(v));
+  vids.forEach((v) => {
+    // A pause the viewer makes (controls or keyboard) while the clip is on screen sticks.
+    v.addEventListener("pause", () => {
+      const r = v.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < window.innerHeight && !document.hidden) v.dataset.userPaused = "1";
+    });
+    io.observe(v);
+  });
 }
 
 /* ---------- Case-study table of contents ---------- */
@@ -221,11 +236,16 @@ function initToc() {
   });
 }
 
-initTheme();
-initNav();
-initMasthead();
-initReveals();
-initSchematic();
-initCopy();
-initVideos();
-initToc();
+// Each feature is independent: one failing (e.g. an old browser API) must not take the others,
+// or the hidden-until-revealed content, down with it.
+let failed = false;
+for (const init of [initReveals, initTheme, initNav, initMasthead, initSchematic, initCopy, initVideos, initToc]) {
+  try {
+    init();
+  } catch (err) {
+    failed = true;
+    console.warn(`[site] ${init.name} failed`, err);
+  }
+}
+if (failed) document.querySelectorAll("[data-reveal], [data-split]").forEach((el) => el.classList.add("is-in"));
+root.setAttribute("data-ready", "");

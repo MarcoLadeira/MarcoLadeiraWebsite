@@ -15,7 +15,7 @@ export function redirect(from, to, label) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>body{font:16px/1.5 system-ui,sans-serif;margin:4rem auto;max-width:32rem;padding:0 1.5rem;color:#15140f;background:#f2efe7}a{color:inherit}</style>
 </head><body><p>This page has moved to <a href="${target}">${label}</a>.</p>
-<script>location.replace(${JSON.stringify(target)} + location.hash)</script></body></html>`;
+<script>location.replace(${JSON.stringify(target.split("#")[0])} + (location.hash || ${JSON.stringify(target.includes("#") ? "#" + target.split("#")[1] : "")}))</script></body></html>`;
 }
 
 export function notFound() {

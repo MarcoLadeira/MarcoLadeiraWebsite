@@ -35,6 +35,12 @@ async function resolve(pathname) {
 
 createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
+  try {
+    decodeURIComponent(url.pathname);
+  } catch {
+    res.writeHead(400, { "Content-Type": "text/plain" });
+    return res.end("Bad request");
+  }
   if (url.pathname === "/" || url.pathname === BASE.slice(0, -1)) {
     res.writeHead(301, { Location: BASE });
     return res.end();
