@@ -101,8 +101,6 @@ function mount(root) {
   const goalEl = root.querySelector("[data-vf-goal]");
   const out = root.querySelector("[data-vf-out]");
   const status = root.querySelector("[data-vf-status]");
-  const next = root.querySelector("[data-vf-next]");
-  const hintButton = root.querySelector("[data-vf-hint]");
 
   function newBoard() {
     const goal = order[gi % order.length];
@@ -114,9 +112,8 @@ function mount(root) {
     out.textContent = `Checker: this board breaks the goal, and ${n} swap${n === 1 ? "" : "s"} would fix it.`;
   }
   function render() {
-    hintButton.disabled = fixed;
     board.innerHTML = grid
-      .map((g, i) => `<button type="button" class="vf-cell${picked === i ? " is-picked" : ""}${fixed ? " is-fixed" : ""}${hint.includes(i) ? " is-hint" : ""}" data-i="${i}"${fixed ? " disabled" : ""} aria-pressed="${picked === i}" aria-label="Row ${Math.floor(i / 3) + 1}, column ${(i % 3) + 1}: ${name(g)}">${svg(g)}</button>`)
+      .map((g, i) => `<button type="button" class="vf-cell${picked === i ? " is-picked" : ""}${fixed ? " is-fixed" : ""}${hint.includes(i) ? " is-hint" : ""}" data-i="${i}" aria-pressed="${picked === i}" aria-label="Row ${Math.floor(i / 3) + 1}, column ${(i % 3) + 1}: ${name(g)}">${svg(g)}</button>`)
       .join("");
   }
   board.addEventListener("click", (e) => {
@@ -134,7 +131,6 @@ function mount(root) {
       grid = trial; fixed = true; hint = []; render();
       const msg = `Fixed in ${moves} ${moves === 1 ? "try" : "tries"}. The checker confirms every line holds.`;
       out.textContent = msg; status.textContent = msg;
-      next.focus();
     } else {
       render();
       const msg = "Not that pair — the checker found a line that still breaks the goal. The board is unchanged.";
@@ -142,12 +138,8 @@ function mount(root) {
       board.querySelector(`[data-i="${b}"]`).focus();
     }
   });
-  next.addEventListener("click", () => {
-    gi++;
-    newBoard();
-    board.querySelector("[data-i]").focus();
-  });
-  hintButton.addEventListener("click", () => {
+  root.querySelector("[data-vf-next]").addEventListener("click", () => { gi++; newBoard(); });
+  root.querySelector("[data-vf-hint]").addEventListener("click", () => {
     const [a, b] = repairs(grid, order[gi % order.length])[0] || [];
     if (a === undefined) return;
     hint = [a, b];

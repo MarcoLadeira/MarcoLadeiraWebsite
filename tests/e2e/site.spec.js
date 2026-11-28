@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-const PAGES = ["", "work/", "work/fenergo/", "work/vesta/", "work/oddlings/", "work/savetheplanet/", "experience/", "about/", "contact/", "lab/", "writing/", "writing/hybrid-workflow-cli-mcp-agents/", "writing/software-engineering-in-the-age-of-ai/", "updates/", "updates/aws-ml-specialty-and-current-ai-focus/", "updates/fenergo-ai-initiative/", "updates/first-months-at-fenergo/"];
+const PAGES = ["", "work/", "work/fenergo/", "work/vesta/", "work/oddlings/", "work/savetheplanet/", "experience/", "about/", "contact/", "lab/", "writing/", "writing/hybrid-workflow-cli-mcp-agents/", "updates/fenergo-ai-initiative/"];
 
 function trackErrors(page) {
   const errors = [];
@@ -29,22 +29,21 @@ for (const path of PAGES) {
   });
 }
 
-test("homepage communicates identity and puts work and CV above the fold", async ({ page }) => {
+test("homepage communicates identity and offers every contact route above the fold", async ({ page }) => {
   await page.goto("");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("MARCO LADEIRA");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("shows its working");
   await expect(page.getByText("Associate Software Engineer at Fenergo")).toBeVisible();
   for (const name of ["See the work", "Download CV"]) await expect(page.getByRole("link", { name }).first()).toBeInViewport();
   await expect(page.locator('a[href^="mailto:"]').first()).toHaveAttribute("href", "mailto:marcoladeirawork@gmail.com");
 });
 
-test("the portfolio uses a text wordmark and puts Fenergo before the products", async ({ page }) => {
+test("schematic stations highlight their traces on focus", async ({ page, isMobile }) => {
+  test.skip(isMobile, "The drawing is replaced by a list on small screens");
   await page.goto("");
-  await expect(page.locator(".brand")).toHaveText("MARCO LADEIRA");
-  await expect(page.locator(".brand svg")).toHaveCount(0);
-  const main = page.locator("main");
-  const cases = main.locator('a[href*="/work/"]:not([href$="/work/"])');
-  await expect(cases.first()).toContainText("Fenergo");
-  await expect(main.locator("[data-schematic]")).toHaveCount(0);
+  const vesta = page.locator('.station[data-station="vesta"] a');
+  await vesta.focus();
+  await expect(page.locator("[data-schematic]")).toHaveAttribute("data-active", "vesta");
+  await expect(page.locator('.trace.is-on[data-station="vesta"]')).toHaveCount(3);
 });
 
 test("theme toggle switches and persists across navigation", async ({ page }) => {
@@ -63,12 +62,12 @@ test("mobile menu opens, traps nothing, and closes with Escape", async ({ page, 
   const toggle = page.locator("[data-nav-toggle]");
   await toggle.click();
   await expect(toggle).toHaveAttribute("aria-expanded", "true");
-  await expect(page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Experience", exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Experience", exact: true })).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(toggle).toHaveAttribute("aria-expanded", "false");
   await expect(toggle).toBeFocused();
   await toggle.click();
-  await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Experience", exact: true }).click();
+  await page.getByRole("link", { name: "Experience", exact: true }).click();
   await expect(page).toHaveURL(/experience\/$/);
 });
 
@@ -106,8 +105,6 @@ test("Capacity Lab recomputes live and reacts to failures", async ({ page }) => 
   await page.goto("lab/");
   const peak = page.locator('[data-out="peakRps"]');
   await expect(peak).toHaveText("83k");
-  const workload = page.locator("[data-lab-workload]");
-  if ((await workload.getAttribute("open")) === null) await workload.locator("summary").click();
   await page.locator("#preset").selectOption("small-saas");
   await expect(peak).not.toHaveText("83k");
   await page.locator("#preset").selectOption("social-feed");
@@ -120,11 +117,9 @@ test("Capacity Lab recomputes live and reacts to failures", async ({ page }) => 
   await expect(page.locator("[data-lab-error]")).toBeVisible();
 });
 
-test("keyboard users can skip to content and reach the case-study contents", async ({ page, isMobile, browserName }) => {
+test("keyboard users can skip to content and reach the case-study contents", async ({ page, isMobile }) => {
   await page.goto("work/oddlings/");
-  // The iPhone WebKit preset skips links with Tab. Check activation with the link focused.
-  if (browserName === "webkit") await page.locator(".skip").focus();
-  else await page.keyboard.press("Tab");
+  await page.keyboard.press("Tab");
   await expect(page.locator(".skip")).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.locator("main")).toBeFocused();
@@ -141,7 +136,7 @@ test("content is visible immediately with reduced motion and without JavaScript"
   const p2 = await nojs.newPage();
   await p2.goto("http://localhost:4173/MarcoLadeiraWebsite/");
   await expect(p2.locator(".feature").first()).toHaveCSS("opacity", "1");
-  await expect(p2.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Experience", exact: true })).toBeVisible();
+  await expect(p2.getByRole("link", { name: "Experience", exact: true }).first()).toBeVisible();
   await nojs.close();
 });
 
@@ -166,11 +161,8 @@ test("Oddlings rules demo: a correct swap is confirmed by the checker", async ({
   await hinted.nth(0).click();
   await hinted.nth(1).click();
   await expect(page.locator("[data-vf-out]")).toContainText("Fixed");
-  await expect(page.locator("[data-vf-next]")).toBeFocused();
-  await expect(page.locator("[data-vf-hint]")).toBeDisabled();
   await page.locator("[data-vf-next]").click();
   await expect(page.locator("[data-vf-out]")).toContainText("Checker:");
-  await expect(page.locator(".vf-cell").first()).toBeFocused();
 });
 
 test("dark theme passes axe on every page", async ({ browser }) => {

@@ -7,10 +7,7 @@ import { readFileSync } from "node:fs";
 
 // Content-hashed query strings: a changed file always gets a new URL.
 const ROOT = new URL("../../", import.meta.url);
-const hashOf = (path) => {
-  const content = readFileSync(new URL(path, ROOT), "utf8").replaceAll("\r\n", "\n");
-  return createHash("sha256").update(content).digest("hex").slice(0, 10);
-};
+const hashOf = (path) => createHash("sha256").update(readFileSync(new URL(path, ROOT))).digest("hex").slice(0, 10);
 const v = (path) => url(`${path}?v=${hashOf(path)}`);
 
 const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}var d=document.documentElement;d.classList.add("js");setTimeout(function(){if(!d.hasAttribute("data-ready"))d.classList.remove("js")},2500)})();`;
@@ -91,8 +88,8 @@ ${p.noindex ? "" : html`<meta property="og:url" content="${canonical}">`}
 <meta name="twitter:title" content="${p.title}">
 <meta name="twitter:description" content="${p.description}">
 <meta name="twitter:image" content="${og}">
-<meta name="theme-color" content="#f6f6f2" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#17191c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f2efe7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11100d" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="${url("favicon.svg")}" type="image/svg+xml">
 <link rel="icon" href="${url("favicon-32.png")}" sizes="32x32" type="image/png">
@@ -100,7 +97,7 @@ ${p.noindex ? "" : html`<meta property="og:url" content="${canonical}">`}
 <link rel="manifest" href="${url("manifest.json")}">
 <link rel="alternate" type="application/rss+xml" title="${site.name} — Writing" href="${url("feed.xml")}">
 <link rel="preload" href="${url("assets/fonts/newsreader-latin-normal.woff2")}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="${url("assets/fonts/geist-latin.woff2")}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${url("assets/fonts/ibm-plex-sans-latin-400-normal.woff2")}" as="font" type="font/woff2" crossorigin>
 <script>${raw(THEME_SCRIPT)}</script>
 <link rel="stylesheet" href="${v("assets/css/site.css")}">
 ${(p.styles || []).map((s) => html`<link rel="stylesheet" href="${v(s)}">`)}
@@ -113,7 +110,8 @@ ${ld.map((o) => html`<script type="application/ld+json">${raw(JSON.stringify(o).
 <header class="masthead" data-masthead>
   <div class="masthead__inner">
     <a class="brand" href="${url("")}" aria-label="${site.name}, home">
-      <span class="brand__name">${site.wordmark}</span>
+      <span class="brand__mark" aria-hidden="true">${raw(icon("mark"))}</span>
+      <span class="brand__name">${site.name}</span>
     </a>
     <nav class="nav" aria-label="Main">
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-list" data-nav-toggle>
@@ -136,20 +134,17 @@ ${p.body}
 <footer class="colophon">
   <div class="colophon__inner">
     <div class="colophon__cta">
-      <p class="colophon__line">Get in touch</p>
-      <p class="colophon__email"><a href="mailto:${site.email}">${site.email}</a></p>
+      <p class="eyebrow">Contact</p>
+      <p class="colophon__line">Have something worth building?<br><a href="mailto:${site.email}">${site.email}</a></p>
     </div>
     <ul class="colophon__links">
       <li><a href="${site.linkedin}" rel="me noopener">LinkedIn ${raw(icon("arrow-ne"))}</a></li>
       <li><a href="${site.github}" rel="me noopener">GitHub ${raw(icon("arrow-ne"))}</a></li>
       <li><a href="${url(site.cv)}" download>CV (PDF)</a></li>
-      <li><a href="${url("writing/")}">Writing</a></li>
-      <li><a href="${url("lab/")}">Capacity Lab</a></li>
-      <li><a href="${url("contact/")}">Contact</a></li>
+      <li><a href="${url("feed.xml")}">RSS</a></li>
     </ul>
     <div class="colophon__meta">
-      <a class="colophon__wordmark" href="${url("")}">${site.wordmark}</a>
-      <a href="${url("feed.xml")}">RSS</a>
+      <p>Dublin, Ireland · Hand-built static site · No trackers · <a href="https://github.com/MarcoLadeira/MarcoLadeiraWebsite" rel="noopener">Source</a></p>
       <p>Updated <time datetime="${site.updated}">November 2026</time></p>
     </div>
   </div>

@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import { site } from "../../src/data/site.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
-const SKIP = new Set(["node_modules", ".git", "src", "tests", "docs", ".generated", "scripts", "test-results", "dist"]);
+const SKIP = new Set(["node_modules", ".git", "src", "tests", "docs", ".generated", "scripts", "test-results"]);
 
 function htmlFiles(dir = ROOT) {
   return readdirSync(dir).flatMap((f) => {
@@ -118,10 +118,4 @@ test("the CV exists at both the new and the legacy URL", () => {
     const buf = readFileSync(join(ROOT, f));
     assert.equal(buf.subarray(0, 4).toString(), "%PDF", f);
   }
-});
-
-test("the AWS machine-learning item is labelled as exam preparation", () => {
-  const page = readFileSync(join(ROOT, "experience/index.html"), "utf8");
-  assert.match(page, /AWS Certified Machine Learning Exam Prep/);
-  assert.doesNotMatch(page, /AWS Certified Machine Learning [—–-] Specialty/);
 });

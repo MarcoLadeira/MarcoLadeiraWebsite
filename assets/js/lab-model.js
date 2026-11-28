@@ -90,18 +90,13 @@ export function compute(load, cap = DEFAULT_CAPACITY, fail = DEFAULT_FAILURES) {
 }
 
 function verdict(hottest, { queued, drainSeconds, fail }) {
+  if (fail.primaryFailover && queued === 0) {
+    return "With no writes at peak, a primary failover queues nothing; reads keep flowing from the replicas.";
+  }
   if (fail.primaryFailover) {
-    const messages = [
-      queued === 0
-        ? "With no writes at peak, a primary failover queues nothing."
-        : Number.isFinite(drainSeconds)
-          ? `During a primary failover, ${fmt(queued)} writes queue up. They drain in ${fmtDuration(drainSeconds)} once the new primary takes over.`
-          : "The primary has no spare write capacity, so the failover queue cannot drain. Add a shard or reduce write volume.",
-    ];
-    if (hottest.util > 1) {
-      messages.push(`${hottest.label} are past 100% (${pct(hottest.util)}). ${advice(hottest.id)}`);
-    }
-    return messages.join(" ");
+    return Number.isFinite(drainSeconds)
+      ? `During a primary failover, writes back up in a queue and drain in ${drainSeconds < 1 ? "" : "about "}${fmtDuration(drainSeconds)} once the new primary takes over. The queue needs to hold ${fmt(queued)} writes without dropping any.`
+      : "The primary has no spare write capacity, so a queue built up during failover would never drain. Add a shard or reduce write volume.";
   }
   const u = hottest.util;
   if (u > 1) return `${hottest.label} are past 100% (${pct(u)}) — this design falls over at peak. ${advice(hottest.id)}`;

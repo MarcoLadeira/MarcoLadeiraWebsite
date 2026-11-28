@@ -10,15 +10,11 @@
     "test": "npm run test:unit && npm run test:e2e",
     "test:unit": "node --test tests/unit/*.test.mjs",
     "test:e2e": "playwright test",
-    "check": "npm run build && git diff --exit-code -- . ':(exclude)package-lock.json' && npm run test:unit",
-    "stage:pages": "node scripts/stage-pages.mjs",
-    "check:generated": "npm run build && git diff --exit-code"
+    "check": "npm run build && git diff --exit-code -- . ':(exclude)package-lock.json' && npm run test:unit"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "^1.56.0"
   },
-  "engines": {
-    "node": ">=20"
-  }
+  "engines": { "node": ">=20" }
 }

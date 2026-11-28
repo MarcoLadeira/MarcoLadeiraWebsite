@@ -26,8 +26,8 @@ export const notes = [
   {
     slug: "aws-ml-specialty-and-current-ai-focus",
     path: "updates/aws-ml-specialty-and-current-ai-focus/",
-    title: "AWS machine learning exam prep and what I’m working on",
-    summary: "Notes on exam preparation, model integration and evaluation in production.",
+    title: "AWS ML Specialty and where my AI focus is heading",
+    summary: "What the certification sharpened: model integration, evaluation and the trade-offs of production ML.",
     date: "2026-03-14",
     minutes: 1,
   },

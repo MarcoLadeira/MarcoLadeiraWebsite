@@ -3,27 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AWS machine learning exam prep and what I’m working on — Marco Ladeira</title>
-<meta name="description" content="Notes on exam preparation, model integration and evaluation in production.">
+<title>AWS ML Specialty and where my AI focus is heading — Marco Ladeira</title>
+<meta name="description" content="What the certification sharpened: model integration, evaluation and the trade-offs of production ML.">
 <meta http-equiv="Content-Security-Policy" content="default-src &#39;self&#39;; script-src &#39;self&#39; &#39;sha256-Iw4BlYPN5CRkWwF7Fs3BakVpKFzNf3nu18WXyBGXEOQ=&#39;; style-src &#39;self&#39; &#39;unsafe-inline&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39;; media-src &#39;self&#39;; connect-src &#39;self&#39;; object-src &#39;none&#39;; base-uri &#39;self&#39;; form-action &#39;self&#39;">
 <link rel="canonical" href="https://marcoladeira.github.io/MarcoLadeiraWebsite/updates/aws-ml-specialty-and-current-ai-focus/">
 <meta name="author" content="Marco Ladeira">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Marco Ladeira">
 <meta property="og:locale" content="en_IE">
-<meta property="og:title" content="AWS machine learning exam prep and what I’m working on">
-<meta property="og:description" content="Notes on exam preparation, model integration and evaluation in production.">
+<meta property="og:title" content="AWS ML Specialty and where my AI focus is heading">
+<meta property="og:description" content="What the certification sharpened: model integration, evaluation and the trade-offs of production ML.">
 <meta property="og:url" content="https://marcoladeira.github.io/MarcoLadeiraWebsite/updates/aws-ml-specialty-and-current-ai-focus/">
 <meta property="og:image" content="https://marcoladeira.github.io/MarcoLadeiraWebsite/assets/img/og/default.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Marco Ladeira — Software engineer and product builder">
+<meta property="og:image:alt" content="Marco Ladeira — Software that shows its working.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AWS machine learning exam prep and what I’m working on">
-<meta name="twitter:description" content="Notes on exam preparation, model integration and evaluation in production.">
+<meta name="twitter:title" content="AWS ML Specialty and where my AI focus is heading">
+<meta name="twitter:description" content="What the certification sharpened: model integration, evaluation and the trade-offs of production ML.">
 <meta name="twitter:image" content="https://marcoladeira.github.io/MarcoLadeiraWebsite/assets/img/og/default.png">
-<meta name="theme-color" content="#f6f6f2" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#17191c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f2efe7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11100d" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="/MarcoLadeiraWebsite/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/MarcoLadeiraWebsite/favicon-32.png" sizes="32x32" type="image/png">
@@ -31,20 +31,21 @@
 <link rel="manifest" href="/MarcoLadeiraWebsite/manifest.json">
 <link rel="alternate" type="application/rss+xml" title="Marco Ladeira — Writing" href="/MarcoLadeiraWebsite/feed.xml">
 <link rel="preload" href="/MarcoLadeiraWebsite/assets/fonts/newsreader-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/MarcoLadeiraWebsite/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/MarcoLadeiraWebsite/assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <script>(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}var d=document.documentElement;d.classList.add("js");setTimeout(function(){if(!d.hasAttribute("data-ready"))d.classList.remove("js")},2500)})();</script>
-<link rel="stylesheet" href="/MarcoLadeiraWebsite/assets/css/site.css?v=ec30b16f70">
+<link rel="stylesheet" href="/MarcoLadeiraWebsite/assets/css/site.css?v=0b47e61510">
 
-<script type="module" src="/MarcoLadeiraWebsite/assets/js/site.js?v=dc4a248b13"></script>
+<script type="module" src="/MarcoLadeiraWebsite/assets/js/site.js?v=30ba2f6150"></script>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AWS machine learning exam prep and what I’m working on","description":"Notes on exam preparation, model integration and evaluation in production.","datePublished":"2026-03-14","author":{"@type":"Person","name":"Marco Ladeira","url":"https://marcoladeira.github.io/MarcoLadeiraWebsite/"},"mainEntityOfPage":"https://marcoladeira.github.io/MarcoLadeiraWebsite/updates/aws-ml-specialty-and-current-ai-focus/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AWS ML Specialty and where my AI focus is heading","description":"What the certification sharpened: model integration, evaluation and the trade-offs of production ML.","datePublished":"2026-03-14","author":{"@type":"Person","name":"Marco Ladeira","url":"https://marcoladeira.github.io/MarcoLadeiraWebsite/"},"mainEntityOfPage":"https://marcoladeira.github.io/MarcoLadeiraWebsite/updates/aws-ml-specialty-and-current-ai-focus/"}</script>
 </head>
 <body class="">
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead" data-masthead>
   <div class="masthead__inner">
     <a class="brand" href="/MarcoLadeiraWebsite/" aria-label="Marco Ladeira, home">
-      <span class="brand__name">MARCO LADEIRA</span>
+      <span class="brand__mark" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true" focusable="false"><rect x="0.75" y="0.75" width="26.5" height="26.5" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 20V8l7 8 7-8v8.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square" stroke-linejoin="miter"/><circle cx="21" cy="20" r="2" fill="var(--signal)"/></svg></span>
+      <span class="brand__name">Marco Ladeira</span>
     </a>
     <nav class="nav" aria-label="Main">
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-list" data-nav-toggle>
@@ -52,7 +53,7 @@
         <span class="nav__toggle-icon" aria-hidden="true"></span>
       </button>
       <ul class="nav__list" id="nav-list">
-        <li><a href="/MarcoLadeiraWebsite/work/">Work</a></li><li><a href="/MarcoLadeiraWebsite/experience/">Experience</a></li><li><a href="/MarcoLadeiraWebsite/about/">About</a></li>
+        <li><a href="/MarcoLadeiraWebsite/work/">Work</a></li><li><a href="/MarcoLadeiraWebsite/experience/">Experience</a></li><li><a href="/MarcoLadeiraWebsite/about/">About</a></li><li><a href="/MarcoLadeiraWebsite/lab/">Lab</a></li><li><a href="/MarcoLadeiraWebsite/writing/" aria-current="page">Writing</a></li><li><a href="/MarcoLadeiraWebsite/contact/">Contact</a></li>
         <li class="nav__cv"><a class="btn btn--small" href="/MarcoLadeiraWebsite/assets/marco-ladeira-cv.pdf" download><svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg><span>CV</span></a></li>
       </ul>
     </nav>
@@ -67,14 +68,25 @@
   <header class="page-head page-head--article">
     <div class="wrap wrap--narrow">
       <p class="eyebrow" data-reveal><a href="/MarcoLadeiraWebsite/writing/">Writing</a> / Note</p>
-      <h1 class="article__title" data-reveal>AWS machine learning exam prep and what I’m working on</h1>
-      <p class="page-head__lede" data-reveal>Notes on exam preparation, model integration and evaluation in production.</p>
+      <h1 class="article__title" data-reveal>AWS ML Specialty and where my AI focus is heading</h1>
+      <p class="page-head__lede" data-reveal>What the certification sharpened: model integration, evaluation and the trade-offs of production ML.</p>
       <p class="article__meta" data-reveal><time datetime="2026-03-14">14 March 2026</time> · 1 min read · Marco Ladeira</p>
     </div>
   </header>
   <div class="wrap wrap--narrow prose article__body" data-reveal>
-    <p>I took an AWS machine learning specialty exam-preparation course. It covered data preparation, model training, deployment and monitoring. I completed the course as professional development.</p>
-<p>Most of my AI engineering now happens around the model: fitting inference into existing software, evaluating outputs, and designing for the cases where a workflow needs a person to step in.</p>
+    <p>The certification gave more structure to ideas I was already working with: model integration, evaluation, data flow, and the engineering trade-offs that make machine learning useful in practice instead of just interesting in theory.</p>
+<h2>Why it mattered</h2>
+<p>It also reinforced the direction I want to keep pushing in my day-to-day work: practical AI systems, better workflow design, and tooling that can hold up in production.</p>
+<h2>Where the work is going</h2>
+<ul>
+<li>Practical model integration</li>
+<li>Better workflow design</li>
+<li>MCP-powered tools</li>
+<li>Stronger boundaries and reliability</li>
+<li>Production-minded experimentation</li>
+</ul>
+<h2>What I want to keep pushing</h2>
+<p>The direction I care about is not AI as spectacle. It is systems that are intelligent, but still grounded in clear engineering decisions and useful enough to hold up in real work.</p>
 
   </div>
   <nav class="wrap wrap--narrow article__next" aria-label="More writing">
@@ -85,21 +97,18 @@
 <footer class="colophon">
   <div class="colophon__inner">
     <div class="colophon__cta">
-      <p class="colophon__line">Get in touch</p>
-      <p class="colophon__email"><a href="mailto:marcoladeirawork@gmail.com">marcoladeirawork@gmail.com</a></p>
+      <p class="eyebrow">Contact</p>
+      <p class="colophon__line">Have something worth building?<br><a href="mailto:marcoladeirawork@gmail.com">marcoladeirawork@gmail.com</a></p>
     </div>
     <ul class="colophon__links">
       <li><a href="https://www.linkedin.com/in/marco-ladeira/" rel="me noopener">LinkedIn <svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 11 11 5M6 5h5v5"/></svg></a></li>
       <li><a href="https://github.com/MarcoLadeira" rel="me noopener">GitHub <svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 11 11 5M6 5h5v5"/></svg></a></li>
       <li><a href="/MarcoLadeiraWebsite/assets/marco-ladeira-cv.pdf" download>CV (PDF)</a></li>
-      <li><a href="/MarcoLadeiraWebsite/writing/">Writing</a></li>
-      <li><a href="/MarcoLadeiraWebsite/lab/">Capacity Lab</a></li>
-      <li><a href="/MarcoLadeiraWebsite/contact/">Contact</a></li>
+      <li><a href="/MarcoLadeiraWebsite/feed.xml">RSS</a></li>
     </ul>
     <div class="colophon__meta">
-      <a class="colophon__wordmark" href="/MarcoLadeiraWebsite/">MARCO LADEIRA</a>
-      <a href="/MarcoLadeiraWebsite/feed.xml">RSS</a>
-      <p>Updated <time datetime="2026-11-28">November 2026</time></p>
+      <p>Dublin, Ireland · Hand-built static site · No trackers · <a href="https://github.com/MarcoLadeira/MarcoLadeiraWebsite" rel="noopener">Source</a></p>
+      <p>Updated <time datetime="2026-11-27">November 2026</time></p>
     </div>
   </div>
 </footer>

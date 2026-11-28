@@ -22,7 +22,7 @@ async def main():
         await page.goto((GEN / "cv.html").as_uri())
         await page.wait_for_timeout(300)
         out = ROOT / "assets" / "marco-ladeira-cv.pdf"
-        await page.pdf(path=str(out), format="A4", print_background=True, prefer_css_page_size=True, tagged=True)
+        await page.pdf(path=str(out), format="A4", print_background=True, prefer_css_page_size=True)
         shutil.copyfile(out, ROOT / "assets" / "cv.pdf")  # keep the old download URL working
         await page.close()
 

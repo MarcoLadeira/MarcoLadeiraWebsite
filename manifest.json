@@ -4,8 +4,8 @@
   "start_url": "/MarcoLadeiraWebsite/",
   "scope": "/MarcoLadeiraWebsite/",
   "display": "browser",
-  "background_color": "#f6f6f2",
-  "theme_color": "#17191c",
+  "background_color": "#f2efe7",
+  "theme_color": "#15140f",
   "icons": [
     {
       "src": "/MarcoLadeiraWebsite/icon-192.png",

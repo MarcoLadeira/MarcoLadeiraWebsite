@@ -2,8 +2,6 @@
 import { PRESETS, DEFAULT_CAPACITY, compute, fmt, pct } from "./lab-model.js";
 
 const form = document.querySelector("[data-lab-form]");
-const workload = document.querySelector("[data-lab-workload]");
-if (workload && window.matchMedia("(max-width: 960px)").matches) workload.open = false;
 
 function level(u) {
   return u > 1 ? "over" : u > 0.85 ? "warn" : "ok";
