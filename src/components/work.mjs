@@ -37,7 +37,7 @@ export function featureVisual(p, { eager = false, wide = false } = {}) {
 </figure>`;
     case "vesta":
       return html`<div class="plate plate--vesta">
-  <div class="plate__window">${img("vesta/chat-dark", { alt: "Vesta's chat view after a finished run, showing passed checks and a code diff", sizes: within(0.72), eager })}</div>
+  <div class="plate__window">${img("vesta/chat-dark", { alt: "Vesta's chat view after a finished run, showing passed checks and changed files", sizes: within(0.72), eager })}</div>
   <div class="plate__float">${img("vesta/usage", { alt: "Vesta's usage settings with today's spend, monthly spend and savings", sizes: within(0.52) })}</div>
 </div>`;
     case "oddlings":

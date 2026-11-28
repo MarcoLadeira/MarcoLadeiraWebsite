@@ -307,7 +307,7 @@ export function checkedRepairs(grid: readonly Glyph[], goal: Goal): Pair[] {
       ],
       media: [
         { key: "savetheplanet/dashboard", caption: "Dashboard: renewable energy at risk for a target half-hour, why it is at risk, and how much flexible charging could use it." },
-        { key: "savetheplanet/charging", caption: "Charging: a replay day's schedule against renewable supply, and the best half-hours to charge." },
+        { key: "savetheplanet/charging", caption: "Wind & Solar: recorded curtailment over a day, with a modelled best charging window." },
         { key: "savetheplanet/impact", caption: "Impact: estimated outcomes, clearly marked as simulated." },
       ],
       architecture: {
