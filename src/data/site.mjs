@@ -7,6 +7,7 @@ export const site = {
   lang: "en-IE",
   locale: "en_IE",
   name: "Marco Ladeira",
+  wordmark: "MARCO LADEIRA",
   role: "Associate Software Engineer",
   employer: "Fenergo",
   employerUrl: "https://www.fenergo.com/",
@@ -15,19 +16,16 @@ export const site = {
   linkedin: "https://www.linkedin.com/in/marco-ladeira/",
   github: "https://github.com/MarcoLadeira",
   cv: "assets/marco-ladeira-cv.pdf",
-  tagline: "Software that shows its working.",
+  tagline: "Software engineer and product builder",
   description:
-    "Marco Ladeira is an Associate Software Engineer at Fenergo in Dublin, building enterprise AI for financial-services compliance, and the builder of Vesta and ONE Oddlings.",
-  updated: "2026-11-27",
+    "Marco Ladeira is an Associate Software Engineer at Fenergo in Dublin, working across enterprise software, distributed systems and AI. He also builds Vesta and ONE Oddlings.",
+  updated: "2026-11-28",
 };
 
 export const nav = [
   { href: "work/", label: "Work" },
   { href: "experience/", label: "Experience" },
   { href: "about/", label: "About" },
-  { href: "lab/", label: "Lab" },
-  { href: "writing/", label: "Writing" },
-  { href: "contact/", label: "Contact" },
 ];
 
 /** Absolute-from-root URL inside the site (respects the GitHub Pages base path). */

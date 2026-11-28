@@ -24,9 +24,8 @@ export function writingIndex() {
   const body = html`
 <section class="page-head">
   <div class="wrap">
-    <p class="eyebrow" data-reveal>Writing</p>
-    <h1 class="page-head__title" data-split><span class="line"><span>Notes on building</span></span><span class="line"><span><em>with AI.</em></span></span></h1>
-    <p class="page-head__lede" data-reveal>A few essays on how AI is changing the practice of software engineering, and shorter notes from work. Deeper technical writing lives in the <a href="${url("work/")}">case studies</a>.</p>
+    <h1 class="page-head__title" data-split><span class="line"><span>Writing</span></span></h1>
+    <p class="page-head__lede" data-reveal>Essays on using AI in software development and shorter notes from work. For an example of how I put these ideas into practice, see <a href="${url("work/vesta/")}">Vesta</a>.</p>
   </div>
 </section>
 <section class="section section--tight" aria-labelledby="essays"><div class="wrap"><h2 class="work-group__title" id="essays" data-reveal>Essays</h2>${list(essays)}</div></section>
