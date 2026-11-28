@@ -56,3 +56,9 @@ test("number formatting is compact and stable", () => {
   assert.equal(fmt(2_500_000), "2.5M");
   assert.equal(fmt(Infinity), "∞");
 });
+
+test("the lab reports overloaded reads during a concurrent write failover", () => {
+  const r = compute(PRESETS["social-feed"], DEFAULT_CAPACITY, { cacheCold: true, primaryFailover: true });
+  assert.match(r.verdict, /failover/);
+  assert.match(r.verdict, /Read replicas are past 100%/);
+});

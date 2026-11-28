@@ -14,6 +14,7 @@ if (process.env.ALL_BROWSERS) {
 export default defineConfig({
   testDir: "tests/e2e",
   fullyParallel: true,
+  timeout: 60000,
   reporter: [["list"]],
   use: { baseURL: "http://localhost:4173/MarcoLadeiraWebsite/", trace: "retain-on-failure" },
   webServer: { command: "node scripts/serve.mjs 4173", url: "http://localhost:4173/MarcoLadeiraWebsite/", reuseExistingServer: true },

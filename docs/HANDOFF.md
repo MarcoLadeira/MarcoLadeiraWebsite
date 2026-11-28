@@ -1,46 +1,12 @@
-# Handoff
+# Portfolio handoff
 
-## Where things are
+Phase 2 starts from the merge of [PR #2](https://github.com/MarcoLadeira/MarcoLadeiraWebsite/pull/2), commit `3fbb359`. The public site keeps the same `/MarcoLadeiraWebsite/` base URL and legacy redirects.
 
-- Branch: `redesign/2026-portfolio` → merged to `master` via pull request (see the PR for the exact merge commit).
-- Live: https://marcoladeira.github.io/MarcoLadeiraWebsite/ (GitHub Pages, `master`, repository root).
-- Generated output is committed; `src/` is the source of truth. Always run `npm run build` after editing `src/` or `assets/css|js`.
+- Edit content and templates in `src/`. Keep generated output and both CV URLs in sync.
+- `npm ci`, `npm run build` and `npm run serve` produce and preview the site.
+- `npm run assets` regenerates the CV, social cards and favicons using Python Playwright. Set `CHROME` to the path to Chromium or Chrome. The two CV files are identical.
+- `npm run test:unit` and `npm run test:e2e` run the regression suites. Set `ALL_BROWSERS=1` for Firefox and WebKit alongside Chromium.
+- `npm run stage:pages` stages the generated site plus runtime assets in `dist/pages`. `node scripts/serve.mjs 4344 dist/pages` previews that exact output.
+- The Portfolio Pages workflow verifies a PR and publishes the staged output on the default branch after a successful build. Its production environment is `github-pages`.
 
-## Commands
-
-```bash
-npm install
-npm run build                 # pages, sitemap, feed, manifest; removes stale generated pages
-npm run assets                # CV PDF, OG images, icons (Python Playwright + Chrome)
-npm run serve                 # http://localhost:4173/MarcoLadeiraWebsite/
-npm run test:unit
-CHROME_PATH=/usr/bin/google-chrome npm run test:e2e
-python3 scripts/prepare-media.py   # only when replacing screenshots (needs local clones of the project repos)
-```
-
-## Decisions worth knowing
-
-- No framework: a ~100-line generator with an escaping `html` template. Rationale in `REDESIGN-ROADMAP.md`.
-- GitHub Pages serves the branch root, so no Actions are needed to deploy. The old `deploy.yml` (gh-pages copy) and the failing `sync-linkedin.yml` were removed.
-- Above-the-fold text is never hidden by animation (LCP). Ambient animations stop after a few cycles (WCAG 2.2.2).
-- Every number on the site must trace to a source; `docs/PORTFOLIO-AUDIT.md` lists them. Unit tests guard against known-wrong or private facts.
-
-## Waiting on Marco (factual confirmations)
-
-1. ~~Which email is current~~ — confirmed by Marco 27 Nov 2026: `marcoladeirawork@gmail.com` (site, CV, structured data).
-2. Month of the promotion to Associate Software Engineer (shown as "2026"). Change in `src/data/experience.mjs`.
-3. AWS Certified Machine Learning – Specialty confirmed by Marco 27 Nov 2026; a Credly link would still help.
-4. Whether to keep ONE Oddlings screenshots public before the game launches.
-5. Optional: two or three specific, employer-safe contributions for the Fenergo case study.
-6. Optional: a professional headshot for About.
-
-## Known limitations
-
-- Tested in Chromium only (see `TESTING-REPORT.md`).
-- `/docs`, `/src`, `/tests` are publicly reachable on Pages (they are public on GitHub anyway).
-- The previous CV with a phone number remains in git history; removing it requires a history rewrite.
-- `robots.txt` in a project site is ignored by crawlers; submit `sitemap.xml` in Google Search Console.
-
-## Next step
-
-Get the confirmations above, update the two data files, run `npm run build && npm run assets && npm run test:unit`, and push to `master`.
+The promotion year is 2026. Use a month only with a dated source. Employer work is described at the level supported by the portfolio, the profile and Marco’s brief. The old CV remains in Git history.

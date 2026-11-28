@@ -30,8 +30,9 @@ export function figure(key, { caption, alt, sizes, frame = "browser", className 
 
 export function video(v, { label }) {
   return html`<figure class="shot shot--video">
-  <div class="shot__frame">
-    <video class="clip" src="${url(v.src)}" poster="${url(v.poster)}" width="${v.w}" height="${v.h}" muted playsinline loop preload="none" controls aria-label="${label}" data-autoplay-when-visible></video>
+  <div class="shot__frame" data-clip-frame>
+    <img src="${url(v.poster)}" width="${v.w}" height="${v.h}" alt="${v.posterAlt}" loading="lazy" decoding="async">
+    <a class="btn clip__play" href="${url(v.fallback)}" data-clip="${url(v.src)}" data-width="${v.w}" data-height="${v.h}" data-clip-label="${label}">Play gameplay recording</a>
   </div>
   <figcaption>${v.caption}</figcaption>
 </figure>`;

@@ -90,7 +90,7 @@ function initReveals() {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         const el = entry.target;
-        el.style.setProperty("--delay", `${Math.min(batch, 6) * 70}ms`);
+        el.style.setProperty("--delay", `${Math.min(batch, 3) * 40}ms`);
         batch += 1;
         el.classList.add("is-in");
         io.unobserve(el);
@@ -109,55 +109,6 @@ function initReveals() {
       if (r.top < window.innerHeight && r.bottom > 0) el.classList.add("is-in");
     });
   }, 1500);
-}
-
-/* ---------- Homepage schematic ---------- */
-function initSchematic() {
-  const s = document.querySelector("[data-schematic]");
-  if (!s) return;
-  const traces = [...s.querySelectorAll(".trace, .signal")];
-  traces.filter((t) => t.classList.contains("trace")).forEach((t, i) => t.style.setProperty("--i", i));
-
-  const activate = (id) => {
-    if (!id) {
-      s.removeAttribute("data-active");
-      s.querySelectorAll(".is-on").forEach((el) => el.classList.remove("is-on"));
-      return;
-    }
-    s.setAttribute("data-active", id);
-    const caps = new Set();
-    traces.forEach((t) => {
-      const on = t.dataset.station === id;
-      t.classList.toggle("is-on", on);
-      if (on) caps.add(t.dataset.cap);
-    });
-    s.querySelectorAll(".cap").forEach((c) => c.classList.toggle("is-on", caps.has(c.dataset.cap)));
-    s.querySelectorAll(".node, .junction").forEach((n) => n.classList.toggle("is-on", n.dataset.station === id));
-  };
-  s.querySelectorAll(".station").forEach((st) => {
-    const id = st.dataset.station;
-    st.addEventListener("pointerenter", () => activate(id));
-    st.addEventListener("pointerleave", () => activate(null));
-    st.addEventListener("focusin", () => activate(id));
-    st.addEventListener("focusout", () => activate(null));
-  });
-
-  if (reduceMotion.matches) return;
-  // Draw the wiring when the schematic is actually on screen, not at page load.
-  const draw = new IntersectionObserver(
-    ([e]) => {
-      if (!e.isIntersecting) return;
-      draw.disconnect();
-      s.classList.add("is-drawn");
-      setTimeout(() => s.classList.add("is-live"), 1500);
-    },
-    { threshold: 0.35 }
-  );
-  draw.observe(s);
-  // Pause the ambient signal when off screen or the tab is hidden.
-  const io = new IntersectionObserver(([e]) => s.classList.toggle("is-paused", !e.isIntersecting));
-  io.observe(s);
-  document.addEventListener("visibilitychange", () => s.classList.toggle("is-paused", document.hidden));
 }
 
 /* ---------- Copy email ---------- */
@@ -185,33 +136,33 @@ function initCopy() {
   });
 }
 
-/* ---------- Videos: play only when visible, never with reduced motion ---------- */
-function initVideos() {
-  const vids = document.querySelectorAll("video[data-autoplay-when-visible]");
-  if (!vids.length || reduceMotion.matches || !("IntersectionObserver" in window)) return;
-  const io = new IntersectionObserver(
-    (entries) =>
-      entries.forEach((e) => {
-        const v = e.target;
-        if (v.dataset.userPaused) return; // respect an explicit pause
-        if (e.isIntersecting) {
-          v.preload = "auto";
-          v.dataset.autoplaying = "1";
-          v.play().catch(() => {});
-        } else {
-          v.dataset.autoplaying = "";
-          v.pause();
-        }
-      }),
-    { threshold: 0.5 }
-  );
-  vids.forEach((v) => {
-    // A pause the viewer makes (controls or keyboard) while the clip is on screen sticks.
-    v.addEventListener("pause", () => {
-      const r = v.getBoundingClientRect();
-      if (r.bottom > 0 && r.top < window.innerHeight && !document.hidden) v.dataset.userPaused = "1";
+function initClips() {
+  document.querySelectorAll("[data-clip]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const frame = link.closest("[data-clip-frame]");
+      if (!frame) return;
+      event.preventDefault();
+
+      const video = document.createElement("video");
+      video.className = "clip";
+      video.controls = true;
+      video.playsInline = true;
+      video.muted = true;
+      video.width = Number(link.dataset.width);
+      video.height = Number(link.dataset.height);
+      video.setAttribute("aria-label", link.dataset.clipLabel);
+      const webm = document.createElement("source");
+      webm.src = link.dataset.clip;
+      webm.type = "video/webm";
+      const mp4 = document.createElement("source");
+      mp4.src = link.href;
+      mp4.type = "video/mp4";
+      video.append(webm, mp4);
+      frame.replaceChildren(video);
+      video.focus();
+      video.play().catch(() => {});
     });
-    io.observe(v);
   });
 }
 
@@ -239,7 +190,7 @@ function initToc() {
 // Each feature is independent: one failing (e.g. an old browser API) must not take the others,
 // or the hidden-until-revealed content, down with it.
 let failed = false;
-for (const init of [initReveals, initTheme, initNav, initMasthead, initSchematic, initCopy, initVideos, initToc]) {
+for (const init of [initReveals, initTheme, initNav, initMasthead, initCopy, initClips, initToc]) {
   try {
     init();
   } catch (err) {

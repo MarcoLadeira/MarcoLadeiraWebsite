@@ -15,10 +15,8 @@ export function lab() {
   const body = html`
 <section class="page-head">
   <div class="wrap">
-    <p class="eyebrow" data-reveal>Lab · Experiment 01</p>
     <h1 class="page-head__title" data-split><span class="line"><span>Capacity Lab</span></span></h1>
-    <p class="page-head__lede" data-reveal>Back-of-the-envelope system sizing, with the maths showing. Give it traffic and per-node assumptions; it sizes each tier, shows where load lands, and lets you break things to see what fails first.</p>
-    <p class="lab-disclaimer" data-reveal><strong>What this is not:</strong> it doesn't design systems from a sentence, and it isn't a benchmark. It's the first hour of a design review, made interactive. Every formula is listed at the bottom and every default can be changed.</p>
+    <p class="page-head__lede" data-reveal>Estimate capacity for an application, then see how the system responds to a cold cache, a lost instance or a database failover.</p>
   </div>
 </section>
 
@@ -26,13 +24,14 @@ export function lab() {
   <div class="wrap lab__grid">
     <form class="lab__controls" data-lab-form novalidate>
       <fieldset class="lab__failures">
-        <legend>Break something</legend>
+        <legend>Failure scenarios</legend>
         <label class="switch"><input type="checkbox" name="cacheCold"><span>Cache goes cold</span></label>
         <label class="switch"><input type="checkbox" name="loseAppNode"><span>Lose an app instance</span></label>
         <label class="switch"><input type="checkbox" name="primaryFailover"><span>Database primary fails over</span></label>
       </fieldset>
-      <fieldset>
-        <legend>Workload</legend>
+      <details class="lab__assumptions" data-lab-workload open>
+        <summary>Workload</summary>
+        <fieldset><legend class="visually-hidden">Workload</legend>
         <div class="field">
           <label for="preset">Starting point</label>
           <select id="preset" name="preset">
@@ -47,7 +46,8 @@ export function lab() {
         ${field("cacheHit", "Cache hit rate", preset.cacheHit, { min: 0, max: 100, unit: "%" })}
         ${field("respKb", "Average response", preset.respKb, { min: 0.1, max: 100000, step: 0.1, unit: "KB" })}
         ${field("writeKb", "Average stored write", preset.writeKb, { min: 0.01, max: 100000, step: 0.01, unit: "KB" })}
-      </fieldset>
+        </fieldset>
+      </details>
       <details class="lab__assumptions">
         <summary>Per-node assumptions</summary>
         <fieldset>

@@ -23,7 +23,8 @@ const written = [];
 function out(path, content) {
   const file = join(ROOT, path.endsWith("/") || path === "" ? join(path, "index.html") : path);
   mkdirSync(dirname(file), { recursive: true });
-  writeFileSync(file, content.endsWith("\n") ? content : content + "\n");
+  const document = content.replace(/^[\t ]+$/gm, "");
+  writeFileSync(file, document.endsWith("\n") ? document : document + "\n");
   written.push(path);
 }
 
@@ -93,8 +94,8 @@ out(
       start_url: site.base,
       scope: site.base,
       display: "browser",
-      background_color: "#f2efe7",
-      theme_color: "#15140f",
+      background_color: "#f6f6f2",
+      theme_color: "#17191c",
       icons: [
         { src: `${site.base}icon-192.png`, sizes: "192x192", type: "image/png" },
         { src: `${site.base}icon-512.png`, sizes: "512x512", type: "image/png" },
@@ -109,8 +110,8 @@ out(
 // Sources for rendered assets (CV PDF, social images). Printed by scripts/render-assets.py.
 const GEN = ".generated/";
 out(`${GEN}cv.html`, cvHtml());
-out(`${GEN}og-default.html`, ogHtml({ eyebrow: "Software engineer · Dublin", title: "Software that shows its <em>working.</em>", sub: "Associate Software Engineer at Fenergo. Builder of Vesta and ONE Oddlings." }));
-const ogAccent = { fenergo: "#15140f", vesta: "#3b6fd8", oddlings: "#d99a00", savetheplanet: "#1f7a55" };
+out(`${GEN}og-default.html`, ogHtml({ eyebrow: "Software engineer · Dublin", title: "Marco Ladeira", sub: "Associate Software Engineer at Fenergo. Builder of Vesta and ONE Oddlings." }));
+const ogAccent = { fenergo: "#17191c", vesta: "#3b6fd8", oddlings: "#d99a00", savetheplanet: "#1f7a55" };
 flagship.forEach((p, i) => out(`${GEN}og-${p.slug}.html`, ogHtml({ eyebrow: "Case study", title: p.name, sub: p.card, accent: ogAccent[p.slug], on: i })));
 
 // Remove files a previous build generated that this build no longer produces

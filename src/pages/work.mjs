@@ -6,7 +6,6 @@ import { featureVisual, statusPill } from "../components/work.mjs";
 import { figure, video } from "../components/media.mjs";
 import { icon } from "../components/icons.mjs";
 import { architectureDiagram } from "../components/diagram.mjs";
-import { contactBlock } from "../components/contact.mjs";
 
 export function workIndex() {
   const groups = [
@@ -17,9 +16,8 @@ export function workIndex() {
   const body = html`
 <section class="page-head">
   <div class="wrap">
-    <p class="eyebrow" data-reveal>Case studies</p>
     <h1 class="page-head__title" data-split><span class="line"><span>Work</span></span></h1>
-    <p class="page-head__lede" data-reveal>Professional work comes first, then products I build on my own, then a team I led. Every status line says exactly where a project stands today.</p>
+    <p class="page-head__lede" data-reveal>Software I’ve worked on at Fenergo, products I build independently, and a climate prototype I led with a team.</p>
   </div>
 </section>
 ${groups.map(
@@ -29,11 +27,9 @@ ${groups.map(
     ${items.map(
       (p) => html`<article class="feature feature--${p.accent}" aria-labelledby="w-${p.slug}">
       <div class="feature__text" data-reveal>
-        <p class="feature__meta"><span>${p.kind}</span><span>${p.year}</span></p>
+
         <h3 class="feature__name" id="w-${p.slug}"><a href="${url(`work/${p.slug}/`)}">${p.name}</a></h3>
         <p class="feature__lede">${p.lede}</p>
-        <p class="feature__role"><span class="visually-hidden">Role: </span>${p.role}</p>
-        <ul class="tags" aria-label="Technologies">${p.stack.slice(0, 6).map((s) => html`<li>${s}</li>`)}</ul>
         <p class="feature__foot">${statusPill(p)}<a class="link-arrow" href="${url(`work/${p.slug}/`)}" aria-describedby="w-${p.slug}">Case study ${raw(icon("arrow-right"))}</a></p>
       </div>
       <div class="feature__visual" data-reveal="rise">${featureVisual(p)}</div>
@@ -45,7 +41,7 @@ ${groups.map(
 <section class="section section--tight" id="earlier" aria-labelledby="earlier-title">
   <div class="wrap">
     <h2 class="work-group__title" id="earlier-title" data-reveal>Earlier work</h2>
-    <p class="work-group__note" data-reveal>Smaller university-era projects, kept for range. Archived from this list: a Unity VR prototype whose source is no longer public.</p>
+    <p class="work-group__note" data-reveal>Selected projects from my time at Dundalk Institute of Technology.</p>
     <ul class="archive">
       ${archive.map(
         (a) => html`<li class="archive__item" data-reveal>
@@ -59,12 +55,12 @@ ${groups.map(
     </ul>
   </div>
 </section>
-${contactBlock({ heading: "Questions about <em>any of this?</em>" })}`;
+`;
   return layout({
     path: "work/",
     section: "work/",
     title: "Work",
-    description: "Case studies from Marco Ladeira: enterprise AI at Fenergo, the Vesta AI coding workspace, the ONE Oddlings puzzle game and the SaveThePlanet climate prototype.",
+    description: "Case studies from Marco Ladeira: software engineering at Fenergo, the Vesta AI coding workspace, the ONE Oddlings puzzle game and the SaveThePlanet climate prototype.",
     body,
   });
 }
@@ -73,33 +69,31 @@ export function caseStudy(p, index) {
   const c = p.caseStudy;
   const next = flagship[(index + 1) % flagship.length];
   const toc = [
+    c.media || c.video ? ["product", "The product"] : null,
     ["overview", "Overview"],
     ["problem", "Problem"],
     ["role", "My role"],
-    c.media || c.video ? ["product", "The product"] : null,
     c.demo ? ["try", "Try the rules"] : null,
     c.architecture ? ["architecture", "Architecture"] : null,
     c.challenges ? ["challenges", "Hard problems"] : null,
     c.principles ? ["principles", "How I work here"] : null,
     c.decisions ? ["decisions", "Decisions & trade-offs"] : null,
     c.testing ? ["testing", "Testing"] : null,
-    c.results ? ["results", "Results"] : null,
     ["lessons", "Lessons"],
     ["status", "Status"],
   ].filter(Boolean);
+  const contents = toc.map(([id, label]) => html`<li><a href="#${id}">${label}</a></li>`);
 
   const body = html`
 <article class="case case--${p.accent}">
   <header class="case__head">
     <div class="wrap">
-      <p class="eyebrow" data-reveal><a href="${url("work/")}">Work</a> <span aria-hidden="true">/</span> ${p.kind}</p>
+      <p class="case__back"><a href="${url("work/")}">All work</a> <span aria-hidden="true">/</span> ${p.status}</p>
       <h1 class="case__title" data-split><span class="line"><span>${p.name}</span></span></h1>
       <p class="case__lede" data-reveal>${p.lede}</p>
       <dl class="case__facts" data-reveal>
         <div><dt>Role</dt><dd>${p.role}</dd></div>
         <div><dt>When</dt><dd>${p.year}</dd></div>
-        <div><dt>Team</dt><dd>${p.team}</dd></div>
-        <div><dt>Status</dt><dd>${statusPill(p)}</dd></div>
         <div class="case__stack"><dt>Stack</dt><dd><ul class="tags">${p.stack.map((s) => html`<li>${s}</li>`)}</ul></dd></div>
       </dl>
     </div>
@@ -109,22 +103,27 @@ export function caseStudy(p, index) {
   <div class="wrap case__body">
     <nav class="case__toc" aria-label="On this page">
       <p class="eyebrow">On this page</p>
-      <ol>${toc.map(([id, l]) => html`<li><a href="#${id}">${l}</a></li>`)}</ol>
+      <ol>${contents}</ol>
     </nav>
+    <details class="case__jump">
+      <summary>On this page</summary>
+      <nav aria-label="On this page"><ul>${contents}</ul></nav>
+    </details>
     <div class="case__content prose">
-      ${c.confidential ? html`<aside class="callout" data-reveal><p class="callout__title">${raw(icon("lock"))} Confidential by design</p><p>This is professional work for an employer. It describes my role and approach at the level that is public, and leaves out internal architecture, metrics, screenshots and client details.</p></aside>` : ""}
-      <section id="overview" aria-labelledby="h-overview"><h2 id="h-overview">Overview</h2><p>${md(c.overview)}</p></section>
-      <section id="problem" aria-labelledby="h-problem"><h2 id="h-problem">The problem</h2><p>${md(c.problem)}</p><h3>Why it mattered to me</h3><p>${md(c.motivation)}</p></section>
-      <section id="role" aria-labelledby="h-role"><h2 id="h-role">My role</h2><ul class="ticks">${c.responsibilities.map((r) => html`<li>${md(r)}</li>`)}</ul></section>
+      ${c.confidential ? html`<aside class="callout" data-reveal><p class="callout__title">Scope</p><p>Client details and internal material are confidential.</p></aside>` : ""}
       ${c.media || c.video
         ? html`<section id="product" class="bleed" aria-labelledby="h-product"><h2 id="h-product">The product</h2>
         ${c.video ? video(c.video, { label: `${p.name} gameplay recording` }) : ""}
-        <div class="gallery">${(c.media || []).map((m) => figure(m.key, { caption: m.caption, sizes: "(min-width: 961px) min(60rem, 62vw), 92vw" }))}</div>
+        <div class="gallery">${(c.media || []).filter((m) => m.key !== p.hero).map((m) => figure(m.key, { caption: m.caption, alt: m.alt, frame: m.key === "oddlings/phone" ? "mobile" : "browser", sizes: "(min-width: 961px) min(60rem, 62vw), 92vw" }))}</div>
       </section>`
         : ""}
+      <section id="overview" aria-labelledby="h-overview"><h2 id="h-overview">Overview</h2><p>${md(c.overview)}</p></section>
+      <section id="problem" aria-labelledby="h-problem"><h2 id="h-problem">The problem</h2><p>${md(c.problem)}</p><h3>Why it mattered to me</h3><p>${md(c.motivation)}</p></section>
+      <section id="role" aria-labelledby="h-role"><h2 id="h-role">My role</h2><ul class="ticks">${c.responsibilities.map((r) => html`<li>${md(r)}</li>`)}</ul></section>
+      ${p.slug === "savetheplanet" ? html`<figure class="shot shot--event"><img src="${url("assets/img/work/savetheplanet/hackathon-team.webp")}" width="480" height="319" alt="The SaveThePlanet team working together at a table during Hack the Climate in Dublin." loading="lazy" decoding="async"><figcaption>Working with the SaveThePlanet team at Hack the Climate. Photo from my LinkedIn profile.</figcaption></figure>` : ""}
       ${c.demo === "verifier"
         ? html`<section id="try" aria-labelledby="h-try"><h2 id="h-try">Try the rules</h2>
-        <p>A simplified version of the game's board rules, using plain shapes instead of the characters. Each board is generated broken; the checker — a direct port of the game's independent verifier — counts the fixing swaps and judges yours. Tap or press two pieces to swap them.</p>
+        <p>Try the swap mechanic with plain shapes. Select two pieces to swap them, then see whether the board matches the rule.</p>
         <p class="vf-fallback" data-vf-fallback>This interactive demo needs JavaScript.</p>
         <div class="vf" data-verifier hidden>
           <p class="vf__goal" data-vf-goal></p>
@@ -141,8 +140,8 @@ export function caseStudy(p, index) {
       ${c.challenges
         ? html`<section id="challenges" aria-labelledby="h-challenges"><h2 id="h-challenges">Hard problems</h2>
         ${c.challenges.map(
-          (ch, i) => html`<div class="challenge" data-reveal>
-          <h3><span class="challenge__num" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span>${ch.title}</h3>
+          (ch) => html`<div class="challenge" data-reveal>
+          <h3>${ch.title}</h3>
           <p>${md(ch.body)}</p>
           ${ch.code ? html`<figure class="code"><figcaption>${ch.code.label}</figcaption><pre tabindex="0"><code class="lang-${ch.code.lang}">${ch.code.text}</code></pre></figure>` : ""}
         </div>`
@@ -159,9 +158,8 @@ export function caseStudy(p, index) {
         <tbody>${c.decisions.map(([a, b, d, e]) => html`<tr><th scope="row">${a}</th><td>${b}</td><td>${d}</td><td>${e}</td></tr>`)}</tbody></table></div></section>`
         : ""}
       ${c.testing ? html`<section id="testing" aria-labelledby="h-testing"><h2 id="h-testing">Testing & reliability</h2><p>${md(c.testing)}</p></section>` : ""}
-      ${c.results ? html`<section id="results" aria-labelledby="h-results"><h2 id="h-results">Results</h2><ul class="ticks">${c.results.map((r) => html`<li>${md(r)}</li>`)}</ul></section>` : ""}
       <section id="lessons" aria-labelledby="h-lessons"><h2 id="h-lessons">Lessons</h2><ol class="lessons">${c.lessons.map((l) => html`<li>${md(l)}</li>`)}</ol></section>
-      <section id="status" aria-labelledby="h-status"><h2 id="h-status">Status</h2><p>${statusPill(p)}</p><p>${md(c.statusText)}</p>
+      <section id="status" aria-labelledby="h-status"><h2 id="h-status">Project status</h2><p>${md(c.statusText)}</p>
         ${c.links.length ? html`<ul class="link-list">${c.links.map(([l, h]) => html`<li><a class="link-arrow" href="${h}" rel="noopener">${l} ${raw(icon("arrow-ne"))}</a></li>`)}</ul>` : ""}
       </section>
     </div>
