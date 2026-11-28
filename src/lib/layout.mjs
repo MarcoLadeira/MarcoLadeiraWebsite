@@ -7,7 +7,10 @@ import { readFileSync } from "node:fs";
 
 // Content-hashed query strings: a changed file always gets a new URL.
 const ROOT = new URL("../../", import.meta.url);
-const hashOf = (path) => createHash("sha256").update(readFileSync(new URL(path, ROOT))).digest("hex").slice(0, 10);
+const hashOf = (path) => {
+  const content = readFileSync(new URL(path, ROOT), "utf8").replaceAll("\r\n", "\n");
+  return createHash("sha256").update(content).digest("hex").slice(0, 10);
+};
 const v = (path) => url(`${path}?v=${hashOf(path)}`);
 
 const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}var d=document.documentElement;d.classList.add("js");setTimeout(function(){if(!d.hasAttribute("data-ready"))d.classList.remove("js")},2500)})();`;
